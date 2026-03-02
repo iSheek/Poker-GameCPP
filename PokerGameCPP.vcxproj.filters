@@ -38,5 +38,8 @@
     <ClInclude Include="include\Deck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\HandScore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

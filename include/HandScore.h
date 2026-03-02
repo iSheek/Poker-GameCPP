@@ -21,6 +21,7 @@ struct HandScore
 {
 	PokerHand hand;
 	std::vector<int> valuesInHand;
+	std::vector<Card> usedCardsInHand;
 
 	bool operator>(const HandScore& other)
 	{

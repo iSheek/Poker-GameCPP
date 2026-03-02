@@ -19,7 +19,7 @@ void Deck::addCards(int& rankLimit)
 
 	for (size_t suitNumber = 1; suitNumber < 5; suitNumber++)
 	{
-		for (size_t rankNumber = 0; rankNumber < rankLimit; rankNumber++)
+		for (size_t rankNumber = 1; rankNumber < rankLimit; rankNumber++)
 		{
 			Card card;
 			card.suit = (CardSuit)suitNumber;

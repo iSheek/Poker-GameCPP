@@ -37,8 +37,4 @@ struct Card
 	CardSuit suit = CardSuit::NONE;
 	CardRank rank = CardRank::NONE;
 
-	bool operator>(const Card& other)
-	{
-		return rank > other.rank;
-	}
 };

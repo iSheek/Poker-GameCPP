@@ -154,6 +154,7 @@
     <ClInclude Include="include\Cards.h" />
     <ClInclude Include="include\Deck.h" />
     <ClInclude Include="include\DeckType.h" />
+    <ClInclude Include="include\HandScore.h" />
     <ClInclude Include="include\IPlayerLogic.h" />
     <ClInclude Include="include\TableState.h" />
   </ItemGroup>
