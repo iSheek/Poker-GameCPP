@@ -41,5 +41,8 @@
     <ClInclude Include="include\HandScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\HandEvaluator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
