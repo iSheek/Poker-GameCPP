@@ -113,6 +113,149 @@ private:
 
 	}
 
+	static std::optional<std::vector<Card>> checkForFullHouse(const std::vector<Card>& cardsToCheck)
+	{	
+		std::array<int, 14> rankCounts = { 0 };
+		for (const auto& card : cardsToCheck)
+		{
+			rankCounts[(int)card.rank]++;
+		}
+
+		CardRank bestThreeRank = CardRank::NONE;
+		CardRank bestTwoRank = CardRank::NONE;
+
+		// Additional if (because ace is 1 in enum)
+		if (rankCounts[(int)CardRank::ACE] >= 3)
+		{
+			bestThreeRank = CardRank::ACE;
+		}
+		else
+		{
+			for (int i = 13; i > 1; --i)
+			{
+				if (rankCounts[i] >= 3)
+				{
+					bestThreeRank = (CardRank)i;
+					break;
+				}
+			}
+		}
+
+		if (bestThreeRank == CardRank::NONE) return std::nullopt;
+
+		if (bestThreeRank != CardRank::ACE && rankCounts[(int)CardRank::ACE] >= 2)
+		{
+			bestTwoRank = CardRank::ACE;
+		}
+		else
+		{
+			for (int i = 13; i > 1; --i)
+			{
+				if (rankCounts[i] >= 2 && (CardRank)i != bestThreeRank)
+				{
+					bestTwoRank = (CardRank)i;
+					break;
+				}
+			}
+		}
+
+		if (bestTwoRank == CardRank::NONE) return std::nullopt;
+
+		std::vector<Card> usedCards;
+		usedCards.reserve(5);
+
+		std::vector<Card> usedForPair;
+		usedForPair.reserve(2);
+
+		int threesAdded = 0;
+		int twosAdded = 0;
+		for (const auto& card : cardsToCheck)
+		{
+			if (card.rank == bestThreeRank && threesAdded < 3)
+			{
+				usedCards.push_back(card);
+				++threesAdded;
+			}
+			else if (card.rank == bestTwoRank && twosAdded < 2)
+			{
+				usedForPair.push_back(card);
+				++twosAdded;
+			}
+		}
+
+		for (const auto& card : usedForPair) usedCards.push_back(card);
+
+
+		return usedCards;
+	}
+
+	static std::optional<std::vector<Card>> checkForHighestFlush(const std::vector<Card>& cardsToCheck)
+	{
+		if (cardsToCheck.size() < 5) return std::nullopt;
+
+		std::vector<Card> usedCards;
+		usedCards.reserve(5);
+
+		if (cardsToCheck.back().rank == CardRank::ACE)
+		{
+			usedCards.push_back(cardsToCheck.back());
+
+			usedCards.insert(usedCards.end(), cardsToCheck.begin(), cardsToCheck.begin() + 4);
+		}
+		else
+		{
+			usedCards.insert(usedCards.end(), cardsToCheck.begin(), cardsToCheck.begin() + 5);
+		}
+
+		return usedCards;
+		
+	}
+
+	static std::optional<std::vector<Card>> checkForHighestStraight(const std::vector<Card>& cardsToCheck)
+	{
+		std::array<std::optional<Card>, 14> rankMap;
+
+		for (const auto& card : cardsToCheck)
+		{
+			// we put first card of each rank into array
+			if (!rankMap[(int)card.rank].has_value())
+			{
+				rankMap[(int)card.rank] = card;
+			}
+		}
+
+		if (rankMap[(int)CardRank::ACE].has_value() && rankMap[(int)CardRank::KING].has_value() && 
+			rankMap[(int)CardRank::QUEEN].has_value() && rankMap[(int)CardRank::JACK].has_value() && rankMap[(int)CardRank::TEN].has_value())
+		{
+			return std::vector<Card> {
+				rankMap[(int)CardRank::ACE].value(), rankMap[(int)CardRank::KING].value(), rankMap[(int)CardRank::QUEEN].value(), 
+					rankMap[(int)CardRank::JACK].value(), rankMap[(int)CardRank::TEN].value()
+			};
+		}
+
+		unsigned int counter = 0;
+
+		for (int i = 13; i >= 1; --i)
+		{
+			if (rankMap[i].has_value())
+			{
+				++counter;
+			}
+			else counter = 0;
+			if (counter == 5)
+			{
+				return std::vector<Card> {
+					rankMap[i+4].value(),
+					rankMap[i+3].value(),
+					rankMap[i+2].value(),
+					rankMap[i+1].value(),
+					rankMap[i].value()
+				};
+			}
+		}
+
+		return std::nullopt;
+	}
 
 public:
 	static HandScore Evaluate(std::vector<Card> allCardsInHand)
