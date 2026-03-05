@@ -11,6 +11,8 @@ class HandEvaluator
 {
 private:
 
+	// Every function here should have sorted cards in parameter
+
 	static std::optional<std::vector<Card>> checkForHighestStraightFlush(const std::vector<Card>& cardsToCheck)
 	{
 		if (cardsToCheck.size() < 5) return std::nullopt;
@@ -256,6 +258,284 @@ private:
 
 		return std::nullopt;
 	}
+
+	static std::optional<std::vector<Card>> checkForHighestThreeOfAKind(const std::vector<Card>& cardsToCheck)
+	{
+		std::array<int, 14> rankCounts = { 0 };
+		for (const auto& card : cardsToCheck)
+		{
+			rankCounts[(int)card.rank]++;
+		}
+
+		CardRank foundThreeRank = CardRank::NONE;
+
+		bool foundHand = false;
+		if (rankCounts[(int)CardRank::ACE] >= 3)
+		{
+			foundThreeRank = CardRank::ACE;
+			foundHand = true;
+		}
+		else {
+			for (int i = 13; i > 1; --i)
+			{
+				if (rankCounts[i] >= 3)
+				{
+					foundThreeRank = static_cast<CardRank>(i);
+					foundHand = true;
+					break;
+				}
+			}
+		}
+
+		if (!foundHand) return std::nullopt;
+
+		std::vector<Card> usedCards;
+		usedCards.reserve(5);
+
+
+		short foundKicker = 0;
+		std::vector<Card> highestKickers;
+		highestKickers.reserve(2);
+		
+		// Additional 'if' to use Ace as kicker
+		if (rankCounts[1] > 0 && foundThreeRank != CardRank::ACE)
+		{
+			for (const auto& card : cardsToCheck)
+			{
+				if ((int)card.rank == 1)
+				{
+					highestKickers.push_back(card);
+					++foundKicker;
+					if (foundKicker > 1) break;
+				}
+			}
+		}
+
+		short threeCardsCounter = 0;
+		
+		// We put three of a kind cards into our vector to return
+		for (const auto& card : cardsToCheck)
+		{
+			if (card.rank == foundThreeRank)
+			{
+				if (threeCardsCounter < 3) {
+					usedCards.push_back(card);
+					++threeCardsCounter;
+				}
+				
+			}
+			else if (foundKicker < 2)
+			{
+				highestKickers.push_back(card);
+				++foundKicker;
+			}
+		}
+
+		usedCards.insert(usedCards.end(), highestKickers.begin(), highestKickers.end());
+		return usedCards;
+
+
+	}
+
+	static std::optional<std::vector<Card>> checkForHighestTwoPair(const std::vector<Card>& cardsToCheck)
+	{
+		std::array<int, 14> rankCounts = { 0 };
+		for (const auto& card : cardsToCheck)
+		{
+			rankCounts[(int)card.rank]++;
+		}
+
+		CardRank firstPairRank = CardRank::NONE;
+		CardRank secondPairRank = CardRank::NONE;
+
+		bool foundHand = false;
+
+		if (rankCounts[(int)CardRank::ACE] >= 2)
+		{
+			firstPairRank = CardRank::ACE;
+		}
+		for (int i = 13; i > 1; --i)
+		{
+			if (rankCounts[i] >= 2)
+			{
+				if (firstPairRank == CardRank::NONE) {
+					firstPairRank = static_cast<CardRank>(i);
+				}
+				else if (i != (int)firstPairRank)
+				{
+					secondPairRank = static_cast<CardRank>(i);
+					foundHand = true;
+					break;
+				}
+
+			}
+		}
+
+
+		if (!foundHand) return std::nullopt;
+
+		std::vector<Card> usedCards;
+		usedCards.reserve(5);
+
+
+		bool foundKicker = false; 
+		Card highestKicker;
+
+		// Additional 'if' to use Ace as kicker
+		if (rankCounts[1] > 0 && firstPairRank != CardRank::ACE)
+		{
+			for (const auto& card : cardsToCheck)
+			{
+				if ((int)card.rank == 1)
+				{
+					highestKicker = card;
+					foundKicker = true;
+					break;
+				}
+			}
+		}
+
+
+		short twoCardsCounter = 0;
+		// We put two pair cards into our vector to return
+		for (const auto& card : cardsToCheck)
+		{
+			if (card.rank == firstPairRank && twoCardsCounter < 2)
+			{
+				usedCards.push_back(card);
+				++twoCardsCounter;
+			}
+		}
+
+		twoCardsCounter = 0;
+
+		for (const auto& card : cardsToCheck)
+		{
+			if (card.rank == secondPairRank && twoCardsCounter < 2)
+			{
+				usedCards.push_back(card);
+				++twoCardsCounter;
+			}
+			else if (!foundKicker && card.rank != firstPairRank)
+			{
+				highestKicker = card;
+				foundKicker = true;
+			}
+		} 
+
+		usedCards.push_back(highestKicker);
+		return usedCards;
+	}
+
+	static std::optional<std::vector<Card>> checkForHighestOnePair(const std::vector<Card>& cardsToCheck)
+	{
+		std::array<int, 14> rankCounts = { 0 };
+		for (const auto& card : cardsToCheck)
+		{
+			rankCounts[(int)card.rank]++;
+		}
+
+		CardRank pairRank = CardRank::NONE;
+
+		bool foundHand = false;
+
+		if (rankCounts[(int)CardRank::ACE] >= 2)
+		{
+			pairRank = CardRank::ACE;
+			foundHand = true;
+		}
+		else {
+			for (int i = 13; i > 1; --i)
+			{
+				if (rankCounts[i] >= 2)
+				{
+					if (pairRank == CardRank::NONE) {
+						pairRank = static_cast<CardRank>(i);
+						foundHand = true;
+						break;
+					}
+
+				}
+			}
+		}
+
+
+		if (!foundHand) return std::nullopt;
+
+		std::vector<Card> usedCards;
+		usedCards.reserve(5);
+
+
+		int foundKickersCounter = 3;
+		std::vector<Card> highestKickers;
+
+		// Additional 'if' to use Ace as kickers
+		if (rankCounts[1] > 0 && pairRank != CardRank::ACE)
+		{
+			for (const auto& card : cardsToCheck)
+			{
+				if ((int)card.rank == 1)
+				{
+					highestKickers.push_back(card);
+					--foundKickersCounter;
+				}
+			}
+		}
+
+
+		short twoCardsCounter = 0;
+		// We put one pair cards into our vector to return
+		for (const auto& card : cardsToCheck)
+		{
+			if (card.rank == pairRank && twoCardsCounter < 2)
+			{
+				usedCards.push_back(card);
+				++twoCardsCounter;
+			}
+			else if (foundKickersCounter > 0 && card.rank != pairRank && card.rank != CardRank::ACE)
+			{
+				highestKickers.push_back(card);
+				--foundKickersCounter;
+			}
+		}
+
+
+		usedCards.insert(usedCards.end(), highestKickers.begin(), highestKickers.end());
+		return usedCards;
+	}
+
+	static std::optional<std::vector<Card>> checkForHighCard(const std::vector<Card>& cardsToCheck)
+	{
+		if (cardsToCheck.size() < 5) return std::nullopt;
+
+		std::vector<Card> usedCards;
+		usedCards.reserve(5);
+
+		short usedAce = 0;
+		short fiveCards = 5;
+
+		if (cardsToCheck.back().rank == CardRank::ACE)
+		{
+			usedCards.push_back(cardsToCheck.back());
+			usedAce = 1;
+			--fiveCards;
+		}
+
+		
+		for (size_t i = 0; i < cardsToCheck.size() - usedAce; i++)
+		{
+			if (fiveCards > 0)
+			{
+				usedCards.push_back(cardsToCheck[i]);
+				--fiveCards;
+			}
+
+		}
+
+		return usedCards;
+
+	}
+
 
 public:
 	static HandScore Evaluate(std::vector<Card> allCardsInHand)
