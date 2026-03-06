@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <Cards.h>
 
 enum class PokerHand
 {
@@ -28,7 +29,7 @@ struct HandScore
 		return (int)rank;
 	}
 
-	bool operator>(const HandScore& other) const
+	bool inline operator>(const HandScore& other) const
 	{
 		if (hand != other.hand)
 		{

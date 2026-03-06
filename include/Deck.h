@@ -14,7 +14,9 @@ private:
 	void addCards(int& rankLimit);
 public:
 	Deck(DeckType deckType);
+	Deck();
 	void resetDeck();
 	void shuffleDeck();
 	Card drawCard();
+	std::vector<Card> getDeck() const;
 };

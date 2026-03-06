@@ -150,6 +150,7 @@
     <ClCompile Include="src\Deck.cpp" />
     <ClCompile Include="src\HandEvaluator.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Cards.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="include\IPlayerLogic.h" />
     <ClInclude Include="include\PlayerAction.h" />
     <ClInclude Include="include\TableState.h" />
+    <ClInclude Include="tests\include\TesterCLI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -46,6 +46,12 @@ Deck::Deck(DeckType deckType)
 	resetDeck();
 }
 
+Deck::Deck()
+{
+	this->deckType = DeckType::STANDARD;
+	resetDeck();
+}
+
 void Deck::resetDeck()
 {
 	int i = 0;
@@ -88,4 +94,9 @@ Card Deck::drawCard()
 	this->deck.pop_back();
 
 	return drawedCard;
+}
+
+std::vector<Card> Deck::getDeck() const
+{
+	return this->deck;
 }
