@@ -6,6 +6,7 @@
 #include "DeckType.h"
 
 
+// [1, rankLimit)
 
 void Deck::addCards(int& rankLimit)
 {

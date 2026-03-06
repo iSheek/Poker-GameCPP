@@ -1,8 +1,10 @@
 #pragma once
 
+#include "PlayerAction.h"
+
 class IPlayerLogic
 {
 public:
-	virtual void MakeDecision() = 0;
+	virtual PlayerAction makeDecision() = 0;
 	virtual ~IPlayerLogic() = default;
 };

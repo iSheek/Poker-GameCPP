@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Deck.cpp" />
+    <ClCompile Include="src\HandEvaluator.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +157,9 @@
     <ClInclude Include="include\DeckType.h" />
     <ClInclude Include="include\HandEvaluator.h" />
     <ClInclude Include="include\HandScore.h" />
+    <ClInclude Include="include\HumanPlayerLogic.h" />
     <ClInclude Include="include\IPlayerLogic.h" />
+    <ClInclude Include="include\PlayerAction.h" />
     <ClInclude Include="include\TableState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
