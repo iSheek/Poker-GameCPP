@@ -41,13 +41,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\IPlayerLogic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Cards.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\TableState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\DeckType.h">
@@ -78,6 +72,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ConsoleInputHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IOutputHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TableState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

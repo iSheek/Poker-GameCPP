@@ -5,10 +5,10 @@ HumanPlayerLogic::HumanPlayerLogic(unsigned int startingChips, std::shared_ptr<I
 pInputHandler(inputHandlerPointer) {
 }
 
-PlayerAction HumanPlayerLogic::makeDecision(unsigned int amountToCall)
+PlayerAction HumanPlayerLogic::makeDecision(const TableState& state)
 {
 	if (pInputHandler) {
-		return pInputHandler->requestAction(amountToCall);
+		return pInputHandler->requestAction(state.amountToCall);
 	}
 	return PlayerAction{ ActionType::FOLD, 0 };
 }

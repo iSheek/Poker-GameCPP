@@ -1,12 +1,12 @@
 #pragma once
 
-#include "IPlayerLogic.h"
 #include "PlayerAction.h"
 #include "Cards.h"
+#include "TableState.h"
 #include <array>
 
 
-class PlayerLogicParent : public IPlayerLogic
+class PlayerLogicParent
 {
 private:
 	std::array<Card, 2> playersCards;
@@ -21,7 +21,7 @@ public:
 		resetPlayer(startingChips);
 	}
 
-	virtual PlayerAction makeDecision(unsigned int amountToCall) override = 0;
+	virtual PlayerAction makeDecision(const TableState& state) = 0;
 
 	void setCards(const Card& firstCard, const Card& secondCard);
 

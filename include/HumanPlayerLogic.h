@@ -13,6 +13,6 @@ public:
 	HumanPlayerLogic(unsigned int startingChips);
 	HumanPlayerLogic(unsigned int startingChips, std::shared_ptr<IInputHandler> inputHandlerPointer);
 
-	PlayerAction makeDecision(unsigned int amountToCall) override;
+	PlayerAction makeDecision(const TableState& state) override;
 
 };
