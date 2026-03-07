@@ -159,6 +159,7 @@
     <ClInclude Include="include\HandEvaluator.h" />
     <ClInclude Include="include\HandScore.h" />
     <ClInclude Include="include\HumanPlayerLogic.h" />
+    <ClInclude Include="include\IInputHandler.h" />
     <ClInclude Include="include\IPlayerLogic.h" />
     <ClInclude Include="include\PlayerAction.h" />
     <ClInclude Include="include\TableState.h" />

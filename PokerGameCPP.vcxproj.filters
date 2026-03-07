@@ -59,5 +59,8 @@
     <ClInclude Include="tests\include\TesterCLI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\IInputHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
