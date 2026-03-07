@@ -36,6 +36,9 @@
     <ClCompile Include="src\HandScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ConsoleInputHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\IPlayerLogic.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\HumanPlayerLogic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ConsoleInputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -3,10 +3,8 @@
 #include "Cards.h"
 #include "HandScore.h"
 #include <vector>
-#include <algorithm>
 #include <optional>
-#include <array>
-#include <stdexcept>
+
 
 class HandEvaluator
 {

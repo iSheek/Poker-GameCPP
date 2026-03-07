@@ -4,7 +4,6 @@
 #include "PlayerAction.h"
 #include "Cards.h"
 #include <array>
-#include <cstdint>
 
 
 class PlayerLogicParent : public IPlayerLogic
@@ -22,7 +21,7 @@ public:
 		resetPlayer(startingChips);
 	}
 
-	virtual PlayerAction makeDecision() override = 0;
+	virtual PlayerAction makeDecision(unsigned int amountToCall) override = 0;
 
 	void setCards(const Card& firstCard, const Card& secondCard);
 

@@ -5,6 +5,6 @@
 class IPlayerLogic
 {
 public:
-	virtual PlayerAction makeDecision() = 0;
+	virtual PlayerAction makeDecision(unsigned int amountToCall) = 0;
 	virtual ~IPlayerLogic() = default;
 };

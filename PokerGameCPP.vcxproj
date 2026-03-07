@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ConsoleInputHandler.cpp" />
     <ClCompile Include="src\Deck.cpp" />
     <ClCompile Include="src\HandEvaluator.cpp" />
     <ClCompile Include="src\HandScore.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Cards.h" />
+    <ClInclude Include="include\ConsoleInputHandler.h" />
     <ClInclude Include="include\Deck.h" />
     <ClInclude Include="include\DeckType.h" />
     <ClInclude Include="include\HandEvaluator.h" />
