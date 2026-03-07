@@ -27,6 +27,15 @@
     <ClCompile Include="tests\src\TesterCLI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlayerLogicParent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HumanPlayerLogic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\HandScore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\IPlayerLogic.h">
@@ -53,13 +62,16 @@
     <ClInclude Include="include\PlayerAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HumanPlayerLogic.h">
+    <ClInclude Include="include\PlayerLogicParent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\include\TesterCLI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\IInputHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HumanPlayerLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

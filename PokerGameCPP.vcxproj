@@ -149,7 +149,10 @@
   <ItemGroup>
     <ClCompile Include="src\Deck.cpp" />
     <ClCompile Include="src\HandEvaluator.cpp" />
+    <ClCompile Include="src\HandScore.cpp" />
+    <ClCompile Include="src\HumanPlayerLogic.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\PlayerLogicParent.cpp" />
     <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +162,7 @@
     <ClInclude Include="include\HandEvaluator.h" />
     <ClInclude Include="include\HandScore.h" />
     <ClInclude Include="include\HumanPlayerLogic.h" />
+    <ClInclude Include="include\PlayerLogicParent.h" />
     <ClInclude Include="include\IInputHandler.h" />
     <ClInclude Include="include\IPlayerLogic.h" />
     <ClInclude Include="include\PlayerAction.h" />
