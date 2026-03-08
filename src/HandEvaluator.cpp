@@ -47,6 +47,8 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForFourOfAKind(const std::vector<Card>& cardsToCheck)
 	{
+		if (cardsToCheck.size() < 4) return std::nullopt;
+
 		std::array<int, 14> rankCounts = { 0 };
 		for (const auto& card : cardsToCheck)
 		{
@@ -114,6 +116,8 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForFullHouse(const std::vector<Card>& cardsToCheck)
 	{
+		if (cardsToCheck.size() < 5) return std::nullopt;
+
 		std::array<int, 14> rankCounts = { 0 };
 		for (const auto& card : cardsToCheck)
 		{
@@ -212,6 +216,8 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForHighestStraight(const std::vector<Card>& cardsToCheck)
 	{
+		if (cardsToCheck.size() < 5) return std::nullopt;
+
 		std::array<std::optional<Card>, 14> rankMap;
 
 		for (const auto& card : cardsToCheck)
@@ -258,6 +264,8 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForHighestThreeOfAKind(const std::vector<Card>& cardsToCheck)
 	{
+		if (cardsToCheck.size() < 3) return std::nullopt;
+
 		std::array<int, 14> rankCounts = { 0 };
 		for (const auto& card : cardsToCheck)
 		{
@@ -336,6 +344,8 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForHighestTwoPair(const std::vector<Card>& cardsToCheck)
 	{
+		if (cardsToCheck.size() < 4) return std::nullopt;
+
 		std::array<int, 14> rankCounts = { 0 };
 		for (const auto& card : cardsToCheck)
 		{
@@ -426,6 +436,8 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForHighestOnePair(const std::vector<Card>& cardsToCheck)
 	{
+		if (cardsToCheck.size() < 2) return std::nullopt;
+
 		std::array<int, 14> rankCounts = { 0 };
 		for (const auto& card : cardsToCheck)
 		{
@@ -503,7 +515,7 @@
 
 	std::optional<std::vector<Card>> HandEvaluator::checkForHighCard(const std::vector<Card>& cardsToCheck)
 	{
-		if (cardsToCheck.size() < 5) return std::nullopt;
+		if (cardsToCheck.size() < 1) return std::nullopt;
 
 		std::vector<Card> usedCards;
 		usedCards.reserve(5);

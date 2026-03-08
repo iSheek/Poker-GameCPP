@@ -8,7 +8,7 @@ pInputHandler(inputHandlerPointer) {
 PlayerAction HumanPlayerLogic::makeDecision(const TableState& state)
 {
 	if (pInputHandler) {
-		return pInputHandler->requestAction(state.amountToCall);
+		return pInputHandler->requestAction(state, this->getPlayerCards());
 	}
 	return PlayerAction{ ActionType::FOLD, 0 };
 }
