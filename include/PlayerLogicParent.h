@@ -74,6 +74,11 @@ public:
 		return this->currentBet;
 	}
 
+	void addToCurrentBet(unsigned int amountToAdd)
+	{
+		this->currentBet += amountToAdd;
+	}
+
 	void resetPlayer(unsigned int startingChips);
 
 };

@@ -169,7 +169,9 @@
     <ClInclude Include="include\PlayerLogicParent.h" />
     <ClInclude Include="include\IInputHandler.h" />
     <ClInclude Include="include\PlayerAction.h" />
+    <ClInclude Include="include\PlayerState.h" />
     <ClInclude Include="include\TableState.h" />
+    <ClInclude Include="include\TexasHoldemManager.h" />
     <ClInclude Include="tests\include\TesterCLI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

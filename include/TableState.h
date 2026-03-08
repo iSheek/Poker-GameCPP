@@ -5,8 +5,8 @@
 
 struct TableState
 {
-	unsigned int amountToCall;
-	unsigned int currentHighestBet;
-	unsigned long currentPot;
+	unsigned int amountToCall = 0;
+	unsigned int currentHighestBet = 0;
+	unsigned long currentPot = 0;
 	std::vector<Card> communityCards;
 };

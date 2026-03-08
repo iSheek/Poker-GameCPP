@@ -11,7 +11,7 @@ private:
 	std::vector<Card> deck;
 	DeckType deckType;
 
-	void addCards(int& rankLimit);
+	void addCards(int rankLimit);
 public:
 	Deck(DeckType deckType);
 	Deck();

@@ -15,12 +15,15 @@ protected:
 	std::vector<Card> communityCards;
 	Deck deck;
 
-	unsigned int currentHighestBet;
-	unsigned long mainPot;
+	TableState currentTableState;
 
 	std::shared_ptr<IOutputHandler> pOutputHandler;
 
-	GameManager(std::shared_ptr<IOutputHandler> pOutputHandler) : pOutputHandler(pOutputHandler), currentHighestBet(0), mainPot(0) {}
+	GameManager(std::shared_ptr<IOutputHandler> pOutputHandler) : pOutputHandler(pOutputHandler) 
+	{
+		currentTableState.currentHighestBet = 0;
+		currentTableState.currentPot = 0;
+	}
 public:
 
 	virtual ~GameManager() = default;

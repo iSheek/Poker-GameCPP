@@ -2,13 +2,14 @@
 
 #include "IInputHandler.h"
 #include "PlayerAction.h"
+#include "PlayerState.h"
 
 
 class ConsoleInputHandler : public IInputHandler
 {
-	unsigned int askForValueToRaise();
+	unsigned int askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips);
 
 public:
-	PlayerAction requestAction(const TableState& tableState, std::array<Card, 2> playerCards) override;
+	PlayerAction requestAction(const TableState& tableState, const PlayerState& playerState) override;
 
 };

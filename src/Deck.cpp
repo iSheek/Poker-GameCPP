@@ -5,16 +5,18 @@
 #include "Cards.h"
 #include "DeckType.h"
 
+constexpr int MAX_RANKS = 14;
 
-// [1, rankLimit)
 
-void Deck::addCards(int& rankLimit)
+// [1, MAX_RANKS)
+
+void Deck::addCards(int rankLimit)
 {
 	bool addingJokers = false;
 
 	if (rankLimit <= 0) return;
-	if (rankLimit > 14) {
-		rankLimit = 14;
+	if (rankLimit > MAX_RANKS) {
+		rankLimit = MAX_RANKS;
 		addingJokers = true;
 	}
 
