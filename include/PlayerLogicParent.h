@@ -14,12 +14,13 @@ private:
 	bool hasFolded;
 	unsigned int currentBet;
 
-
-public:
+protected:
 	PlayerLogicParent(unsigned int startingChips)
-	{	
+	{
 		resetPlayer(startingChips);
 	}
+
+public:
 
 	virtual PlayerAction makeDecision(const TableState& state) = 0;
 

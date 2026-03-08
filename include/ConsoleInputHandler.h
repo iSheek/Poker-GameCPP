@@ -9,6 +9,6 @@ class ConsoleInputHandler : public IInputHandler
 	unsigned int askForValueToRaise();
 
 public:
-	PlayerAction requestAction(unsigned int amountToCall) override;
+	PlayerAction requestAction(const TableState& tableState, std::array<Card, 2> playerCards) override;
 
 };

@@ -14,7 +14,7 @@ unsigned int ConsoleInputHandler::askForValueToRaise()
 	return valueToRaise;
 }
 
-PlayerAction ConsoleInputHandler::requestAction(unsigned int amountToCall)
+PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, std::array<Card, 2> playerCards)
 {
 	PlayerAction playerAction = { ActionType::NONE, 0 };
 
@@ -27,7 +27,7 @@ PlayerAction ConsoleInputHandler::requestAction(unsigned int amountToCall)
 
 		std::string callOrCheckText = "1. ";
 
-		if (amountToCall == 0) callOrCheckText += "CHECK";
+		if (tableState.amountToCall == 0) callOrCheckText += "CHECK";
 		else callOrCheckText += "CALL";
 
 		std::cout << "===MAKE YOUR DECISION===" << std::endl;
@@ -44,7 +44,7 @@ PlayerAction ConsoleInputHandler::requestAction(unsigned int amountToCall)
 		}
 
 
-		if (amountToCall == 0)
+		if (tableState.amountToCall == 0)
 		{
 			switch (userInput)
 			{
