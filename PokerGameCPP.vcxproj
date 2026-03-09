@@ -154,6 +154,7 @@
     <ClCompile Include="src\HumanPlayerLogic.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\PlayerLogicParent.cpp" />
+    <ClCompile Include="src\TexasHoldemManager.cpp" />
     <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>
   <ItemGroup>

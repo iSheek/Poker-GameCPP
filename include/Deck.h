@@ -19,4 +19,5 @@ public:
 	void shuffleDeck();
 	Card drawCard();
 	std::vector<Card> getDeck() const;
+	unsigned int getCardsLeft() const;
 };

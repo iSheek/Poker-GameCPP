@@ -45,3 +45,9 @@ void PlayerLogicParent::setCards(const Card& firstCard, const Card& secondCard)
 	this->playersCards[1] = secondCard;
 }
 
+void PlayerLogicParent::resetForNewRound()
+{
+	resetFold();
+	resetCards();
+	setCurrentBet(0);
+}

@@ -9,4 +9,12 @@ struct TableState
 	unsigned int currentHighestBet = 0;
 	unsigned long currentPot = 0;
 	std::vector<Card> communityCards;
+
+	void resetForNewRound()
+	{
+		this->amountToCall = 0;
+		this->currentHighestBet = 0;
+		this->currentPot = 0;
+		this->communityCards.clear();
+	}
 };

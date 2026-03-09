@@ -25,5 +25,5 @@ struct HandScore
 
 	int getCardStrength(CardRank rank) const;
 	bool operator>(const HandScore& other) const;
-
+	bool operator==(const HandScore& other) const;
 };

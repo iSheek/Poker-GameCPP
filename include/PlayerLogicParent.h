@@ -81,4 +81,5 @@ public:
 
 	void resetPlayer(unsigned int startingChips);
 
+	void resetForNewRound();
 };

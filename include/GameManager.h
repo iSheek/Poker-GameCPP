@@ -12,7 +12,6 @@ class GameManager
 {
 protected:
 	std::vector<std::shared_ptr<PlayerLogicParent>> pPlayers;
-	std::vector<Card> communityCards;
 	Deck deck;
 
 	TableState currentTableState;
