@@ -19,10 +19,6 @@ public:
 
     void setDeckAndReset(const std::vector<Card>& newDeck);
 
-    std::string getHandName(PokerHand hand);
-
-    std::string getCardName(const Card& card);
-
     void printCardsListFromDeck();
 
     void getCardFromList();

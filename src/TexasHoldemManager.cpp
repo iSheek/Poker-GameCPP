@@ -1,6 +1,8 @@
 
 #include "TexasHoldemManager.h"
 
+// when making ux outside console add commented methods from IOutputHandler
+
 TexasHoldemManager::TexasHoldemManager(std::shared_ptr<IOutputHandler> pOutputHandler) : GameManager(pOutputHandler), smallBlind(10), bigBlind(20)
 {
 	deck = Deck(DeckType::STANDARD);
@@ -49,6 +51,11 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 
 			if (this->currentTableState.currentHighestBet <= pPlayer->getCurrentBet()) this->currentTableState.amountToCall = 0;
 			else currentTableState.amountToCall = this->currentTableState.currentHighestBet - pPlayer->getCurrentBet();
+
+			if (this->pOutputHandler)
+			{
+				this->pOutputHandler->renderTable(this->currentTableState);
+			}
 
 			// we ask player for decision
 			PlayerAction playerDecision = pPlayer->makeDecision(currentTableState);
@@ -235,6 +242,12 @@ void TexasHoldemManager::riverPhase()
 
 void TexasHoldemManager::showdownPhase()
 {
+	if (this->pOutputHandler)
+	{
+		this->pOutputHandler->renderTable(this->currentTableState);
+	}
+
+
 	std::optional<HandScore> biggestHandScore = std::nullopt;
 	std::vector<std::shared_ptr<PlayerLogicParent>> winners;
 

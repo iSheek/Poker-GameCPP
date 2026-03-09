@@ -6,5 +6,5 @@
 struct PlayerState
 {
 	std::array<Card, 2> playersCards;
-	unsigned int currentChips;
+	unsigned int currentChips = 0;
 };

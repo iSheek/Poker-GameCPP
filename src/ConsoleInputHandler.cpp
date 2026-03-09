@@ -1,4 +1,5 @@
 #include "ConsoleInputHandler.h"
+#include "CardFormatter.h"
 #include <iostream>
 
 unsigned int ConsoleInputHandler::askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips)
@@ -39,6 +40,12 @@ PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, co
 
 	while (askForInputs)
 	{
+
+		std::cout << "\n------------------------------------\n";
+		std::cout << "YOUR CHIPS: " << playerState.currentChips << " $\n";
+		std::cout << "YOUR CARDS: [" << CardFormatter::getCardName(playerState.playersCards[0]).wholeCardString() << "] ["
+			<< CardFormatter::getCardName(playerState.playersCards[1]).wholeCardString() << "]\n";
+		std::cout << "------------------------------------\n"; 
 
 		std::string callOrCheckText = "1. ";
 
