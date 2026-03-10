@@ -52,6 +52,8 @@ std::string ConsoleOutputHandler::getHandName(PokerHand hand) const
 
 void ConsoleOutputHandler::renderTable(const TableState& tableState)
 {
+    system("cls");
+
     std::cout << "\n====================================\n";
     std::cout << "POT: " << tableState.currentPot << " $\n";
     std::cout << "HIGHEST BET: " << tableState.currentHighestBet << " $\n";

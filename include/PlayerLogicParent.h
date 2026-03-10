@@ -4,6 +4,7 @@
 #include "Cards.h"
 #include "TableState.h"
 #include <array>
+#include <string>
 
 
 class PlayerLogicParent
@@ -14,6 +15,7 @@ private:
 	bool hasFolded;
 	unsigned int currentBet;
 
+	std::string playerName;
 protected:
 	PlayerLogicParent(unsigned int startingChips)
 	{
@@ -82,4 +84,14 @@ public:
 	void resetPlayer(unsigned int startingChips);
 
 	void resetForNewRound();
+
+	std::string getPlayerName()
+	{
+		return this->playerName;
+	}
+
+	void setPlayerName(std::string newName)
+	{
+		if (!newName.empty()) this->playerName = newName;
+	}
 };
