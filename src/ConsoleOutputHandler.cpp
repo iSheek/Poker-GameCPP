@@ -3,6 +3,40 @@
 #include "HandScore.h"
 #include <string>
 #include <iostream>
+#include <ctime>
+
+constexpr auto logFileName = "playersmoveinfo.log";
+constexpr int maxLogsInConsole = 10;
+
+
+ConsoleOutputHandler::ConsoleOutputHandler()
+{
+    this->logFile.open(logFileName);
+    if (!logFile.is_open())
+    {
+        throw std::runtime_error("ERROR FILE WASN'T OPENED");
+    }
+}
+
+ConsoleOutputHandler::~ConsoleOutputHandler()
+{
+    this->logFile.close();
+}
+
+void ConsoleOutputHandler::addLog(const std::string& message)
+{
+    if (!logFile.is_open()) return;
+
+    logFile << message << '\n';
+    logFile.flush();
+
+    this->uiLogs.push_back(message);
+    if (uiLogs.size() > maxLogsInConsole)
+    {
+        uiLogs.erase(uiLogs.begin());
+    }
+
+}
 
 std::string ConsoleOutputHandler::getCardName(const Card& card) const
 {
@@ -68,4 +102,18 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState)
         }
     }
     std::cout << "\n====================================\n";
+}
+
+
+// TODO implement methods
+
+void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, PlayerAction action)
+{
+    
+}
+
+
+void ConsoleOutputHandler::onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot)
+{
+
 }

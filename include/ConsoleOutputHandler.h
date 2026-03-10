@@ -15,7 +15,6 @@ private:
 
 	std::ofstream logFile;
 
-	// TODO add definition for these and think whether to add addLog() also into interface
 	
 	void addLog(const std::string& message); 
 
@@ -23,4 +22,7 @@ public:
 	ConsoleOutputHandler();
 	~ConsoleOutputHandler();
 	void renderTable(const TableState& tableState) override;
+
+	void onPlayerAction(const std::string& playerName, PlayerAction action) override;
+	void onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot) override;
 };
