@@ -8,8 +8,6 @@
 class ConsoleOutputHandler : public IOutputHandler
 {
 private:
-	std::string getCardName(const Card& card) const;
-	std::string getHandName(PokerHand hand) const;
 
 	std::vector<std::string> uiLogs;
 
@@ -17,6 +15,17 @@ private:
 
 	
 	void addLog(const std::string& message); 
+
+	void startOverwritingConsole();
+
+	int getConsoleWidth();
+
+	void checkIfConsoleSizeIsEnough();
+
+	std::vector<std::vector<std::string>> communityCardsGraphics;
+
+	std::vector<std::vector<std::string>> playersCardsGraphics;
+	
 
 public:
 	ConsoleOutputHandler();

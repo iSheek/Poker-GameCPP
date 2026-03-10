@@ -1,26 +1,58 @@
 
 #include "ConsoleOutputHandler.h"
 #include "HandScore.h"
+#include "CardFormatter.h"
 #include <string>
 #include <iostream>
-#include <ctime>
+#include <Windows.h>
+#include <thread>
 
-constexpr auto logFileName = "playersmoveinfo.log";
-constexpr int maxLogsInConsole = 10;
+constexpr auto LOGFILE_NAME = "playersmoveinfo.log";
+constexpr int MAX_LOGS_IN_CONSOLE = 10;
+constexpr int MAX_LINE_LENGTH = 80;
 
 
 ConsoleOutputHandler::ConsoleOutputHandler()
 {
-    this->logFile.open(logFileName);
+    // unlock ANSI sequences in windows
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(hOut, &dwMode);
+    SetConsoleMode(hOut, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+
+    this->logFile.open(LOGFILE_NAME);
     if (!logFile.is_open())
     {
         throw std::runtime_error("ERROR FILE WASN'T OPENED");
     }
+    // sequence turning off line wrapping
+    std::cout << "\033[?7l";
+
 }
 
 ConsoleOutputHandler::~ConsoleOutputHandler()
 {
     this->logFile.close();
+
+    // allow line wrapping again
+    std::cout << "\033[?7h";
+}
+
+int ConsoleOutputHandler::getConsoleWidth()
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    if (GetConsoleScreenBufferInfo(hConsole, &csbi))
+    {
+        return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    }
+    return MAX_LINE_LENGTH; // return basic value if any errors
+}
+
+void ConsoleOutputHandler::startOverwritingConsole()
+{
+    std::cout << "\033[H";
 }
 
 void ConsoleOutputHandler::addLog(const std::string& message)
@@ -31,62 +63,15 @@ void ConsoleOutputHandler::addLog(const std::string& message)
     logFile.flush();
 
     this->uiLogs.push_back(message);
-    if (uiLogs.size() > maxLogsInConsole)
+    if (uiLogs.size() > MAX_LOGS_IN_CONSOLE)
     {
         uiLogs.erase(uiLogs.begin());
     }
 
 }
 
-std::string ConsoleOutputHandler::getCardName(const Card& card) const
-{
-    std::string rankStr;
-    switch (card.rank)
-    {
-    case CardRank::NONE:  rankStr = "NONE"; break;
-    case CardRank::ACE:   rankStr = "A"; break;
-    case CardRank::KING:  rankStr = "K"; break;
-    case CardRank::QUEEN: rankStr = "Q"; break;
-    case CardRank::JACK:  rankStr = "J"; break;
-    case CardRank::TEN:   rankStr = "10"; break;
-    default:              rankStr = std::to_string((int)card.rank); break;
-    }
-
-    std::string suitStr;
-    switch (card.suit)
-    {
-    case CardSuit::NONE:     suitStr = "NONE"; break;
-    case CardSuit::HEARTS:   suitStr = " Hearts"; break;
-    case CardSuit::DIAMONDS: suitStr = " Diamonds"; break;
-    case CardSuit::CLUBS:    suitStr = " Clubs"; break;
-    case CardSuit::SPADES:   suitStr = " Spades"; break;
-    default:                 suitStr = " ???"; break;
-    }
-
-    return rankStr + suitStr;
-}
-
-std::string ConsoleOutputHandler::getHandName(PokerHand hand) const
-{
-    switch (hand)
-    {
-    case PokerHand::ROYAL_FLUSH:     return "Royal Flush";
-    case PokerHand::STRAIGHT_FLUSH:  return "Straight Flush";
-    case PokerHand::FOUR_OF_A_KIND:  return "Four of a Kind";
-    case PokerHand::FULL_HOUSE:      return "Full House";
-    case PokerHand::FLUSH:           return "Flush";
-    case PokerHand::STRAIGHT:        return "Straight";
-    case PokerHand::THREE_OF_A_KIND: return "Three of a Kind";
-    case PokerHand::TWO_PAIR:        return "Two Pair";
-    case PokerHand::ONE_PAIR:        return "One Pair";
-    case PokerHand::HIGH_CARD:       return "High Card";
-    default:                         return "UNKNOWN HAND";
-    }
-}
-
 void ConsoleOutputHandler::renderTable(const TableState& tableState)
 {
-    system("cls");
 
     std::cout << "\n====================================\n";
     std::cout << "POT: " << tableState.currentPot << " $\n";
@@ -98,7 +83,7 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState)
     }
     else {
         for (const auto& card : tableState.communityCards) {
-            std::cout << "[" << getCardName(card) << "] ";
+            std::cout << "[" << CardFormatter::getCardName(card).wholeCardString() << "] ";
         }
     }
     std::cout << "\n====================================\n";
@@ -116,4 +101,24 @@ void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, PlayerA
 void ConsoleOutputHandler::onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot)
 {
 
+}
+
+
+void ConsoleOutputHandler::checkIfConsoleSizeIsEnough()
+{
+    while (true)
+    {
+        int currentWidth = getConsoleWidth();
+
+        if (currentWidth >= MAX_LINE_LENGTH) {
+            break;
+        }
+
+        std::cout << "\033[2J\033[H"; // clears console and starts to overwrite
+        std::cout << "YOU HAVE TOO THIN CONSOLE FOR PROPER GRAPHIC" << std::endl;
+        std::cout << "PLEASE WIDEN IT TO PLAY" << std::endl;
+
+        // sleep so we won't use too much cpu unnecessarily
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
 }
