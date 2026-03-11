@@ -147,9 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\ConsoleCONSTANS.h" />
     <ClCompile Include="src\CardFormatter.cpp" />
     <ClCompile Include="src\ConsoleInputHandler.cpp" />
     <ClCompile Include="src\ConsoleOutputHandler.cpp" />
+    <ClCompile Include="src\ConsoleUtils.cpp" />
     <ClCompile Include="src\Deck.cpp" />
     <ClCompile Include="src\HandEvaluator.cpp" />
     <ClCompile Include="src\HandScore.cpp" />
@@ -164,6 +166,7 @@
     <ClInclude Include="include\Cards.h" />
     <ClInclude Include="include\ConsoleInputHandler.h" />
     <ClInclude Include="include\ConsoleOutputHandler.h" />
+    <ClInclude Include="include\ConsoleUtils.h" />
     <ClInclude Include="include\Deck.h" />
     <ClInclude Include="include\DeckType.h" />
     <ClInclude Include="include\GameManager.h" />
@@ -175,6 +178,7 @@
     <ClInclude Include="include\IInputHandler.h" />
     <ClInclude Include="include\PlayerAction.h" />
     <ClInclude Include="include\PlayerState.h" />
+    <ClInclude Include="include\PublicPlayerInfo.h" />
     <ClInclude Include="include\TableState.h" />
     <ClInclude Include="include\TexasHoldemManager.h" />
     <ClInclude Include="tests\include\TesterCLI.h" />

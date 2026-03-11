@@ -24,17 +24,15 @@ private:
 
 	std::string getCurrentHandString(const std::vector<Card>& communityCards, const std::array<Card, 2>& playersCards) const;
 
-	std::vector<std::string> generateCardGraphic(const Card& card);
 
 	std::vector<std::vector<std::string>> communityCardsGraphics;
 
-	std::vector<std::vector<std::string>> playersCardsGraphics;
 	
 
 public:
 	ConsoleOutputHandler();
 	~ConsoleOutputHandler();
-	void renderTable(const TableState& tableState) override;
+	void renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo) override;
 
 	void onCommunityCardDealt(const Card& card) override;
 	void onPlayerAction(const std::string& playerName, PlayerAction action) override;

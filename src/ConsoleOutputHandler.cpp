@@ -7,15 +7,11 @@
 #include <Windows.h>
 #include <thread>
 #include "HandEvaluator.h"
+#include "ConsoleUtils.h"
+#include "ConsoleCONSTANS.h"
 
 constexpr auto LOGFILE_NAME = "playersmoveinfo.log";
-constexpr int MAX_LOGS_IN_CONSOLE = 10;
-constexpr int MAX_LINE_LENGTH = 80;
 
-constexpr int CARD_WIDTH = 9;
-constexpr int CARD_LENGTH = 7;
-
-constexpr char CARD_OUTLINE_CHARACTER = '&';
 
 ConsoleOutputHandler::ConsoleOutputHandler()
 {
@@ -75,61 +71,71 @@ void ConsoleOutputHandler::addLog(const std::string& message)
 
 }
 
-void ConsoleOutputHandler::renderTable(const TableState& tableState)
-{
+void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo)
+{   
+    startOverwritingConsole();
 
-    std::cout << "\n====================================\n";
-    std::cout << "POT: " << tableState.currentPot << " $\n";
-    std::cout << "HIGHEST BET: " << tableState.currentHighestBet << " $\n";
-    std::cout << "COMMUNITY CARDS: ";
+    int startingXForPlayerInfo = MAX_LINE_LENGTH / (publicPlayersInfo.size() + 2);
 
-    if (tableState.communityCards.empty()) {
-        std::cout << "(NO CARDS)";
-    }
-    else {
-        for (const auto& card : tableState.communityCards) {
-            std::cout << "[" << CardFormatter::getCardName(card).wholeCardString() << "] ";
-        }
-    }
-    std::cout << "\n====================================\n";
-}
+    int maxTextForName = MAX_LINE_LENGTH / publicPlayersInfo.size() - 4;
+
+    int xForPlayerInfo = startingXForPlayerInfo;
 
 
-std::vector<std::string> ConsoleOutputHandler::generateCardGraphic(const Card& card)
-{
-    CardStrings cardStrings = CardFormatter::getCardName(card);
-    std::string cardRank = cardStrings.cardRankStr;
-    char cardSuitFirstLetter = cardStrings.cardSuitStr[0];
-
-    std::vector<std::string> toReturn;
-    toReturn.reserve(CARD_LENGTH);
-    std::string lineOfCard(CARD_WIDTH, ' ');
-
-    std::string topAndBottom(CARD_WIDTH, CARD_OUTLINE_CHARACTER);
-
-    toReturn.push_back(topAndBottom);
-
-    lineOfCard[0] = CARD_OUTLINE_CHARACTER;
-    lineOfCard[lineOfCard.size() - 1] = CARD_OUTLINE_CHARACTER; 
-
-    for (size_t i = 0; i < CARD_LENGTH - 2; i++)
+    for (const auto& playerInfo : publicPlayersInfo)
     {
-        std::string toPush = lineOfCard;
-        if (i == 0)
+        std::string name = playerInfo.name.substr(0, maxTextForName);
+        ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO, name);
+
+        std::string currentChips = "CHIPS: " + std::to_string(playerInfo.chips);
+        ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO+1, currentChips);
+
+        std::string currentBet = "BET: " + std::to_string(playerInfo.currentBet);
+        ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO + 2, currentBet);
+
+        if (playerInfo.hasFolded)
         {
-            toPush.replace(1, cardRank.size(), cardRank);
+            ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO + 3, "FOLDED");
         }
-        else if (i == ((CARD_LENGTH / 2) - 1))
-        {
-            toPush[(toPush.size() - 1) / 2] = cardSuitFirstLetter;
-        }
-        toReturn.push_back(toPush);
+
+        xForPlayerInfo += startingXForPlayerInfo;
+
     }
 
-    toReturn.push_back(topAndBottom);
 
-    return toReturn;
+
+    int xForCommunityCards = (MAX_LINE_LENGTH - ((CARD_WIDTH * 4 / 3) * MAX_COMMUNITY_CARDS)) / 2;
+    int yForCommunityCards = STARTING_Y_FOR_COMMUNITY_CARDS;
+
+    for (const auto& CardGraphicLineVector : communityCardsGraphics)
+    {
+        
+
+        for (const auto& CardGraphicLine : CardGraphicLineVector)
+        {
+            ConsoleUtils::printAt(xForCommunityCards, yForCommunityCards++, CardGraphicLine);
+            
+        }
+        xForCommunityCards += (CARD_WIDTH * 4 / 3);
+        yForCommunityCards = STARTING_Y_FOR_COMMUNITY_CARDS;
+    }
+
+
+
+
+
+
+    int xForInfo = 50, yForInfo = 14;
+
+    ConsoleUtils::printAt(xForInfo, yForInfo++, "====================================");
+    ConsoleUtils::printAt(xForInfo, yForInfo++, "MAIN POT: " + std::to_string(tableState.currentPot));
+    ConsoleUtils::printAt(xForInfo, yForInfo++, "HIGHEST BET: " + std::to_string(tableState.currentHighestBet));
+
+    ConsoleUtils::printAt(xForInfo, yForInfo++, "===================================="); 
 }
+
+
+
 
 // TODO implement methods
 
@@ -166,7 +172,7 @@ void ConsoleOutputHandler::checkIfConsoleSizeIsEnough()
 
 void ConsoleOutputHandler::onCommunityCardDealt(const Card& card)
 {
-    this->communityCardsGraphics.push_back(generateCardGraphic(card));
+    this->communityCardsGraphics.push_back(ConsoleUtils::generateCardGraphic(card));
 }
 
 std::string ConsoleOutputHandler::getCurrentHandString(const std::vector<Card>& communityCards, const std::array<Card, 2>& playersCards) const

@@ -10,5 +10,6 @@ class IInputHandler
 {
 public:
 	virtual PlayerAction requestAction(const TableState& tableState, const PlayerState& playerState) = 0;
+	virtual void onPlayersCardDealt(const Card& card) = 0;
 	virtual ~IInputHandler() = default;
 };

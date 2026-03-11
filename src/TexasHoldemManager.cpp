@@ -54,7 +54,21 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 
 			if (this->pOutputHandler)
 			{
-				this->pOutputHandler->renderTable(this->currentTableState);
+				std::vector<PublicPlayerInfo> publicInfo;
+				publicInfo.reserve(pPlayers.size());
+				
+				for (const auto& p : pPlayers)
+				{
+					publicInfo.push_back({
+						p->getPlayerName(),
+						p->getChips(),
+						p->getCurrentBet(),
+						p->getHasFolded()
+						});
+
+				}
+
+				this->pOutputHandler->renderTable(this->currentTableState, publicInfo);
 			}
 
 			// we ask player for decision
@@ -244,7 +258,21 @@ void TexasHoldemManager::showdownPhase()
 {
 	if (this->pOutputHandler)
 	{
-		this->pOutputHandler->renderTable(this->currentTableState);
+		std::vector<PublicPlayerInfo> publicInfo;
+		publicInfo.reserve(pPlayers.size());
+
+		for (const auto& p : pPlayers)
+		{
+			publicInfo.push_back({
+				p->getPlayerName(),
+				p->getChips(),
+				p->getCurrentBet(),
+				p->getHasFolded()
+				});
+
+		}
+
+		this->pOutputHandler->renderTable(this->currentTableState, publicInfo);
 	}
 
 

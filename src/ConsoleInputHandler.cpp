@@ -1,6 +1,8 @@
 #include "ConsoleInputHandler.h"
 #include "CardFormatter.h"
+#include "ConsoleUtils.h"
 #include <iostream>
+#include "ConsoleCONSTANS.h"
 
 unsigned int ConsoleInputHandler::askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips)
 {
@@ -17,6 +19,7 @@ unsigned int ConsoleInputHandler::askForValueToRaise(unsigned int currentHighest
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 		if (valueToRaise == 0) return 0;
+		if (valueToRaise % 10 != 0) std::cout << "The smallest chip is 10!" << std::endl;
 		else if (valueToRaise <= currentHighestBet)
 		{
 			std::cout << "The value isn't more than current bet!" << std::endl;
@@ -32,6 +35,29 @@ unsigned int ConsoleInputHandler::askForValueToRaise(unsigned int currentHighest
 
 PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, const PlayerState& playerState)
 {
+	
+
+	int xForPlayerCards = (MAX_LINE_LENGTH - ((CARD_WIDTH * 4 / 3) * MAX_PLAYERS_CARDS)) / 4;
+	int yForPlayerCards = STARTING_Y_FOR_PLAYER_CARDS;
+
+	int StartingXForPlayerCards = xForPlayerCards;
+
+	int lastXForPlayersCards;
+
+	for (const auto& CardGraphicLineVector : playersCardsGraphics)
+	{
+		for (const auto& CardGraphicLine : CardGraphicLineVector)
+		{
+			ConsoleUtils::printAt(xForPlayerCards, yForPlayerCards, CardGraphicLine);
+
+		}
+		xForPlayerCards += (CARD_WIDTH * 4 / 3);
+		yForPlayerCards = STARTING_Y_FOR_PLAYER_CARDS;
+	}
+
+	
+	int yForAction = STARTING_Y_FOR_COMMUNITY_CARDS + CARD_LENGTH + 4;
+
 	PlayerAction playerAction = { ActionType::NONE, 0 };
 
 	int userInput = 1;
@@ -41,11 +67,8 @@ PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, co
 	while (askForInputs)
 	{
 
-		std::cout << "\n------------------------------------\n";
-		std::cout << "YOUR CHIPS: " << playerState.currentChips << " $\n";
-		std::cout << "YOUR CARDS: [" << CardFormatter::getCardName(playerState.playersCards[0]).wholeCardString() << "] ["
-			<< CardFormatter::getCardName(playerState.playersCards[1]).wholeCardString() << "]\n";
-		std::cout << "------------------------------------\n"; 
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "YOUR CHIPS: " + playerState.currentChips);
+
 
 		std::string callOrCheckText = "1. ";
 
@@ -53,15 +76,15 @@ PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, co
 		else if (tableState.amountToCall >= playerState.currentChips) callOrCheckText += "CALL (ALL-IN)";
 		else callOrCheckText += "CALL";
 
-		std::cout << "===MAKE YOUR DECISION===" << std::endl;
-		std::cout << callOrCheckText << std::endl;
-		std::cout << "2. FOLD" << std::endl;
-		std::cout << "3. RAISE" << std::endl;
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "===MAKE YOUR DECISION===");
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, callOrCheckText);
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "2. FOLD");
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "3. RAISE");
 
-		std::cout << "YOUR CHOICE: ";
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "YOUR CHOICE: ");
 		while (!(std::cin >> userInput))
 		{
-			std::cout << "BAD VALUE!";
+			ConsoleUtils::printAt(xForPlayerCards, yForAction++, "BAD VALUE!");
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
@@ -83,10 +106,10 @@ PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, co
 				playerAction.actionType = ActionType::RAISE;
 				playerAction.amount = askForValueToRaise(tableState.currentHighestBet, playerState.currentChips);
 				if (playerAction.amount != 0) askForInputs = false;
-				else std::cout << "--RAISE CANCELED--" << std::endl;
+				else ConsoleUtils::printAt(xForPlayerCards, yForAction++, "--RAISE CANCELED--");
 				break;
 			default:
-				std::cout << "WRONG CHOICE!" << std::endl;
+				ConsoleUtils::printAt(xForPlayerCards, yForAction++, "WRONG CHOICE!");
 				break;
 			}
 		}
@@ -106,13 +129,18 @@ PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, co
 				playerAction.actionType = ActionType::RAISE;
 				playerAction.amount = askForValueToRaise(tableState.currentHighestBet, playerState.currentChips);
 				if (playerAction.amount != 0) askForInputs = false;
-				else std::cout << "--RAISE CANCELED--" << std::endl;
+				else ConsoleUtils::printAt(xForPlayerCards, yForAction++, "--RAISE CANCELED--");
 				break;
 			default:
-				std::cout << "WRONG CHOICE!" << std::endl;
+				ConsoleUtils::printAt(xForPlayerCards, yForAction++, "WRONG CHOICE!");
 				break;
 			}
 		}
 	}
 	return playerAction;
+}
+
+void ConsoleInputHandler::onPlayersCardDealt(const Card& card)
+{
+	this->playersCardsGraphics.push_back(ConsoleUtils::generateCardGraphic(card));
 }
