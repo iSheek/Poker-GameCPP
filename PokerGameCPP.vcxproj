@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\ConsoleCONSTANS.h" />
+    <ClCompile Include="src\BotPlayerLogic.cpp" />
     <ClCompile Include="src\CardFormatter.cpp" />
     <ClCompile Include="src\ConsoleInputHandler.cpp" />
     <ClCompile Include="src\ConsoleOutputHandler.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\BotPlayerLogic.h" />
     <ClInclude Include="include\CardFormatter.h" />
     <ClInclude Include="include\Cards.h" />
     <ClInclude Include="include\ConsoleInputHandler.h" />

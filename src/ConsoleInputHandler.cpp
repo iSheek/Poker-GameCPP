@@ -66,8 +66,10 @@ PlayerAction ConsoleInputHandler::requestAction(const TableState& tableState, co
 
 	while (askForInputs)
 	{
+		// reset variable after every loop
+		int yForAction = STARTING_Y_FOR_COMMUNITY_CARDS + CARD_LENGTH + 4;
 
-		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "YOUR CHIPS: " + playerState.currentChips);
+		ConsoleUtils::printAt(xForPlayerCards, yForAction++, "YOUR CHIPS: " + std::to_string(playerState.currentChips));
 
 
 		std::string callOrCheckText = "1. ";

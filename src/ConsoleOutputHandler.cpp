@@ -132,6 +132,13 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
     ConsoleUtils::printAt(xForInfo, yForInfo++, "HIGHEST BET: " + std::to_string(tableState.currentHighestBet));
 
     ConsoleUtils::printAt(xForInfo, yForInfo++, "===================================="); 
+
+    ConsoleUtils::printAt(xForInfo, yForInfo++, "==== LOGS ====");
+    for (const auto& log : uiLogs)
+    {
+        ConsoleUtils::printAt(xForInfo, yForInfo++, log);
+    }
+
 }
 
 
