@@ -22,6 +22,10 @@ private:
 
 	void checkIfConsoleSizeIsEnough();
 
+	std::string getCurrentHandString(const std::vector<Card>& communityCards, const std::array<Card, 2>& playersCards) const;
+
+	std::vector<std::string> generateCardGraphic(const Card& card);
+
 	std::vector<std::vector<std::string>> communityCardsGraphics;
 
 	std::vector<std::vector<std::string>> playersCardsGraphics;
@@ -32,6 +36,7 @@ public:
 	~ConsoleOutputHandler();
 	void renderTable(const TableState& tableState) override;
 
+	void onCommunityCardDealt(const Card& card) override;
 	void onPlayerAction(const std::string& playerName, PlayerAction action) override;
 	void onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot) override;
 };
