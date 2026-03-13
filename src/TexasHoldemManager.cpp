@@ -74,6 +74,8 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 			// we ask player for decision
 			PlayerAction playerDecision = pPlayer->makeDecision(currentTableState);
 
+			pOutputHandler->onPlayerAction(pPlayer->getPlayerName(), playerDecision);
+
 			// player has made a decision
 			--playersToAct;
 

@@ -77,14 +77,20 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
 
     int startingXForPlayerInfo = MAX_LINE_LENGTH / (publicPlayersInfo.size() + 2);
 
-    int maxTextForName = MAX_LINE_LENGTH / publicPlayersInfo.size() - 4;
+    // int maxTextForName = MAX_LINE_LENGTH / publicPlayersInfo.size() - 4;
+    int maxTextForName = startingXForPlayerInfo - 2;
 
     int xForPlayerInfo = startingXForPlayerInfo;
 
 
     for (const auto& playerInfo : publicPlayersInfo)
     {
-        std::string name = playerInfo.name.substr(0, maxTextForName);
+        std::string name = playerInfo.name;
+        if (name.length() > maxTextForName && maxTextForName > 0)
+        {
+            name = name.substr(0, maxTextForName);
+        }
+
         ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO, name);
 
         std::string currentChips = "CHIPS: " + std::to_string(playerInfo.chips);
@@ -141,14 +147,40 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
 
 }
 
+std::string ConsoleOutputHandler::actionToString(PlayerAction action)
+{
+    std::string toReturn = ": ";
 
+    switch (action.actionType)
+    {
+    case ActionType::FOLD:
+        toReturn += "FOLD";
+        break;
+    case ActionType::CALL:
+        toReturn += "CALL";
+        break;
+    case ActionType::CHECK:
+        toReturn += "CHECK";
+        break;
+    case ActionType::RAISE:  
+        toReturn += ("RAISE TO " + std::to_string(action.amount));
+        break;
+    default:
+        toReturn += "???";
+        break;
+    }
+
+    return toReturn;
+
+}
 
 
 // TODO implement methods
 
 void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, PlayerAction action)
 {
-    
+
+    this->addLog(playerName + actionToString(action));
 }
 
 

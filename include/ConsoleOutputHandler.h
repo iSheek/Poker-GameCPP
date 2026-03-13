@@ -27,6 +27,7 @@ private:
 
 	std::vector<std::vector<std::string>> communityCardsGraphics;
 
+	std::string actionToString(PlayerAction action);
 	
 
 public:
