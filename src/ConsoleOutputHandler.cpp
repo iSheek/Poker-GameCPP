@@ -9,6 +9,7 @@
 #include "HandEvaluator.h"
 #include "ConsoleUtils.h"
 #include "ConsoleCONSTANS.h"
+#include <filesystem>
 
 constexpr auto LOGFILE_NAME = "playersmoveinfo.log";
 
@@ -21,7 +22,9 @@ ConsoleOutputHandler::ConsoleOutputHandler()
     GetConsoleMode(hOut, &dwMode);
     SetConsoleMode(hOut, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 
-    this->logFile.open(LOGFILE_NAME);
+    std::filesystem::path logPath = std::filesystem::current_path() / "logs" / LOGFILE_NAME;
+
+    this->logFile.open(logPath);
     if (!logFile.is_open())
     {
         throw std::runtime_error("ERROR FILE WASN'T OPENED");

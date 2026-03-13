@@ -5,6 +5,14 @@
 #include <algorithm>
 #include <chrono>
 #include <thread>
+#include <fstream>
+#include <exception>
+#include <string>
+#include <filesystem>
+
+constexpr int smallestChip = 10;
+
+constexpr auto BOT_NAMES_FILE = "bot_names.txt";
 
 BotPlayerLogic::BotPlayerLogic(unsigned int startingChips) : PlayerLogicParent(startingChips) 
 {
@@ -13,6 +21,7 @@ BotPlayerLogic::BotPlayerLogic(unsigned int startingChips) : PlayerLogicParent(s
 	std::uniform_int_distribution<> dist(1, 10);
 	this->aggressiveLevel = dist(gen);
 
+    this->setPlayerName(getRandomNameFromFile()); 
 }
 
 BotPlayerLogic::BotPlayerLogic(unsigned int startingChips, int aggressiveLevel) : PlayerLogicParent(startingChips)
@@ -29,7 +38,8 @@ BotPlayerLogic::BotPlayerLogic(unsigned int startingChips, int aggressiveLevel) 
 		std::uniform_int_distribution<> dist(1, 10);
 		this->aggressiveLevel = dist(gen);
 	}
-	
+
+    this->setPlayerName(getRandomNameFromFile());
 }
 
 
@@ -109,10 +119,10 @@ PlayerAction BotPlayerLogic::makeDecision(const TableState& state)
     }
 
     std::uniform_int_distribution<> distRandomBoost(0, 3);
-    targetRaise += distRandomBoost(gen) * 10;
-    targetRaise = (targetRaise / 10) * 10;
+    targetRaise += distRandomBoost(gen) * smallestChip;
+    targetRaise = (targetRaise / smallestChip) * smallestChip;
 
-    unsigned int minRaise = state.currentHighestBet + 20;
+    unsigned int minRaise = state.currentHighestBet + (2 * smallestChip);
     if (targetRaise < minRaise) targetRaise = minRaise;
 
     PlayerAction toReturn;
@@ -148,4 +158,45 @@ PlayerAction BotPlayerLogic::makeDecision(const TableState& state)
     }
 
     return toReturn;
+}
+
+
+std::string BotPlayerLogic::getRandomNameFromFile()
+{
+    std::filesystem::path dataPath = std::filesystem::current_path() / "data" / BOT_NAMES_FILE;
+
+    std::ifstream inputFile;
+
+    inputFile.open(dataPath);
+
+    if (!inputFile.is_open()) throw std::runtime_error("ERROR FILE WITH BOT NAMES WASN'T OPENED");
+
+    std::string line;
+
+    std::vector<std::string> names;
+
+    while (std::getline(inputFile, line))
+    {
+        // remove blank spaces
+        std::string::iterator end_pos = std::remove(line.begin(), line.end(), ' ');
+        line.erase(end_pos, line.end());
+
+        names.push_back(line);
+    }
+
+    inputFile.close();
+
+    if (!names.empty())
+    {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+
+        std::uniform_int_distribution<size_t> dist(0, names.size() - 1);
+
+        size_t randomIndex = dist(gen);
+
+        return "BOT " + names[randomIndex];
+    }
+
+    return "BOT ???";
 }
