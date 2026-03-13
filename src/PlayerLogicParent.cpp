@@ -37,6 +37,7 @@ void PlayerLogicParent::resetPlayer(unsigned int startingChips)
 	this->playersChips = startingChips;
 	this->hasFolded = false;
 	this->currentBet = 0;
+	this->totalBet = 0;
 }
 
 void PlayerLogicParent::setCards(const Card& firstCard, const Card& secondCard)
@@ -50,4 +51,5 @@ void PlayerLogicParent::resetForNewRound()
 	resetFold();
 	resetCards();
 	setCurrentBet(0);
+	setTotalBet(0);
 }

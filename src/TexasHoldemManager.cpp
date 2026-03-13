@@ -1,5 +1,6 @@
 
 #include "TexasHoldemManager.h"
+#include <optional>
 
 // when making ux outside console add commented methods from IOutputHandler
 
@@ -63,6 +64,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 						p->getPlayerName(),
 						p->getChips(),
 						p->getCurrentBet(),
+						p->getTotalBet(),
 						p->getHasFolded()
 						});
 
@@ -86,6 +88,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 				unsigned int actualCallAmount = std::min(this->currentTableState.amountToCall, pPlayer->getChips());
 				pPlayer->removeChips(actualCallAmount);
 				pPlayer->addToCurrentBet(actualCallAmount);
+				pPlayer->addToTotalBet(actualCallAmount);
 				this->currentTableState.currentPot += actualCallAmount;
 				break;
 			}
@@ -98,6 +101,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 				unsigned int amountToAdd = playerDecision.amount - pPlayer->getCurrentBet();
 
 				pPlayer->addToCurrentBet(amountToAdd);
+				pPlayer->addToTotalBet(amountToAdd);
 				pPlayer->removeChips(amountToAdd);
 
 				this->currentTableState.currentPot += amountToAdd;
@@ -136,12 +140,14 @@ void TexasHoldemManager::blindsPhase()
 	{
 		// ALL IN
 		pPlayers[0]->setCurrentBet(p1Chips);
+		pPlayers[0]->addToTotalBet(p1Chips);
 		pPlayers[0]->removeChips(p1Chips);
 		this->currentTableState.currentPot += p1Chips;
 	}
 	else
 	{
 		pPlayers[0]->setCurrentBet(smallBlind);
+		pPlayers[0]->addToTotalBet(smallBlind);
 		pPlayers[0]->removeChips(smallBlind);
 		this->currentTableState.currentPot += smallBlind;
 	}
@@ -153,12 +159,14 @@ void TexasHoldemManager::blindsPhase()
 	{
 		// ALL IN
 		pPlayers[1]->setCurrentBet(p2Chips);
+		pPlayers[1]->addToTotalBet(p2Chips);
 		pPlayers[1]->removeChips(p2Chips);
 		this->currentTableState.currentPot += p2Chips;
 	}
 	else
 	{
 		pPlayers[1]->setCurrentBet(bigBlind);
+		pPlayers[1]->addToTotalBet(bigBlind);
 		pPlayers[1]->removeChips(bigBlind);
 		this->currentTableState.currentPot += bigBlind;
 	}
@@ -269,6 +277,7 @@ void TexasHoldemManager::showdownPhase()
 				p->getPlayerName(),
 				p->getChips(),
 				p->getCurrentBet(),
+				p->getTotalBet(),
 				p->getHasFolded()
 				});
 
@@ -323,6 +332,16 @@ void TexasHoldemManager::showdownPhase()
 				break;
 			}
 		}
+	}
+
+	if (this->pOutputHandler)
+	{
+		
+		if (const auto& handScore = biggestHandScore)
+		{
+			this->pOutputHandler->onShowdown(winners, handScore.value(), this->currentTableState.currentPot);
+		}
+		
 	}
 
 }

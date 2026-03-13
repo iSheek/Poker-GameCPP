@@ -10,7 +10,7 @@
 class ConsoleInputHandler : public IInputHandler
 {
 private:
-	unsigned int askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips);
+	unsigned int askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips, int xPlacement, int yPlacement);
 	std::vector<std::vector<std::string>> playersCardsGraphics;
 
 public:

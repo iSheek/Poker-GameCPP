@@ -22,7 +22,11 @@ ConsoleOutputHandler::ConsoleOutputHandler()
     GetConsoleMode(hOut, &dwMode);
     SetConsoleMode(hOut, dwMode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
 
-    std::filesystem::path logPath = std::filesystem::current_path() / "logs" / LOGFILE_NAME;
+    std::filesystem::path logDir = std::filesystem::current_path() / "logs";
+
+    std::filesystem::create_directories(logDir);
+
+    std::filesystem::path logPath = logDir / LOGFILE_NAME;
 
     this->logFile.open(logPath);
     if (!logFile.is_open())
@@ -76,7 +80,9 @@ void ConsoleOutputHandler::addLog(const std::string& message)
 
 void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo)
 {   
-    startOverwritingConsole();
+    // startOverwritingConsole();
+
+    system("cls");
 
     int startingXForPlayerInfo = MAX_LINE_LENGTH / (publicPlayersInfo.size() + 2);
 
@@ -99,12 +105,15 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
         std::string currentChips = "CHIPS: " + std::to_string(playerInfo.chips);
         ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO+1, currentChips);
 
-        std::string currentBet = "BET: " + std::to_string(playerInfo.currentBet);
+        std::string currentBet = "CURRENT BET: " + std::to_string(playerInfo.currentBet);
         ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO + 2, currentBet);
+
+        std::string totalBet = "TOTAL BET: " + std::to_string(playerInfo.totalBet);
+        ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO + 3, totalBet);
 
         if (playerInfo.hasFolded)
         {
-            ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO + 3, "FOLDED");
+            ConsoleUtils::printAt(xForPlayerInfo, Y_FOR_PLAYERS_INFO + 4, "FOLDED");
         }
 
         xForPlayerInfo += startingXForPlayerInfo;
@@ -116,13 +125,12 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
     int xForCommunityCards = (MAX_LINE_LENGTH - ((CARD_WIDTH * 4 / 3) * MAX_COMMUNITY_CARDS)) / 2;
     int yForCommunityCards = STARTING_Y_FOR_COMMUNITY_CARDS;
 
-    for (const auto& CardGraphicLineVector : communityCardsGraphics)
+    for (const auto& card : tableState.communityCards)
     {
-        
-
-        for (const auto& CardGraphicLine : CardGraphicLineVector)
+        auto cardGraphic = ConsoleUtils::generateCardGraphic(card);
+        for (const auto& graphicLine : cardGraphic)
         {
-            ConsoleUtils::printAt(xForCommunityCards, yForCommunityCards++, CardGraphicLine);
+            ConsoleUtils::printAt(xForCommunityCards, yForCommunityCards++, graphicLine);
             
         }
         xForCommunityCards += (CARD_WIDTH * 4 / 3);
@@ -134,7 +142,7 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
 
 
 
-    int xForInfo = 50, yForInfo = 14;
+    int xForInfo = STARTING_X_FOR_LOGS, yForInfo = STARTING_Y_FOR_LOGS;
 
     ConsoleUtils::printAt(xForInfo, yForInfo++, "====================================");
     ConsoleUtils::printAt(xForInfo, yForInfo++, "MAIN POT: " + std::to_string(tableState.currentPot));
@@ -166,7 +174,7 @@ std::string ConsoleOutputHandler::actionToString(PlayerAction action)
         toReturn += "CHECK";
         break;
     case ActionType::RAISE:  
-        toReturn += ("RAISE TO " + std::to_string(action.amount));
+        toReturn += ("RAISE " + std::to_string(action.amount) + " MORE");
         break;
     default:
         toReturn += "???";
@@ -189,7 +197,11 @@ void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, PlayerA
 
 void ConsoleOutputHandler::onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot)
 {
+    std::string winnerLog = "SHOWDOWN WON BY: ";
+    for (auto& w : winners) winnerLog += w->getPlayerName() + " ";
+    winnerLog += "WITH: " + CardFormatter::getHandName(winningHand.hand) + " (" + std::to_string(pot) + ")";
 
+    this->addLog(winnerLog);
 }
 
 

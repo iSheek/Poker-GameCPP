@@ -14,6 +14,7 @@ private:
 	unsigned int playersChips;
 	bool hasFolded;
 	unsigned int currentBet;
+	unsigned int totalBet;
 
 	std::string playerName;
 protected:
@@ -93,5 +94,20 @@ public:
 	void setPlayerName(std::string newName)
 	{
 		if (!newName.empty()) this->playerName = newName;
+	}
+
+	unsigned int getTotalBet()
+	{
+		return this->totalBet;
+	}
+
+	void setTotalBet(unsigned int newTotalBet)
+	{
+		this->totalBet = newTotalBet;
+	}
+
+	void addToTotalBet(unsigned int amountToAdd)
+	{
+		this->totalBet += amountToAdd;
 	}
 };
