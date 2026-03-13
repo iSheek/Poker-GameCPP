@@ -7,7 +7,8 @@
 #include "ConsoleOutputHandler.h"
 #include "HumanPlayerLogic.h"
 #include "BotPlayerLogic.h"
-
+#include <thread>
+#include <chrono>
 
 int main() {
     try {
@@ -31,6 +32,7 @@ int main() {
             manager.playRound();
 
             if (player1->getChips() == 0 || bot1->getChips() == 0) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
                 std::cout << "\n\nYOU LOST!!!!\n";
                 break;
             }

@@ -364,4 +364,7 @@ void TexasHoldemManager::cleanupPhase()
 	{
 		std::rotate(pPlayers.begin(), pPlayers.begin() + 1, pPlayers.end());
 	}
+
+	this->deck.resetDeck();
+	this->deck.shuffleDeck();
 }

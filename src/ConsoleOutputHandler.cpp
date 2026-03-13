@@ -84,7 +84,7 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
 
     system("cls");
 
-    int startingXForPlayerInfo = MAX_LINE_LENGTH / (publicPlayersInfo.size() + 2);
+    int startingXForPlayerInfo = MAX_LINE_LENGTH / (publicPlayersInfo.size());
 
     // int maxTextForName = MAX_LINE_LENGTH / publicPlayersInfo.size() - 4;
     int maxTextForName = startingXForPlayerInfo - 2;
@@ -185,8 +185,6 @@ std::string ConsoleOutputHandler::actionToString(PlayerAction action)
 
 }
 
-
-// TODO implement methods
 
 void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, PlayerAction action)
 {
