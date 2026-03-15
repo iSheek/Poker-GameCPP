@@ -25,6 +25,8 @@ protected:
 
 public:
 
+	virtual ~PlayerLogicParent() = default;
+
 	virtual PlayerAction makeDecision(const TableState& state) = 0;
 
 	void setCards(const Card& firstCard, const Card& secondCard);
@@ -86,17 +88,17 @@ public:
 
 	void resetForNewRound();
 
-	std::string getPlayerName()
+	std::string getPlayerName() const
 	{
 		return this->playerName;
 	}
 
-	void setPlayerName(std::string newName)
+	void setPlayerName(const std::string& newName)
 	{
 		if (!newName.empty()) this->playerName = newName;
 	}
 
-	unsigned int getTotalBet()
+	unsigned int getTotalBet() const
 	{
 		return this->totalBet;
 	}

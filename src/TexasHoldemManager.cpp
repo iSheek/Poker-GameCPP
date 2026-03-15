@@ -106,6 +106,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 
 				this->currentTableState.currentPot += amountToAdd;
 				this->currentTableState.currentHighestBet = playerDecision.amount;
+				this->currentTableState.highestBetInHistory = playerDecision.amount;
 
 				// someone raised - playersToAct counter resets, everyone besides the person who raise has to make their move
 				playersToAct = 0;
@@ -134,6 +135,7 @@ void TexasHoldemManager::blindsPhase()
 	if (pPlayers.size() < 2) throw std::range_error("ERROR NOT ENOUGH PLAYERS");
 
 	this->currentTableState.currentHighestBet = smallBlind;
+	this->currentTableState.highestBetInHistory = smallBlind;
 
 	unsigned int p1Chips = pPlayers[0]->getChips();
 	if (p1Chips <= currentTableState.currentHighestBet)
@@ -153,6 +155,8 @@ void TexasHoldemManager::blindsPhase()
 	}
 
 	this->currentTableState.currentHighestBet = bigBlind;
+	this->currentTableState.highestBetInHistory = bigBlind;
+
 
 	unsigned int p2Chips = pPlayers[1]->getChips();
 	if (p2Chips <= bigBlind)
@@ -339,7 +343,12 @@ void TexasHoldemManager::showdownPhase()
 		
 		if (const auto& handScore = biggestHandScore)
 		{
-			this->pOutputHandler->onShowdown(winners, handScore.value(), this->currentTableState.currentPot);
+			std::vector<std::string> winnersNames;
+			for (auto const& winner : winners)
+			{
+				winnersNames.push_back(winner->getPlayerName());
+			}
+			this->pOutputHandler->onShowdown(winnersNames, handScore.value(), this->currentTableState.currentPot);
 		}
 		
 	}

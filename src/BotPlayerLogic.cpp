@@ -14,17 +14,15 @@ constexpr int smallestChip = 10;
 
 constexpr auto BOT_NAMES_FILE = "bot_names.txt";
 
-BotPlayerLogic::BotPlayerLogic(unsigned int startingChips) : PlayerLogicParent(startingChips) 
+BotPlayerLogic::BotPlayerLogic(unsigned int startingChips) : PlayerLogicParent(startingChips), gen(rd())
 {
-	std::random_device rd;
-	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> dist(1, 10);
 	this->aggressiveLevel = dist(gen);
 
     this->setPlayerName(getRandomNameFromFile()); 
 }
 
-BotPlayerLogic::BotPlayerLogic(unsigned int startingChips, int aggressiveLevel) : PlayerLogicParent(startingChips)
+BotPlayerLogic::BotPlayerLogic(unsigned int startingChips, int aggressiveLevel) : PlayerLogicParent(startingChips), gen(rd())
 {
 	if (aggressiveLevel > 0 && aggressiveLevel < 11)
 	{
@@ -33,8 +31,6 @@ BotPlayerLogic::BotPlayerLogic(unsigned int startingChips, int aggressiveLevel) 
 
 	else
 	{
-		std::random_device rd;
-		std::mt19937 gen(rd());
 		std::uniform_int_distribution<> dist(1, 10);
 		this->aggressiveLevel = dist(gen);
 	}
@@ -99,8 +95,6 @@ PlayerAction BotPlayerLogic::makeDecision(const TableState& state)
 
     int raiseChance = std::clamp(aggressiveMoveFactor, 1, 20) * 3;
 
-    std::random_device rd;
-    std::mt19937 gen(rd());
     std::uniform_int_distribution<> dist(1, 100);
     int rng = dist(gen);
 
@@ -188,8 +182,6 @@ std::string BotPlayerLogic::getRandomNameFromFile()
 
     if (!names.empty())
     {
-        std::random_device rd;
-        std::mt19937 gen(rd());
 
         std::uniform_int_distribution<size_t> dist(0, names.size() - 1);
 

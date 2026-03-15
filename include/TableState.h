@@ -9,6 +9,7 @@ struct TableState
 	unsigned int currentHighestBet = 0;
 	unsigned long currentPot = 0;
 	std::vector<Card> communityCards;
+	unsigned int highestBetInHistory = 0;
 
 	void resetForNewRound()
 	{

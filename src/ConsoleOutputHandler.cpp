@@ -146,7 +146,7 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
 
     ConsoleUtils::printAt(xForInfo, yForInfo++, "====================================");
     ConsoleUtils::printAt(xForInfo, yForInfo++, "MAIN POT: " + std::to_string(tableState.currentPot));
-    ConsoleUtils::printAt(xForInfo, yForInfo++, "HIGHEST BET: " + std::to_string(tableState.currentHighestBet));
+    ConsoleUtils::printAt(xForInfo, yForInfo++, "HIGHEST BET: " + std::to_string(tableState.highestBetInHistory));
 
     ConsoleUtils::printAt(xForInfo, yForInfo++, "===================================="); 
 
@@ -174,7 +174,7 @@ std::string ConsoleOutputHandler::actionToString(PlayerAction action)
         toReturn += "CHECK";
         break;
     case ActionType::RAISE:  
-        toReturn += ("RAISE " + std::to_string(action.amount) + " MORE");
+        toReturn += ("RAISE TO " + std::to_string(action.amount));
         break;
     default:
         toReturn += "???";
@@ -186,17 +186,17 @@ std::string ConsoleOutputHandler::actionToString(PlayerAction action)
 }
 
 
-void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, PlayerAction action)
+void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, const PlayerAction& action)
 {
 
     this->addLog(playerName + actionToString(action));
 }
 
 
-void ConsoleOutputHandler::onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot)
+void ConsoleOutputHandler::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const unsigned int& pot)
 {
     std::string winnerLog = "SHOWDOWN WON BY: ";
-    for (auto& w : winners) winnerLog += w->getPlayerName() + " ";
+    for (auto& w : winnerNames) winnerLog += w + " ";
     winnerLog += "WITH: " + CardFormatter::getHandName(winningHand.hand) + " (" + std::to_string(pot) + ")";
 
     this->addLog(winnerLog);

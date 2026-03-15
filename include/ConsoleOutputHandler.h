@@ -36,6 +36,6 @@ public:
 	void renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo) override;
 
 	void onCommunityCardDealt(const Card& card) override;
-	void onPlayerAction(const std::string& playerName, PlayerAction action) override;
-	void onShowdown(const std::vector<std::shared_ptr<PlayerLogicParent>>& winners, const HandScore& winningHand, unsigned int pot) override;
+	void onPlayerAction(const std::string& playerName, const PlayerAction& action) override;
+	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const unsigned int& pot) override;
 };
