@@ -1,5 +1,7 @@
 #pragma once
 
+#include <nlohmann/json.hpp>
+
 enum class CardSuit
 {
 	NONE = -1,
@@ -38,3 +40,5 @@ struct Card
 	CardRank rank = CardRank::NONE;
 
 };
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Card, suit, rank)

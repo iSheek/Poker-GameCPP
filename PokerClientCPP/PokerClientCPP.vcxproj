@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{55bf61ba-ec3c-42a5-b171-bb60d623d45a}</ProjectGuid>
-    <RootNamespace>PokerGameCPP</RootNamespace>
+    <ProjectGuid>{f89fad5b-256d-46c1-bf4d-2b99632666c1}</ProjectGuid>
+    <RootNamespace>PokerClientCPP</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>PokerServerCPP</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -148,43 +147,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\ConsoleCONSTANS.h" />
-    <ClCompile Include="src\BotPlayerLogic.cpp" />
     <ClCompile Include="src\CardFormatter.cpp" />
-    <ClCompile Include="src\ConsoleInputHandler.cpp" />
-    <ClCompile Include="src\ConsoleOutputHandler.cpp" />
+    <ClCompile Include="src\clientMain.cpp" />
     <ClCompile Include="src\ConsoleUtils.cpp" />
-    <ClCompile Include="src\Deck.cpp" />
     <ClCompile Include="src\HandEvaluator.cpp" />
     <ClCompile Include="src\HandScore.cpp" />
-    <ClCompile Include="src\HumanPlayerLogic.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\PlayerLogicParent.cpp" />
-    <ClCompile Include="src\TexasHoldemManager.cpp" />
-    <ClCompile Include="tests\src\TesterCLI.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\BotPlayerLogic.h" />
-    <ClInclude Include="include\CardFormatter.h" />
-    <ClInclude Include="include\Cards.h" />
-    <ClInclude Include="include\ConsoleInputHandler.h" />
-    <ClInclude Include="include\ConsoleOutputHandler.h" />
-    <ClInclude Include="include\ConsoleUtils.h" />
-    <ClInclude Include="include\Deck.h" />
-    <ClInclude Include="include\DeckType.h" />
-    <ClInclude Include="include\GameManager.h" />
-    <ClInclude Include="include\HandEvaluator.h" />
-    <ClInclude Include="include\HandScore.h" />
-    <ClInclude Include="include\HumanPlayerLogic.h" />
-    <ClInclude Include="include\IOutputHandler.h" />
-    <ClInclude Include="include\PlayerLogicParent.h" />
-    <ClInclude Include="include\IInputHandler.h" />
-    <ClInclude Include="include\PlayerAction.h" />
-    <ClInclude Include="include\PlayerState.h" />
-    <ClInclude Include="include\PublicPlayerInfo.h" />
-    <ClInclude Include="include\TableState.h" />
-    <ClInclude Include="include\TexasHoldemManager.h" />
-    <ClInclude Include="tests\include\TesterCLI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

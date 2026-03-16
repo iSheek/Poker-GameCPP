@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <nlohmann/json.hpp>
 
 struct PublicPlayerInfo
 {
@@ -10,3 +11,6 @@ struct PublicPlayerInfo
 	unsigned int totalBet = 0;
 	bool hasFolded = true;
 };
+
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PublicPlayerInfo, name, chips, currentBet, totalBet, hasFolded)
