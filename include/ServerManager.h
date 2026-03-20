@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include "PlayerNode.h"
 #include "TexasHoldemManager.h"
@@ -29,6 +30,18 @@ public:
 	{
 		// TODO: change nullptr to NetworkOutputHandler
 		this->manager = TexasHoldemManager(nullptr);
+	}
+
+	void acceptPlayers()
+	{
+		std::cout << "Waiting for players...\n";
+
+		tcp::socket socket(this->io_context);
+
+		this->acceptor.accept(socket);
+
+		std::cout << "Waiting for players 1/" << playerCount << std::endl;
+
 	}
 
 };
