@@ -70,9 +70,9 @@ public:
 			std::getline(is, message);
 
 			try {
-				json j_received = json::parse(message);
+				json jReceived = json::parse(message);
 
-				playerNode.playerInfo = j_received.get<PublicPlayerInfo>();
+				playerNode.playerInfo = jReceived.get<PublicPlayerInfo>();
 			}
 			catch (const std::exception& e)
 			{

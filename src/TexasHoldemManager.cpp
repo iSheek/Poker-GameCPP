@@ -123,6 +123,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 				pPlayer->fold();
 				break;
 			default:
+				pPlayer->fold();
 				break;
 			}
 		}

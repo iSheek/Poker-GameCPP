@@ -40,9 +40,9 @@ int main()
 		std::istream is(&receiveBuffer);
 		std::getline(is, receivedMessage);
 
-		json j_received = json::parse(receivedMessage);
+		json jReceived = json::parse(receivedMessage);
 
-		Card receivedCard = j_received.get<Card>();
+		Card receivedCard = jReceived.get<Card>();
 
 		std::cout << "RECEIVED: " << CardFormatter::getCardName(receivedCard).wholeCardString() << std::endl;
 

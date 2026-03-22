@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\ConsoleCONSTANS.h" />
+    <ClCompile Include="src\NetworkInputHandler.cpp" />
     <ClCompile Include="src\BotPlayerLogic.cpp" />
     <ClCompile Include="src\CardFormatter.cpp" />
     <ClCompile Include="src\ConsoleInputHandler.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="include\GameManager.h" />
     <ClInclude Include="include\HandEvaluator.h" />
     <ClInclude Include="include\HandScore.h" />
+    <ClInclude Include="include\NetworkInputHandler.h" />
     <ClInclude Include="include\HumanPlayerLogic.h" />
     <ClInclude Include="include\IOutputHandler.h" />
     <ClInclude Include="include\NetworkOutputHandler.h" />
