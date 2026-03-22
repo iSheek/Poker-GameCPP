@@ -27,3 +27,5 @@ struct HandScore
 	bool operator>(const HandScore& other) const;
 	bool operator==(const HandScore& other) const;
 };
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(HandScore, hand, usedCardsInHand)

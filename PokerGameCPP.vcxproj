@@ -159,6 +159,7 @@
     <ClCompile Include="src\HandScore.cpp" />
     <ClCompile Include="src\HumanPlayerLogic.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\NetworkOutputHandler.cpp" />
     <ClCompile Include="src\PlayerLogicParent.cpp" />
     <ClCompile Include="src\TexasHoldemManager.cpp" />
     <ClCompile Include="tests\src\TesterCLI.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="include\HandScore.h" />
     <ClInclude Include="include\HumanPlayerLogic.h" />
     <ClInclude Include="include\IOutputHandler.h" />
+    <ClInclude Include="include\NetworkOutputHandler.h" />
     <ClInclude Include="include\PlayerLogicParent.h" />
     <ClInclude Include="include\IInputHandler.h" />
     <ClInclude Include="include\PlayerAction.h" />

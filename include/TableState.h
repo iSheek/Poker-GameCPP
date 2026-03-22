@@ -19,3 +19,5 @@ struct TableState
 		this->communityCards.clear();
 	}
 };
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(TableState, amountToCall, currentHighestBet, currentPot, communityCards, highestBetInHistory)
