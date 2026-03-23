@@ -1,4 +1,5 @@
 #include "NetworkInputHandler.h"
+#include "NetworkCommands.h"
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
 #include <iostream>
@@ -10,7 +11,7 @@ PlayerAction NetworkInputHandler::requestAction(const TableState& tableState, co
 
     nlohmann::json jSend;
 
-    jSend["method"] = "requestAction";
+    jSend["method"] = NetworkCommand::REQUEST_ACTION;
     jSend["data"]["tableState"] = tableState;
     jSend["data"]["playerState"] = playerState;
 

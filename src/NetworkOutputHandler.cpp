@@ -1,4 +1,5 @@
 #include "NetworkOutputHandler.h"
+#include "NetworkCommands.h"
 #include <nlohmann/json.hpp>
 #include <boost/asio.hpp>
 #include <iostream>
@@ -19,7 +20,7 @@ void NetworkOutputHandler::onCommunityCardDealt(const Card& card)
 {
 	json jSend{};
 
-	jSend["method"] = "onCommunityCardDealt";
+	jSend["method"] = NetworkCommand::ON_COMMUNITY_CARD_DEALT;
 	jSend["data"]["card"] = card;
 
 	std::string serializedData = jSend.dump() + "\n";
@@ -30,7 +31,7 @@ void NetworkOutputHandler::onPlayerAction(const std::string& playerName, const P
 {
 	json jSend{};
 
-	jSend["method"] = "onPlayerAction";
+	jSend["method"] = NetworkCommand::ON_PLAYER_ACTION;
 	jSend["data"]["playerName"] = playerName;
 	jSend["data"]["playerAction"] = action;
 
@@ -42,7 +43,7 @@ void NetworkOutputHandler::onShowdown(const std::vector<std::string>& winnerName
 {
 	json jSend{};
 
-	jSend["method"] = "onShowdown";
+	jSend["method"] = NetworkCommand::ON_SHOWDOWN;
 	jSend["data"]["winnerNames"] = winnerNames;
 	jSend["data"]["winningHand"] = winningHand;
 	jSend["data"]["pot"] = pot;
@@ -55,7 +56,7 @@ void NetworkOutputHandler::renderTable(const TableState& tableState, const std::
 {
 	json jSend{};
 
-	jSend["method"] = "renderTable";
+	jSend["method"] = NetworkCommand::RENDER_TABLE;
 	jSend["data"]["tableState"] = tableState;
 	jSend["data"]["publicPlayersInfo"] = publicPlayersInfo;
 

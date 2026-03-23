@@ -177,6 +177,7 @@
     <ClInclude Include="include\GameManager.h" />
     <ClInclude Include="include\HandEvaluator.h" />
     <ClInclude Include="include\HandScore.h" />
+    <ClInclude Include="include\NetworkCommands.h" />
     <ClInclude Include="include\NetworkInputHandler.h" />
     <ClInclude Include="include\HumanPlayerLogic.h" />
     <ClInclude Include="include\IOutputHandler.h" />
