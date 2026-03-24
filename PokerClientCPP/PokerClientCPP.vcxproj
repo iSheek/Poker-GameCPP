@@ -149,14 +149,15 @@
   <ItemGroup>
     <ClCompile Include="src\CardFormatter.cpp" />
     <ClCompile Include="src\clientMain.cpp" />
+    <ClCompile Include="src\ClientNetworkManager.cpp" />
+    <ClCompile Include="src\ConsoleInputHandler.cpp" />
+    <ClCompile Include="src\ConsoleOutputHandler.cpp" />
     <ClCompile Include="src\ConsoleUtils.cpp" />
     <ClCompile Include="src\HandEvaluator.cpp" />
     <ClCompile Include="src\HandScore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h" />
-    <ClInclude Include="include\IInputHandler.h" />
-    <ClInclude Include="include\IOutputHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

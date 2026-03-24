@@ -32,5 +32,10 @@ public:
 		this->pPlayers.push_back(pPlayer);
 	}
 
+	void setPOutputHandler(std::shared_ptr<IOutputHandler> newHandler)
+	{
+		this->pOutputHandler = newHandler;
+	}
+
 	virtual void playRound() = 0;
 };

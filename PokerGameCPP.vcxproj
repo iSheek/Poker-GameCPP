@@ -162,6 +162,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\NetworkOutputHandler.cpp" />
     <ClCompile Include="src\PlayerLogicParent.cpp" />
+    <ClCompile Include="src\ServerManager.cpp" />
     <ClCompile Include="src\TexasHoldemManager.cpp" />
     <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>

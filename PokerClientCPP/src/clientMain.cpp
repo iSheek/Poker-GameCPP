@@ -1,16 +1,21 @@
-#include <iostream>
-#include <string>
+#include "ClientNetworkManager.h"
+#include "TexasHoldemManager.h"
+#include "IOutputHandler.h"
+#include "IInputHandler.h"
+#include "ConsoleInputHandler.h"
+#include "ConsoleOutputHandler.h"
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
-#include "Cards.h"
-#include "CardFormatter.h"
+#include <iostream>
+#include <string>
+#include <memory>
 
 using asiotcp = boost::asio::ip::tcp;
 using json = nlohmann::json;
 
 int main()
 {
-
+	/*
 	try
 	{
 
@@ -25,7 +30,7 @@ int main()
 
 		boost::asio::streambuf receiveBuffer;
 
-		/*std::string message;
+		std::string message;
 
 		std::cin >> message;
 
@@ -33,7 +38,7 @@ int main()
 
 		message += '\n';
 
-		boost::asio::write(socket, boost::asio::buffer(message), error);*/
+		boost::asio::write(socket, boost::asio::buffer(message), error);
 
 		boost::asio::read_until(socket, receiveBuffer, '\n');
 
@@ -55,6 +60,17 @@ int main()
 	{
 		std::cout << "ERROR: " << e.what() << std::endl;
 	}
+	*/
+
+	boost::asio::io_context ioContext;
+	std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();
+	std::shared_ptr pInputHandler = std::make_shared<ConsoleInputHandler>();
+
+	ClientNetworkManager gameManager{ ioContext, pOutputHandler, pInputHandler };
+
+	gameManager.tryToConnectToServer("127.0.0.1", 1234);
+
+	gameManager.runLoop();
 
 	return 0;
 }

@@ -7,6 +7,7 @@
 #include "ConsoleOutputHandler.h"
 #include "HumanPlayerLogic.h"
 #include "BotPlayerLogic.h"
+#include "ServerManager.h"
 #include <thread>
 #include <chrono>
 #include <boost/asio.hpp>
@@ -18,6 +19,8 @@ using json = nlohmann::json;
 constexpr int PORT = 1234;
 
 int main() {
+
+    /*
     //try {
     //    auto outputHandler = std::make_shared<ConsoleOutputHandler>();
     //    auto inputHandler = std::make_shared<ConsoleInputHandler>();
@@ -89,7 +92,17 @@ int main() {
     {
         std::cout << "ERROR: " << e.what() << std::endl;
     }
+    */
 
+    try
+    {
+        ServerManager server(2, "127.0.0.1", 1234);
+        server.acceptPlayers();
+        server.startGame(1000);
+    }
+    catch (std::exception& e) {
+        std::cout << "ERROR: " << e.what() << "\n";
+    }
 
     return 0;
 }
