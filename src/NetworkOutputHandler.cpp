@@ -3,10 +3,11 @@
 #include <nlohmann/json.hpp>
 #include <boost/asio.hpp>
 #include <iostream>
+#include <string_view>
 
 using nlohmann::json;
 
-void NetworkOutputHandler::sendStringToAllSockets(const std::string& serializedData)
+void NetworkOutputHandler::sendStringToAllSockets(std::string_view serializedData)
 {
 	for (auto const& playerNode : this->playersNodesRef)
 	{
@@ -27,7 +28,7 @@ void NetworkOutputHandler::onCommunityCardDealt(const Card& card)
 	sendStringToAllSockets(serializedData);
 }
 
-void NetworkOutputHandler::onPlayerAction(const std::string& playerName, const PlayerAction& action)
+void NetworkOutputHandler::onPlayerAction(std::string_view playerName, const PlayerAction& action)
 {
 	json jSend{};
 

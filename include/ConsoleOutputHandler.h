@@ -3,6 +3,7 @@
 #include "IOutputHandler.h"
 #include "HandScore.h"
 #include <string>
+#include <string_view>
 #include <fstream>
 
 class ConsoleOutputHandler : public IOutputHandler
@@ -14,7 +15,7 @@ private:
 	std::ofstream logFile;
 
 	
-	void addLog(const std::string& message); 
+	void addLog(std::string_view message); 
 
 	void startOverwritingConsole();
 
@@ -36,6 +37,6 @@ public:
 	void renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo) override;
 
 	void onCommunityCardDealt(const Card& card) override;
-	void onPlayerAction(const std::string& playerName, const PlayerAction& action) override;
+	void onPlayerAction(std::string_view playerName, const PlayerAction& action) override;
 	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const unsigned int& pot) override;
 };

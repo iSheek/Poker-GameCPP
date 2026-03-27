@@ -1,15 +1,16 @@
 
 #include "ConsoleOutputHandler.h"
-#include "HandScore.h"
-#include "CardFormatter.h"
-#include <string>
-#include <iostream>
-#include <Windows.h>
-#include <thread>
 #include "HandEvaluator.h"
 #include "ConsoleUtils.h"
 #include "ConsoleCONSTANS.h"
+#include "HandScore.h"
+#include "CardFormatter.h"
+#include <iostream>
+#include <Windows.h>
+#include <thread>
 #include <filesystem>
+#include <string>
+#include <string_view>
 
 constexpr auto LOGFILE_NAME = "playersmoveinfo.log";
 
@@ -63,14 +64,14 @@ void ConsoleOutputHandler::startOverwritingConsole()
     std::cout << "\033[H";
 }
 
-void ConsoleOutputHandler::addLog(const std::string& message)
+void ConsoleOutputHandler::addLog(std::string_view message)
 {
     if (!logFile.is_open()) return;
 
     logFile << message << '\n';
     logFile.flush();
 
-    this->uiLogs.push_back(message);
+    this->uiLogs.push_back(static_cast<std::string>(message));
     if (uiLogs.size() > MAX_LOGS_IN_CONSOLE)
     {
         uiLogs.erase(uiLogs.begin());
@@ -84,7 +85,7 @@ void ConsoleOutputHandler::renderTable(const TableState& tableState, const std::
 
     system("cls");
 
-    int startingXForPlayerInfo = MAX_LINE_LENGTH / (publicPlayersInfo.size());
+    int startingXForPlayerInfo = MAX_LINE_LENGTH / static_cast<int>((publicPlayersInfo.size()));
 
     // int maxTextForName = MAX_LINE_LENGTH / publicPlayersInfo.size() - 4;
     int maxTextForName = startingXForPlayerInfo - 2;
@@ -186,10 +187,10 @@ std::string ConsoleOutputHandler::actionToString(PlayerAction action)
 }
 
 
-void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, const PlayerAction& action)
+void ConsoleOutputHandler::onPlayerAction(std::string_view playerName, const PlayerAction& action)
 {
 
-    this->addLog(playerName + actionToString(action));
+    this->addLog(playerName.data() + actionToString(action));
 }
 
 

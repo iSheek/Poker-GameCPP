@@ -12,6 +12,7 @@
 #include <iostream>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 void ClientNetworkManager::handleRenderTable(const nlohmann::json& jReceived)
@@ -103,8 +104,7 @@ void ClientNetworkManager::runLoop()
 	while (this->isConnected)
 	{
 		boost::system::error_code error;
-		boost::asio::streambuf receiveBuffer;
-		boost::asio::read_until(this->socket, receiveBuffer, '\n', error);
+		boost::asio::read_until(this->socket, this->receiveBuffer, '\n', error);
 
 		if (error) break;
 
@@ -150,7 +150,7 @@ void ClientNetworkManager::runLoop()
 	}
 }
 
-void ClientNetworkManager::tryToConnectToServer(const std::string& ipAddress, const int& port)
+void ClientNetworkManager::tryToConnectToServer(std::string_view ipAddress, const int& port)
 {
 	boost::system::error_code error;
 

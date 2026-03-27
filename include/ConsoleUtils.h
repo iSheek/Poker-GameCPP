@@ -1,9 +1,11 @@
 #pragma once
 
+#include "CardFormatter.h"
 #include <iostream>
 #include <string>
+#include <string_view>
 #include <vector>
-#include "CardFormatter.h"
+
 
 
 
@@ -11,7 +13,7 @@
 class ConsoleUtils
 {
 public:
-    static void printAt(int x, int y, const std::string& text)
+    static void printAt(int x, int y, std::string_view text)
     {
         // ansi command moving cursor
         std::cout << "\033[" << y << ";" << x << "H" << text;

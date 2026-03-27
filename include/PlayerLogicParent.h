@@ -93,7 +93,7 @@ public:
 		return this->playerName;
 	}
 
-	void setPlayerName(const std::string& newName)
+	void setPlayerName(std::string_view newName)
 	{
 		if (!newName.empty()) this->playerName = newName;
 	}

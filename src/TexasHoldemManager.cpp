@@ -320,9 +320,9 @@ void TexasHoldemManager::showdownPhase()
 
 	if (!winners.empty())
 	{
-		unsigned int splitAmount = this->currentTableState.currentPot / winners.size();
+		unsigned int splitAmount = this->currentTableState.currentPot / static_cast<unsigned int>(winners.size());
 
-		unsigned int restFromSplit = this->currentTableState.currentPot - (splitAmount * winners.size());
+		unsigned int restFromSplit = this->currentTableState.currentPot - static_cast<unsigned int>((splitAmount * winners.size()));
 
 		for (auto& winner : winners)
 		{
