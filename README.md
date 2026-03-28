@@ -30,7 +30,7 @@ To compile and run this project, you will need:
 ### 1. Clone the Repository
 Since this project uses external libraries as submodules, you must clone the repository with the `--recursive` flag:
 ```
-git clone --recursive <YOUR_REPOSITORY_URL>
+git clone --recursive https://github.com/iSheek/Poker-GameCPP
 ```
 (If you have already cloned the project without this flag, run git submodule update --init --recursive inside the project directory).
 
