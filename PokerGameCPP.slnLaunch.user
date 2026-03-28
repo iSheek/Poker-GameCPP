@@ -3,11 +3,7 @@
     "Name": "New Profile",
     "Projects": [
       {
-        "Path": "PokerGameCPP.vcxproj",
-        "Action": "Start"
-      },
-      {
-        "Path": "PokerClientCPP\\PokerClientCPP.vcxproj",
+        "Path": "PokerServerCPP\\PokerGameCPP.vcxproj",
         "Action": "Start"
       }
     ]

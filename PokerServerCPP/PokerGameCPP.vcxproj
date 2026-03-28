@@ -94,7 +94,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,7 +110,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,51 +148,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\ConsoleCONSTANS.h" />
     <ClCompile Include="src\NetworkInputHandler.cpp" />
-    <ClCompile Include="src\BotPlayerLogic.cpp" />
-    <ClCompile Include="src\CardFormatter.cpp" />
-    <ClCompile Include="src\ConsoleInputHandler.cpp" />
-    <ClCompile Include="src\ConsoleOutputHandler.cpp" />
-    <ClCompile Include="src\ConsoleUtils.cpp" />
-    <ClCompile Include="src\Deck.cpp" />
-    <ClCompile Include="src\HandEvaluator.cpp" />
-    <ClCompile Include="src\HandScore.cpp" />
-    <ClCompile Include="src\HumanPlayerLogic.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\NetworkOutputHandler.cpp" />
-    <ClCompile Include="src\PlayerLogicParent.cpp" />
     <ClCompile Include="src\ServerManager.cpp" />
-    <ClCompile Include="src\TexasHoldemManager.cpp" />
     <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\BotPlayerLogic.h" />
-    <ClInclude Include="include\CardFormatter.h" />
-    <ClInclude Include="include\Cards.h" />
-    <ClInclude Include="include\ConsoleInputHandler.h" />
-    <ClInclude Include="include\ConsoleOutputHandler.h" />
-    <ClInclude Include="include\ConsoleUtils.h" />
-    <ClInclude Include="include\Deck.h" />
-    <ClInclude Include="include\DeckType.h" />
-    <ClInclude Include="include\GameManager.h" />
-    <ClInclude Include="include\HandEvaluator.h" />
-    <ClInclude Include="include\HandScore.h" />
-    <ClInclude Include="include\NetworkCommands.h" />
     <ClInclude Include="include\NetworkInputHandler.h" />
-    <ClInclude Include="include\HumanPlayerLogic.h" />
-    <ClInclude Include="include\IOutputHandler.h" />
     <ClInclude Include="include\NetworkOutputHandler.h" />
-    <ClInclude Include="include\PlayerLogicParent.h" />
-    <ClInclude Include="include\IInputHandler.h" />
-    <ClInclude Include="include\PlayerAction.h" />
     <ClInclude Include="include\PlayerNode.h" />
-    <ClInclude Include="include\PlayerState.h" />
-    <ClInclude Include="include\PublicPlayerInfo.h" />
     <ClInclude Include="include\ServerManager.h" />
-    <ClInclude Include="include\TableState.h" />
-    <ClInclude Include="include\TexasHoldemManager.h" />
     <ClInclude Include="tests\include\TesterCLI.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PokerGameStaticLib\PokerGameStaticLib.vcxproj">
+      <Project>{ec5fa61a-8590-43bb-9a4c-5d8868fc8352}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

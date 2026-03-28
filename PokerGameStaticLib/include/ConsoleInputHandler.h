@@ -3,6 +3,7 @@
 #include "IInputHandler.h"
 #include "PlayerAction.h"
 #include "PlayerState.h"
+#include "TableState.h"
 #include <vector>
 #include <string>
 
