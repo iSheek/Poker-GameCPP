@@ -36,8 +36,8 @@ enum class CardRank
 
 struct Card
 {
-	CardSuit suit = CardSuit::NONE;
-	CardRank rank = CardRank::NONE;
+	CardSuit suit{ CardSuit::NONE };
+	CardRank rank{CardRank::NONE};
 
 };
 

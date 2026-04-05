@@ -103,7 +103,7 @@ std::vector<Card> Deck::getDeck() const
 	return this->deck;
 }
 
-unsigned int Deck::getCardsLeft() const
+int Deck::getCardsLeft() const
 {
-	return static_cast<unsigned int>(this->deck.size());
+	return static_cast<int>(this->deck.size());
 }

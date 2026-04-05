@@ -26,7 +26,7 @@ int main() {
     //    auto inputHandler = std::make_shared<ConsoleInputHandler>();
     //    TexasHoldemManager manager(outputHandler);
 
-    //    unsigned int startingChips = 10000;
+    //    int startingChips = 10000;
 
     //    auto player1 = std::make_shared<HumanPlayerLogic>(startingChips, inputHandler);
     //    player1->setPlayerName("YOU");

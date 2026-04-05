@@ -6,8 +6,8 @@
 
 struct CardStrings
 {
-    std::string cardRankStr = "";
-    std::string cardSuitStr = "";
+    std::string cardRankStr{ "" };
+    std::string cardSuitStr {""};
     std::string wholeCardString()
     {
         return this->cardRankStr + " " + this->cardSuitStr;

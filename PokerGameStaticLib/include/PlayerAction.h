@@ -14,8 +14,8 @@ enum class ActionType
 
 struct PlayerAction
 {
-	ActionType actionType = ActionType::NONE;
-	unsigned int amount = 0;
+	ActionType actionType{ ActionType::NONE };
+	int amount{};
 };
 
 

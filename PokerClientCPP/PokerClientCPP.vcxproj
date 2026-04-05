@@ -59,19 +59,18 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
+    <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
+    <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
+    <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
     <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -152,11 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BaseGameApplication.cpp" />
     <ClCompile Include="src\clientMain.cpp" />
     <ClCompile Include="src\ClientNetworkManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h" />
+    <ClInclude Include="include\BaseGameApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerGameStaticLib\PokerGameStaticLib.vcxproj">

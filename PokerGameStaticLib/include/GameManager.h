@@ -11,12 +11,12 @@
 class GameManager
 {
 protected:
-	std::vector<std::shared_ptr<PlayerLogicParent>> pPlayers;
-	Deck deck;
+	std::vector<std::shared_ptr<PlayerLogicParent>> pPlayers{};
+	Deck deck{};
 
-	TableState currentTableState;
+	TableState currentTableState{};
 
-	std::shared_ptr<IOutputHandler> pOutputHandler;
+	std::shared_ptr<IOutputHandler> pOutputHandler{};
 
 	GameManager(std::shared_ptr<IOutputHandler> pOutputHandler) : pOutputHandler(pOutputHandler) 
 	{

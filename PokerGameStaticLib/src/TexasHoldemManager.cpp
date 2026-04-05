@@ -26,7 +26,7 @@ void TexasHoldemManager::playRound()
 	cleanupPhase();
 }
 
-void TexasHoldemManager::bettingRound(unsigned int startingIndex)
+void TexasHoldemManager::bettingRound(int startingIndex)
 {
 	int playersToAct = 0;
 	for (auto& p : pPlayers)
@@ -37,12 +37,12 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 
 	while (playersToAct > 0)
 	{
-		for (unsigned int i = 0; i < pPlayers.size(); i++)
+		for (int i = 0; i < pPlayers.size(); i++)
 		{
 			// every player made decision
 			if (playersToAct <= 0) break;
 
-			unsigned int currentPlayerIndex = (startingIndex + i) % pPlayers.size();
+			int currentPlayerIndex = (startingIndex + i) % pPlayers.size();
 
 			auto& pPlayer = pPlayers[currentPlayerIndex];
 
@@ -85,7 +85,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 			{
 			case ActionType::CALL:
 			{
-				unsigned int actualCallAmount = std::min(this->currentTableState.amountToCall, pPlayer->getChips());
+				int actualCallAmount = std::min(this->currentTableState.amountToCall, pPlayer->getChips());
 				pPlayer->removeChips(actualCallAmount);
 				pPlayer->addToCurrentBet(actualCallAmount);
 				pPlayer->addToTotalBet(actualCallAmount);
@@ -98,7 +98,7 @@ void TexasHoldemManager::bettingRound(unsigned int startingIndex)
 			case ActionType::RAISE:
 			{
 				// we count how much player need to add to the new bet from his current bet
-				unsigned int amountToAdd = playerDecision.amount - pPlayer->getCurrentBet();
+				int amountToAdd = playerDecision.amount - pPlayer->getCurrentBet();
 
 				pPlayer->addToCurrentBet(amountToAdd);
 				pPlayer->addToTotalBet(amountToAdd);
@@ -138,7 +138,7 @@ void TexasHoldemManager::blindsPhase()
 	this->currentTableState.currentHighestBet = smallBlind;
 	this->currentTableState.highestBetInHistory = smallBlind;
 
-	unsigned int p1Chips = pPlayers[0]->getChips();
+	int p1Chips = pPlayers[0]->getChips();
 	if (p1Chips <= currentTableState.currentHighestBet)
 	{
 		// ALL IN
@@ -159,7 +159,7 @@ void TexasHoldemManager::blindsPhase()
 	this->currentTableState.highestBetInHistory = bigBlind;
 
 
-	unsigned int p2Chips = pPlayers[1]->getChips();
+	int p2Chips = pPlayers[1]->getChips();
 	if (p2Chips <= bigBlind)
 	{
 		// ALL IN
@@ -186,7 +186,7 @@ void TexasHoldemManager::preFlopPhase()
 		else throw std::out_of_range("ERROR THERE'S NOT ENOUGH CARDS IN DECK TO PLAY");
 	}
 
-	unsigned int startIndex = (pPlayers.size() == 2) ? SMALL_BLIND_PLAYER_INDEX : UNDER_THE_GUN_PLAYER_INDEX;
+	int startIndex = (pPlayers.size() == 2) ? SMALL_BLIND_PLAYER_INDEX : UNDER_THE_GUN_PLAYER_INDEX;
 	bettingRound(startIndex);
 
 }
@@ -215,7 +215,7 @@ void TexasHoldemManager::flopPhase()
 		if (!pPlayer->getHasFolded()) pPlayer->setCurrentBet(0);
 	}
 
-	unsigned int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
+	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
 	bettingRound(startIndex);
 
 }
@@ -240,7 +240,7 @@ void TexasHoldemManager::turnPhase()
 		if (!pPlayer->getHasFolded()) pPlayer->setCurrentBet(0);
 	}
 
-	unsigned int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
+	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
 	bettingRound(startIndex);
 
 }
@@ -265,7 +265,7 @@ void TexasHoldemManager::riverPhase()
 		if (!pPlayer->getHasFolded()) pPlayer->setCurrentBet(0);
 	}
 
-	unsigned int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
+	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
 	bettingRound(startIndex);
 }
 
@@ -320,9 +320,9 @@ void TexasHoldemManager::showdownPhase()
 
 	if (!winners.empty())
 	{
-		unsigned int splitAmount = this->currentTableState.currentPot / static_cast<unsigned int>(winners.size());
+		int splitAmount = this->currentTableState.currentPot / static_cast<int>(winners.size());
 
-		unsigned int restFromSplit = this->currentTableState.currentPot - static_cast<unsigned int>((splitAmount * winners.size()));
+		int restFromSplit = this->currentTableState.currentPot - static_cast<int>((splitAmount * winners.size()));
 
 		for (auto& winner : winners)
 		{

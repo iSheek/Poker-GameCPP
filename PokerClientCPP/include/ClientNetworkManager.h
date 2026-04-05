@@ -22,12 +22,12 @@ class ClientNetworkManager
 private:
 	boost::asio::ip::tcp::socket socket;
 
-	std::shared_ptr<IOutputHandler> pOutputHandler;
-	std::shared_ptr<IInputHandler> pInputHandler;
+	std::shared_ptr<IOutputHandler> pOutputHandler{};
+	std::shared_ptr<IInputHandler> pInputHandler{};
 
-	boost::asio::streambuf receiveBuffer;
+	boost::asio::streambuf receiveBuffer{};
 
-	bool isConnected = false;
+	bool isConnected{ false };
 
 public:
 	ClientNetworkManager(

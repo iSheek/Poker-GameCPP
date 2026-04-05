@@ -87,7 +87,7 @@ void ClientNetworkManager::handleOnShowdown(const nlohmann::json& jReceived)
 	{
 		std::vector<std::string> winnerNames = jReceived["data"]["winnerNames"].get<std::vector<std::string>>();
 		HandScore winningHand = jReceived["data"]["winningHand"].get<HandScore>();
-		unsigned int pot = jReceived["data"]["pot"].get<unsigned int>();
+		int pot = jReceived["data"]["pot"].get<int>();
 
 		this->pOutputHandler->onShowdown(winnerNames, winningHand, pot);
 	}

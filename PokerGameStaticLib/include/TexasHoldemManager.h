@@ -5,20 +5,20 @@
 #include <stdexcept>
 #include <algorithm>
 
-constexpr unsigned int SMALL_BLIND_PLAYER_INDEX = 0;
-constexpr unsigned int BIG_BLIND_PLAYER_INDEX = 1;
+constexpr int SMALL_BLIND_PLAYER_INDEX = 0;
+constexpr int BIG_BLIND_PLAYER_INDEX = 1;
 
-constexpr unsigned int UNDER_THE_GUN_PLAYER_INDEX = 2;
+constexpr int UNDER_THE_GUN_PLAYER_INDEX = 2;
 
 class TexasHoldemManager : public GameManager
 {
 private:
-	unsigned int smallBlind;
-	unsigned int bigBlind;
+	int smallBlind{};
+	int bigBlind{};
 
-	TableState currentTableState;
+	TableState currentTableState{};
 
-	void bettingRound(unsigned int startingIndex);
+	void bettingRound(int startingIndex);
 	void blindsPhase();
 	void preFlopPhase();
 	void flopPhase();
@@ -32,12 +32,12 @@ public:
 
 	void playRound() override;
 
-	void setSmallBlind(unsigned int newSmallBlindBet)
+	void setSmallBlind(int newSmallBlindBet)
 	{
 		this->smallBlind = newSmallBlindBet;
 	}
 
-	void setBigBlind(unsigned int newBigBlindBet)
+	void setBigBlind(int newBigBlindBet)
 	{
 		this->bigBlind = newBigBlindBet;
 	}

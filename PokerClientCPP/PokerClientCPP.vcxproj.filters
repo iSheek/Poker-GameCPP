@@ -21,9 +21,15 @@
     <ClCompile Include="src\ClientNetworkManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\BaseGameApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseGameApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

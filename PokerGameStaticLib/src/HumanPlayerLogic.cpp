@@ -1,7 +1,7 @@
 #include "HumanPlayerLogic.h"
 
-HumanPlayerLogic::HumanPlayerLogic(unsigned int startingChips) : PlayerLogicParent(startingChips) {}
-HumanPlayerLogic::HumanPlayerLogic(unsigned int startingChips, std::shared_ptr<IInputHandler> inputHandlerPointer) : PlayerLogicParent(startingChips),
+HumanPlayerLogic::HumanPlayerLogic(int startingChips) : PlayerLogicParent(startingChips) {}
+HumanPlayerLogic::HumanPlayerLogic(int startingChips, std::shared_ptr<IInputHandler> inputHandlerPointer) : PlayerLogicParent(startingChips),
 pInputHandler(inputHandlerPointer) {
 }
 

@@ -187,14 +187,14 @@ std::string ConsoleOutputHandler::actionToString(PlayerAction action)
 }
 
 
-void ConsoleOutputHandler::onPlayerAction(std::string_view playerName, const PlayerAction& action)
+void ConsoleOutputHandler::onPlayerAction(const std::string& playerName, const PlayerAction& action)
 {
 
-    this->addLog(playerName.data() + actionToString(action));
+    this->addLog(playerName + actionToString(action));
 }
 
 
-void ConsoleOutputHandler::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const unsigned int& pot)
+void ConsoleOutputHandler::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot)
 {
     std::string winnerLog = "SHOWDOWN WON BY: ";
     for (auto& w : winnerNames) winnerLog += w + " ";

@@ -238,7 +238,7 @@
 			};
 		}
 
-		unsigned int counter = 0;
+		int counter = 0;
 
 		for (int i = 13; i >= 1; --i)
 		{

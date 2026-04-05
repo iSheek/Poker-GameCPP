@@ -11,7 +11,7 @@
 class NetworkInputHandler : public IInputHandler
 {
 private:
-	std::shared_ptr<boost::asio::ip::tcp::socket> pSocket;
+	std::shared_ptr<boost::asio::ip::tcp::socket> pSocket{};
 
 public:
 	NetworkInputHandler(std::shared_ptr<boost::asio::ip::tcp::socket> pSocket) : pSocket(pSocket) {}
