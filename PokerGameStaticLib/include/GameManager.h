@@ -38,4 +38,9 @@ public:
 	}
 
 	virtual void playRound() = 0;
+
+	int getCurrentPlayerCount()
+	{
+		return static_cast<int>(this->pPlayers.size());
+	}
 };

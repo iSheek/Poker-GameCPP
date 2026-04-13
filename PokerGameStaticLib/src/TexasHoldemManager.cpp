@@ -100,6 +100,13 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 				// we count how much player need to add to the new bet from his current bet
 				int amountToAdd = playerDecision.amount - pPlayer->getCurrentBet();
 
+				// check if raise is valid, if not, player abused something so he folds instead
+				if (playerDecision.amount <= this->currentTableState.currentHighestBet + this->bigBlind)
+				{
+					pPlayer->fold();
+					break;
+				}
+
 				pPlayer->addToCurrentBet(amountToAdd);
 				pPlayer->addToTotalBet(amountToAdd);
 				pPlayer->removeChips(amountToAdd);
@@ -107,6 +114,8 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 				this->currentTableState.currentPot += amountToAdd;
 				this->currentTableState.currentHighestBet = playerDecision.amount;
 				this->currentTableState.highestBetInHistory = playerDecision.amount;
+
+				
 
 				// someone raised - playersToAct counter resets, everyone besides the person who raise has to make their move
 				playersToAct = 0;
