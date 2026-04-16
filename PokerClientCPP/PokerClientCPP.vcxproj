@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -158,6 +158,8 @@
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h" />
     <ClInclude Include="include\BaseGameApplication.h" />
+    <ClInclude Include="include\IMenuView.h" />
+    <ClInclude Include="include\IViewController.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerGameStaticLib\PokerGameStaticLib.vcxproj">

@@ -2,9 +2,16 @@
 #include "TexasHoldemManager.h"
 #include "HumanPlayerLogic.h"
 #include "BotPlayerLogic.h"
+#include "IOutputHandler.h"
+#include "IInputHandler.h"
+#include "ConsoleOutputHandler.h"
+#include "ConsoleInputHandler.h"
+#include "ClientNetworkManager.h"
+#include "boost/asio.hpp"
 #include <chrono>
 #include <iostream>
 #include <thread>
+#include <memory>
 
 
 void BaseGameApplication::startSingleplayer()
@@ -51,5 +58,13 @@ void BaseGameApplication::startSingleplayer()
 
 void BaseGameApplication::startMultiplayer()
 {
+	boost::asio::io_context ioContext;
+	std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();
+	std::shared_ptr pInputHandler = std::make_shared<ConsoleInputHandler>();
 
+	ClientNetworkManager networkManager{ ioContext, pOutputHandler, pInputHandler };
+
+	networkManager.tryToConnectToServer(this->ipAddress, this->port);
+
+	networkManager.runLoop();
 }

@@ -20,6 +20,9 @@ protected:
 
 	int playerCount{};
 
+	int port{};
+	std::string ipAddress{};
+
 public:
 	
 	void startSingleplayer();
