@@ -13,5 +13,5 @@ public:
 	virtual void askForNickname() override;
 	virtual void askForIP() override;
 	virtual void askForPort() override;
-
+	virtual void askForBotsCount() override;
 };

@@ -154,12 +154,18 @@
     <ClCompile Include="src\BaseGameApplication.cpp" />
     <ClCompile Include="src\clientMain.cpp" />
     <ClCompile Include="src\ClientNetworkManager.cpp" />
+    <ClCompile Include="src\ConsoleMenuController.cpp" />
+    <ClCompile Include="src\ConsoleMenuView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h" />
     <ClInclude Include="include\BaseGameApplication.h" />
+    <ClInclude Include="include\ConsoleMenuController.h" />
+    <ClInclude Include="include\ConsoleMenuView.h" />
+    <ClInclude Include="include\IMenuController.h" />
     <ClInclude Include="include\IMenuView.h" />
     <ClInclude Include="include\IViewController.h" />
+    <ClInclude Include="include\MenuChoice.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerGameStaticLib\PokerGameStaticLib.vcxproj">

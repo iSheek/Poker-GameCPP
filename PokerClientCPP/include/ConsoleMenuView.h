@@ -9,4 +9,5 @@ public:
 	virtual void showNicknameInput() override;
 	virtual void showIPInput() override;
 	virtual void showPortInput() override;
+	virtual void showBotCountInput() override;
 };
