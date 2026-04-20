@@ -16,6 +16,8 @@ constexpr auto allChoiceTextsArray = std::array{startSingleplayerText, startMult
 // ANSI sequence to clear screen
 constexpr std::string_view ansiToClear{ "\x1B[2J\x1B[H" };
 
+constexpr int maxBotsCount{4};
+
 
 void ConsoleMenuView::showMenuChoices()
 {
@@ -38,19 +40,40 @@ void ConsoleMenuView::showMenuChoices()
 void ConsoleMenuView::showNicknameInput()
 {
 	std::cout << ansiToClear;
+
+	std::cout << "Enter your nickname:\n";
+
 }
 
 void ConsoleMenuView::showIPInput()
 {
 	std::cout << ansiToClear;
+
+	std::cout << "Enter IP address to connect to:\n";
 }
 
 void ConsoleMenuView::showPortInput()
 {
 	std::cout << ansiToClear;
+
+	std::cout << "Enter port to connect to:\n";
 }
 
 void ConsoleMenuView::showBotCountInput()
 {
 	std::cout << ansiToClear;
+
+	std::cout << "Enter the amount of bots to add: " << "(MAX: " << maxBotsCount << ")\n";
+}
+
+void ConsoleMenuView::showStartingChipsInput()
+{
+	std::cout << ansiToClear;
+
+	std::cout << "Enter the amount of chips that every player will start with: \n";
+}
+
+void ConsoleMenuView::showError(std::string_view error)
+{
+	std::cout << "ERROR: " << error << "\n";
 }

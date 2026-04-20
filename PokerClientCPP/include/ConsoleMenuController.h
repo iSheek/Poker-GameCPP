@@ -7,8 +7,9 @@
 class ConsoleMenuController : public IMenuController
 {
 private:
-	ConsoleMenuView view{};
+	ConsoleMenuView &view;
 public:
+	ConsoleMenuController(ConsoleMenuView& givenViewRef) : view(givenViewRef) {}
 	virtual void askForMenuChoice() override;
 	virtual void askForNickname() override;
 	virtual void askForIP() override;

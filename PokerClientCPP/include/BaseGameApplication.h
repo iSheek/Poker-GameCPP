@@ -7,7 +7,7 @@
 #include <memory>
 #include <thread>
 
-class BaseGameApplication
+class GameApplication
 {
 protected:
 	std::string playerName{};
@@ -27,7 +27,5 @@ public:
 	
 	void startSingleplayer();
 	void startMultiplayer();
-
-	virtual void run() = 0;
 
 };
