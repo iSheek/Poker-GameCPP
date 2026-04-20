@@ -1,13 +1,16 @@
 #include "ConsoleMenuController.h"
 #include "ConsoleMenuView.h"
 #include "MenuChoice.h"
+#include <algorithm>
+#include <string>
 #include <iostream>
 #include <limits>
 
 
 std::string_view wrongInputMessage{ "WRONG INPUT!" };
+std::string_view wrongNicknameMessage{ "WRONG NICKNAME, YOU CAN ONLY USE LETTERS!" };
 
-void ConsoleMenuController::askForMenuChoice()
+MenuChoice ConsoleMenuController::askForMenuChoice()
 {
 	int choice{-1};
 	
@@ -26,40 +29,56 @@ void ConsoleMenuController::askForMenuChoice()
 		}
 	}
 
-	MenuChoice chosenChoice{ static_cast<MenuChoice>(choice) };
-
-	switch (chosenChoice)
-	{
-	case MenuChoice::START_SINGLEPLAYER:
-		askForNickname();
-		break;
-	case MenuChoice::START_MULTIPLAYER:
-		break;
-	case MenuChoice::JOIN_MULTIPLAYER:
-		break;
-	case MenuChoice::EXIT:
-		break;
-	case MenuChoice::numberofchoices:
-		[[fallthrough]]
-	default:
-		break;
-	}
-
+	return static_cast<MenuChoice>(choice);
 	
 }
 
-void ConsoleMenuController::askForNickname()
+std::string ConsoleMenuController::askForNickname()
+{
+
+	bool showError{ false };
+	std::string givenNickname{};
+
+
+	while (true)
+	{
+		this->view.showNicknameInput();
+
+		if (showError) this->view.showError(wrongNicknameMessage);
+
+		std::cin >> givenNickname;
+		if (!std::cin)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.clear();
+			showError = true;
+			continue;
+		}
+
+		if (!givenNickname.empty() && std::all_of(givenNickname.begin(), givenNickname.end(), [](char c) {return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')); }))
+		{
+			break;
+		}
+
+	}
+
+}
+
+std::string ConsoleMenuController::askForIP()
+{
+
+
+
+}
+
+int ConsoleMenuController::askForPort()
 {
 }
 
-void ConsoleMenuController::askForIP()
+int ConsoleMenuController::askForBotsCount()
 {
 }
 
-void ConsoleMenuController::askForPort()
-{
-}
-
-void ConsoleMenuController::askForBotsCount()
+void ConsoleMenuController::run()
 {
 }

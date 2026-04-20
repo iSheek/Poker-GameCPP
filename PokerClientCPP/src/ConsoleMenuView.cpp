@@ -41,7 +41,7 @@ void ConsoleMenuView::showNicknameInput()
 {
 	std::cout << ansiToClear;
 
-	std::cout << "Enter your nickname:\n";
+	std::cout << "Enter your nickname: (only letters)\n";
 
 }
 
