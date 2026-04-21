@@ -21,7 +21,7 @@
     <ClCompile Include="src\ClientNetworkManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BaseGameApplication.cpp">
+    <ClCompile Include="src\GameApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ConsoleMenuView.cpp">

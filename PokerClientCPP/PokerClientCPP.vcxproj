@@ -151,7 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseGameApplication.cpp" />
+    <ClCompile Include="src\GameApplication.cpp" />
     <ClCompile Include="src\clientMain.cpp" />
     <ClCompile Include="src\ClientNetworkManager.cpp" />
     <ClCompile Include="src\ConsoleMenuController.cpp" />
