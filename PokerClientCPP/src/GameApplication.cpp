@@ -7,6 +7,7 @@
 #include "ConsoleOutputHandler.h"
 #include "ConsoleInputHandler.h"
 #include "ClientNetworkManager.h"
+#include "ServerManager.h"
 #include "boost/asio.hpp"
 #include <chrono>
 #include <iostream>
@@ -58,13 +59,35 @@ void GameApplication::startSingleplayer()
 
 void GameApplication::startMultiplayer()
 {
+
+	if (this->isHost)
+	{
+		pServerThread = std::make_unique<std::thread>([this]() 
+			{
+				try
+				{
+					ServerManager server(this->playerCount, this->ipAddress, this->port);
+					server.acceptPlayers();
+					server.startGame(this->startingChips);
+				}
+				catch (std::exception& e) {
+					std::cout << "ERROR: " << e.what() << "\n";
+				}
+			});
+	}
+
+
 	boost::asio::io_context ioContext;
 	std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();
 	std::shared_ptr pInputHandler = std::make_shared<ConsoleInputHandler>();
 
 	ClientNetworkManager networkManager{ ioContext, pOutputHandler, pInputHandler };
 
+	std::this_thread::sleep_for(std::chrono::milliseconds(500)); // wait to let the server turn on
+
 	networkManager.tryToConnectToServer(this->ipAddress, this->port);
 
 	networkManager.runLoop();
+
+	if(this->isHost) pServerThread->join();
 }

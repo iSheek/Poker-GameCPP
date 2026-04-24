@@ -98,7 +98,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,7 +114,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +128,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +144,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,17 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\NetworkInputHandler.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\NetworkOutputHandler.cpp" />
-    <ClCompile Include="src\ServerManager.cpp" />
     <ClCompile Include="tests\src\TesterCLI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\NetworkInputHandler.h" />
-    <ClInclude Include="include\NetworkOutputHandler.h" />
-    <ClInclude Include="include\PlayerNode.h" />
-    <ClInclude Include="include\ServerManager.h" />
     <ClInclude Include="tests\include\TesterCLI.h" />
   </ItemGroup>
   <ItemGroup>

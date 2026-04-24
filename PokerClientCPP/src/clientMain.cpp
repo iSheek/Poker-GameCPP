@@ -4,6 +4,10 @@
 #include "IInputHandler.h"
 #include "ConsoleInputHandler.h"
 #include "ConsoleOutputHandler.h"
+#include "ConsoleMenuView.h"
+#include "ConsoleMenuController.h"
+#include "GameSettings.h"
+#include "GameApplication.h"
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
 #include <iostream>
@@ -62,15 +66,40 @@ int main()
 	}
 	*/
 
-	boost::asio::io_context ioContext;
-	std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();
-	std::shared_ptr pInputHandler = std::make_shared<ConsoleInputHandler>();
+	//boost::asio::io_context ioContext;
+	//std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();
+	//std::shared_ptr pInputHandler = std::make_shared<ConsoleInputHandler>();
 
-	ClientNetworkManager gameManager{ ioContext, pOutputHandler, pInputHandler };
+	//ClientNetworkManager gameManager{ ioContext, pOutputHandler, pInputHandler };
 
-	gameManager.tryToConnectToServer("127.0.0.1", 1234);
+	//gameManager.tryToConnectToServer("127.0.0.1", 1234);
 
-	gameManager.runLoop();
+	//gameManager.runLoop();
+
+	ConsoleMenuView menuView;
+	ConsoleMenuController menuController(menuView);
+
+	try
+	{
+		GameSettings settings = menuController.runAndGetSettings();
+
+		GameApplication gameApp(settings);
+
+		if (settings.isMultiplayer)
+		{
+			gameApp.startMultiplayer();
+		}
+		else
+		{
+			gameApp.startSingleplayer();
+		}
+	}
+	catch (const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+
 
 	return 0;
 }

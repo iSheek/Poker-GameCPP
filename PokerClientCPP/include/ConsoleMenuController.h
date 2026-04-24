@@ -17,5 +17,6 @@ public:
 	virtual int askForPortToCreate() override;
 	virtual int askForBotsCount() override;
 	virtual int askForPlayerCount() override;
+	virtual int askForStartingChips() override;
 	virtual GameSettings runAndGetSettings() override;
 };

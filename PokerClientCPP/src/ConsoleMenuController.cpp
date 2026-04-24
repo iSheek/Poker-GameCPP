@@ -10,11 +10,11 @@
 
 constexpr std::string_view wrongInputMessage{ "WRONG INPUT!" };
 constexpr std::string_view wrongNicknameMessage{ "WRONG NICKNAME, YOU CAN ONLY USE LETTERS!" };
-
+constexpr std::string_view wrongChipInput{ "WRONG AMOUNT OF CHIPS, SMALLEST CHIP IS 10 AND STARTING CHIPS CAN'T BE SMALLER THAN 1000!" };
 constexpr int maxBots{ 4 };
-
 constexpr std::string_view wrongBotCountMessage{ "WRONG BOT COUNT, YOU CAN PUT MAX 4 BOTS" };
-
+constexpr std::string_view localhostAddress{ "127.0.0.1" };
+constexpr int smallestChip{ 10 };
 
 MenuChoice ConsoleMenuController::askForMenuChoice()
 {
@@ -22,7 +22,7 @@ MenuChoice ConsoleMenuController::askForMenuChoice()
 	
 	bool showError{ false };
 
-	while (choice < 0 || choice > static_cast<int>(MenuChoice::numberofchoices))
+	while (choice < 1 || choice > static_cast<int>(MenuChoice::numberofchoices))
 	{
 		this->view.showMenuChoices();
 		if (showError) this->view.showError(wrongInputMessage);
@@ -35,7 +35,7 @@ MenuChoice ConsoleMenuController::askForMenuChoice()
 		}
 	}
 
-	return static_cast<MenuChoice>(choice);
+	return static_cast<MenuChoice>(choice-1);
 	
 }
 
@@ -192,7 +192,7 @@ int ConsoleMenuController::askForPlayerCount()
 
 	while (true)
 	{
-		this->view.showBotCountInput();
+		this->view.showPlayerCountInput();
 		if (showError) this->view.showError(wrongBotCountMessage);
 
 		std::cin >> givenCount;
@@ -215,6 +215,36 @@ int ConsoleMenuController::askForPlayerCount()
 
 }
 
+int ConsoleMenuController::askForStartingChips()
+{
+	bool showError{ false };
+	int givenChips{};
+	while (true)
+	{
+		this->view.showStartingChipsInput();
+		if (showError) this->view.showError(wrongChipInput);
+
+		std::cin >> givenChips;
+
+		if (givenChips < 1000 || givenChips % smallestChip != 0)
+		{
+			showError = true;
+			continue;
+		}
+		if (!std::cin)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.clear();
+			showError = true;
+			continue;
+		}
+		else break;
+
+	}
+
+	return givenChips;
+}
+
 
 GameSettings ConsoleMenuController::runAndGetSettings()
 {
@@ -228,12 +258,16 @@ GameSettings ConsoleMenuController::runAndGetSettings()
 		gameSettings.isMultiplayer = false;
 		gameSettings.nickname = askForNickname();
 		gameSettings.playerCount = askForBotsCount();
+		gameSettings.startingChips = askForStartingChips();
 		break;
 	case MenuChoice::START_MULTIPLAYER:
 		gameSettings.isMultiplayer = true;
+		gameSettings.isHost = true;
 		gameSettings.nickname = askForNickname();
 		gameSettings.port = askForPortToCreate();
+		gameSettings.ipAddress = localhostAddress;
 		gameSettings.playerCount = askForPlayerCount();
+		gameSettings.startingChips = askForStartingChips();
 		break;
 	case MenuChoice::JOIN_MULTIPLAYER:
 		gameSettings.isMultiplayer = true;

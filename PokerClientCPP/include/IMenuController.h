@@ -14,5 +14,6 @@ public:
 	virtual int askForPortToCreate() = 0;
 	virtual int askForBotsCount() = 0;
 	virtual int askForPlayerCount() = 0;
+	virtual int askForStartingChips() = 0;
 	virtual GameSettings runAndGetSettings() = 0;
 };
