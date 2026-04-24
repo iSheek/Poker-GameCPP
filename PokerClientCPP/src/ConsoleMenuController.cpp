@@ -1,6 +1,7 @@
 #include "ConsoleMenuController.h"
 #include "ConsoleMenuView.h"
 #include "MenuChoice.h"
+#include "GameSettings.h"
 #include <algorithm>
 #include <string>
 #include <iostream>
@@ -97,14 +98,14 @@ std::string ConsoleMenuController::askForIP()
 	return givenIP;
 }
 
-int ConsoleMenuController::askForPort()
+int ConsoleMenuController::askForPortToConnect()
 {
 
 	bool showError{ false };
 	int givenPort{};
 	while (true)
 	{
-		this->view.showPortInput();
+		this->view.showPortConnectInput();
 		if (showError) this->view.showError(wrongInputMessage);
 
 		std::cin >> givenPort;
@@ -122,6 +123,31 @@ int ConsoleMenuController::askForPort()
 
 	return givenPort;
 
+}
+
+int ConsoleMenuController::askForPortToCreate()
+{
+	bool showError{ false };
+	int givenPort{};
+	while (true)
+	{
+		this->view.showPortCreateInput();
+		if (showError) this->view.showError(wrongInputMessage);
+
+		std::cin >> givenPort;
+
+		if (!std::cin)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.clear();
+			showError = true;
+			continue;
+		}
+		else break;
+
+	}
+
+	return givenPort;
 }
 
 int ConsoleMenuController::askForBotsCount()
@@ -157,27 +183,72 @@ int ConsoleMenuController::askForBotsCount()
 
 }
 
+int ConsoleMenuController::askForPlayerCount()
+{
 
-// TODO: FINISH THIS
-void ConsoleMenuController::run()
+	bool showError{ false };
+
+	int givenCount{};
+
+	while (true)
+	{
+		this->view.showBotCountInput();
+		if (showError) this->view.showError(wrongBotCountMessage);
+
+		std::cin >> givenCount;
+		if (!std::cin)
+		{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cin.clear();
+			showError = true;
+			continue;
+		}
+		else if (0 > givenCount || maxBots < givenCount)
+		{
+			showError = true;
+			continue;
+		}
+		else break;
+	}
+
+	return givenCount;
+
+}
+
+
+GameSettings ConsoleMenuController::runAndGetSettings()
 {
 	MenuChoice chosenOption{ askForMenuChoice() };
+
+	GameSettings gameSettings{};
 
 	switch (chosenOption)
 	{
 	case MenuChoice::START_SINGLEPLAYER:
+		gameSettings.isMultiplayer = false;
+		gameSettings.nickname = askForNickname();
+		gameSettings.playerCount = askForBotsCount();
 		break;
 	case MenuChoice::START_MULTIPLAYER:
+		gameSettings.isMultiplayer = true;
+		gameSettings.nickname = askForNickname();
+		gameSettings.port = askForPortToCreate();
+		gameSettings.playerCount = askForPlayerCount();
 		break;
 	case MenuChoice::JOIN_MULTIPLAYER:
-		break;
-	case MenuChoice::EXIT:
+		gameSettings.isMultiplayer = true;
+		gameSettings.nickname = askForNickname();
+		gameSettings.ipAddress = askForIP();
+		gameSettings.port = askForPortToConnect();
 		break;
 	case MenuChoice::numberofchoices:
+	case MenuChoice::EXIT:
+		throw std::exception("Program Ended"); // we throw exception so main will catch it and end the program and clean it properly
 		break;
 	default:
 		break;
 	}
 
+	return gameSettings;
 
 }

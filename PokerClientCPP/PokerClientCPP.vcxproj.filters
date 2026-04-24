@@ -35,7 +35,7 @@
     <ClInclude Include="include\ClientNetworkManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BaseGameApplication.h">
+    <ClInclude Include="include\GameApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\IMenuView.h">
@@ -54,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\MenuChoice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GameSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

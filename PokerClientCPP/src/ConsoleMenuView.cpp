@@ -52,11 +52,18 @@ void ConsoleMenuView::showIPInput()
 	std::cout << "Enter IP address to connect to:\n";
 }
 
-void ConsoleMenuView::showPortInput()
+void ConsoleMenuView::showPortConnectInput()
 {
 	std::cout << ansiToClear;
 
 	std::cout << "Enter port to connect to:\n";
+}
+
+void ConsoleMenuView::showPortCreateInput()
+{
+	std::cout << ansiToClear;
+
+	std::cout << "Enter port to your connection:\n";
 }
 
 void ConsoleMenuView::showBotCountInput()
@@ -64,6 +71,13 @@ void ConsoleMenuView::showBotCountInput()
 	std::cout << ansiToClear;
 
 	std::cout << "Enter the amount of bots to add: " << "(MAX: " << maxBotsCount << ")\n";
+}
+
+void ConsoleMenuView::showPlayerCountInput()
+{
+	std::cout << ansiToClear;
+
+	std::cout << "Enter the amount of players that will play (including you): " << "(MAX: " << maxBotsCount << ")\n";
 }
 
 void ConsoleMenuView::showStartingChipsInput()

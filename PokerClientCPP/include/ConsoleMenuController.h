@@ -13,7 +13,9 @@ public:
 	virtual MenuChoice askForMenuChoice() override;
 	virtual std::string askForNickname() override;
 	virtual std::string askForIP() override;
-	virtual int askForPort() override;
+	virtual int askForPortToConnect() override;
+	virtual int askForPortToCreate() override;
 	virtual int askForBotsCount() override;
-	virtual void run() override;
+	virtual int askForPlayerCount() override;
+	virtual GameSettings runAndGetSettings() override;
 };

@@ -159,9 +159,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h" />
-    <ClInclude Include="include\BaseGameApplication.h" />
+    <ClInclude Include="include\GameApplication.h" />
     <ClInclude Include="include\ConsoleMenuController.h" />
     <ClInclude Include="include\ConsoleMenuView.h" />
+    <ClInclude Include="include\GameSettings.h" />
     <ClInclude Include="include\IMenuController.h" />
     <ClInclude Include="include\IMenuView.h" />
     <ClInclude Include="include\IViewController.h" />

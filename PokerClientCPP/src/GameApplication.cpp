@@ -1,4 +1,4 @@
-#include "BaseGameApplication.h"
+#include "GameApplication.h"
 #include "TexasHoldemManager.h"
 #include "HumanPlayerLogic.h"
 #include "BotPlayerLogic.h"
@@ -14,7 +14,7 @@
 #include <memory>
 
 
-void BaseGameApplication::startSingleplayer()
+void GameApplication::startSingleplayer()
 {
 	TexasHoldemManager manager{ this->pOutput };
 
@@ -56,7 +56,7 @@ void BaseGameApplication::startSingleplayer()
 
 }
 
-void BaseGameApplication::startMultiplayer()
+void GameApplication::startMultiplayer()
 {
 	boost::asio::io_context ioContext;
 	std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();

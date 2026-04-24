@@ -2,6 +2,7 @@
 
 #include "IOutputHandler.h"
 #include "IInputHandler.h"
+#include "GameSettings.h"
 
 #include <string>
 #include <memory>
@@ -9,7 +10,7 @@
 
 class GameApplication
 {
-protected:
+private:
 	std::string playerName{};
 	std::shared_ptr<IOutputHandler> pOutput{};
 	std::shared_ptr<IInputHandler> pInput{};
@@ -24,6 +25,8 @@ protected:
 	std::string ipAddress{};
 
 public:
+	GameApplication() = default;
+	GameApplication(GameSettings gameSettings) : playerName(gameSettings.nickname), ipAddress(gameSettings.ipAddress), startingChips(gameSettings.startingChips), playerCount(gameSettings.playerCount), port(gameSettings.port) {}
 	
 	void startSingleplayer();
 	void startMultiplayer();
