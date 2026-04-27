@@ -79,26 +79,23 @@ int main()
 	ConsoleMenuView menuView;
 	ConsoleMenuController menuController(menuView);
 
-	try
-	{
-		GameSettings settings = menuController.runAndGetSettings();
-
-		GameApplication gameApp(settings);
-
-		if (settings.isMultiplayer)
-		{
-			gameApp.startMultiplayer();
-		}
-		else
-		{
-			gameApp.startSingleplayer();
-		}
-	}
-	catch (const std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
+	GameSettings settings = menuController.runAndGetSettings();
+	
+	if (settings == GameSettings{})
+	{	
+		return 0;
 	}
 
+	GameApplication gameApp(settings);
+
+	if (settings.isMultiplayer)
+	{
+		gameApp.startMultiplayer();
+	}
+	else
+	{
+		gameApp.startSingleplayer();
+	}
 
 
 	return 0;

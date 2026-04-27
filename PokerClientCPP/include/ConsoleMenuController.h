@@ -8,6 +8,10 @@ class ConsoleMenuController : public IMenuController
 {
 private:
 	ConsoleMenuView &view;
+
+	GameSettings configureStartSingleplayer();
+	GameSettings configureStartMultiplayer();
+	GameSettings configureJoinMultiplayer();
 public:
 	ConsoleMenuController(ConsoleMenuView& givenViewRef) : view(givenViewRef) {}
 	virtual MenuChoice askForMenuChoice() override;

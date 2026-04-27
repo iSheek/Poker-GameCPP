@@ -16,6 +16,7 @@ constexpr std::string_view wrongBotCountMessage{ "WRONG BOT COUNT, YOU CAN PUT M
 constexpr std::string_view localhostAddress{ "127.0.0.1" };
 constexpr int smallestChip{ 10 };
 
+
 MenuChoice ConsoleMenuController::askForMenuChoice()
 {
 	int choice{-1};
@@ -59,6 +60,11 @@ std::string ConsoleMenuController::askForNickname()
 			std::cin.clear();
 			showError = true;
 			continue;
+		}
+
+		if (givenNickname == "0")
+		{
+			break;
 		}
 
 		if (!givenNickname.empty() && std::all_of(givenNickname.begin(), givenNickname.end(), [](char c) {return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')); }))
@@ -170,6 +176,7 @@ int ConsoleMenuController::askForBotsCount()
 			showError = true;
 			continue;
 		}
+		if (givenCount == 0) break;
 		else if (0 > givenCount || maxBots < givenCount)
 		{
 			showError = true;
@@ -203,6 +210,7 @@ int ConsoleMenuController::askForPlayerCount()
 			showError = true;
 			continue;
 		}
+		if (givenCount == 0) break;
 		else if (0 > givenCount || maxBots < givenCount)
 		{
 			showError = true;
@@ -226,11 +234,6 @@ int ConsoleMenuController::askForStartingChips()
 
 		std::cin >> givenChips;
 
-		if (givenChips < 1000 || givenChips % smallestChip != 0)
-		{
-			showError = true;
-			continue;
-		}
 		if (!std::cin)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -238,6 +241,13 @@ int ConsoleMenuController::askForStartingChips()
 			showError = true;
 			continue;
 		}
+		if (givenChips == 0) break;
+		if (givenChips < 1000 || givenChips % smallestChip != 0)
+		{
+			showError = true;
+			continue;
+		}
+
 		else break;
 
 	}
@@ -255,29 +265,17 @@ GameSettings ConsoleMenuController::runAndGetSettings()
 	switch (chosenOption)
 	{
 	case MenuChoice::START_SINGLEPLAYER:
-		gameSettings.isMultiplayer = false;
-		gameSettings.nickname = askForNickname();
-		gameSettings.playerCount = askForBotsCount();
-		gameSettings.startingChips = askForStartingChips();
+		gameSettings = configureStartSingleplayer();
 		break;
 	case MenuChoice::START_MULTIPLAYER:
-		gameSettings.isMultiplayer = true;
-		gameSettings.isHost = true;
-		gameSettings.nickname = askForNickname();
-		gameSettings.port = askForPortToCreate();
-		gameSettings.ipAddress = localhostAddress;
-		gameSettings.playerCount = askForPlayerCount();
-		gameSettings.startingChips = askForStartingChips();
+		gameSettings = configureStartMultiplayer();
 		break;
 	case MenuChoice::JOIN_MULTIPLAYER:
-		gameSettings.isMultiplayer = true;
-		gameSettings.nickname = askForNickname();
-		gameSettings.ipAddress = askForIP();
-		gameSettings.port = askForPortToConnect();
+		gameSettings = configureJoinMultiplayer();
 		break;
 	case MenuChoice::numberofchoices:
 	case MenuChoice::EXIT:
-		throw std::exception("Program Ended"); // we throw exception so main will catch it and end the program and clean it properly
+		gameSettings = GameSettings{};
 		break;
 	default:
 		break;
@@ -285,4 +283,118 @@ GameSettings ConsoleMenuController::runAndGetSettings()
 
 	return gameSettings;
 
+}
+
+
+GameSettings ConsoleMenuController::configureStartSingleplayer()
+{
+	GameSettings settingsToReturn{};
+
+	settingsToReturn.isMultiplayer = false;
+
+	int step{ 1 };
+	while (step > 0 && step < 4)
+	{
+		switch (step)
+		{
+		case 1:
+			settingsToReturn.nickname = askForNickname();
+			if (settingsToReturn.nickname == "0") --step;
+			else ++step;
+			break;
+		case 2:
+			settingsToReturn.playerCount = askForBotsCount();
+			if (settingsToReturn.playerCount == 0) --step;
+			else ++step;
+			break;
+		case 3:
+			settingsToReturn.startingChips = askForStartingChips();
+			if (settingsToReturn.startingChips == 0) --step;
+			else ++step;
+			break;
+		default:
+			break;
+		}
+	}
+	if (step >= 0) return GameSettings{};
+
+	return settingsToReturn;
+
+}
+
+GameSettings ConsoleMenuController::configureStartMultiplayer()
+{
+	GameSettings settingsToReturn{};
+
+	settingsToReturn.isMultiplayer = true;
+	settingsToReturn.isHost = true;
+	settingsToReturn.ipAddress = localhostAddress;
+
+	int step{ 1 };
+	while (step > 0 && step < 5)
+	{
+		switch (step)
+		{
+		case 1:
+			settingsToReturn.nickname = askForNickname();
+			if (settingsToReturn.nickname == "0") --step;
+			else ++step;
+			break;
+		case 2:
+			settingsToReturn.port = askForPortToCreate();
+			if (settingsToReturn.port == 0) --step;
+			else ++step;
+			break;
+		case 3:
+			settingsToReturn.playerCount = askForPlayerCount();
+			if (settingsToReturn.playerCount == 0) --step;
+			else ++step;
+			break;
+		case 4:
+			settingsToReturn.startingChips = askForStartingChips();
+			if (settingsToReturn.startingChips == 0) --step;
+			else ++step;
+			break;
+		default:
+			break;
+		}
+	}
+	if (step >= 0) return GameSettings{};
+
+	return settingsToReturn;
+}
+
+GameSettings ConsoleMenuController::configureJoinMultiplayer()
+{
+	GameSettings settingsToReturn{};
+
+	settingsToReturn.isMultiplayer = true;
+
+	int step{ 1 };
+	while (step > 0 && step < 4)
+	{
+		switch (step)
+		{
+		case 1:
+			settingsToReturn.nickname = askForNickname();
+			if (settingsToReturn.nickname == "0") --step;
+			else ++step;
+			break;
+		case 2:
+			settingsToReturn.ipAddress = askForIP();
+			if (settingsToReturn.ipAddress == "0") --step;
+			else ++step;
+			break;
+		case 3:
+			settingsToReturn.port = askForPortToConnect();
+			if (settingsToReturn.port == 0) --step;
+			else ++step;
+			break;
+		default:
+			break;
+		}
+	}
+	if (step >= 0) return GameSettings{};
+
+	return settingsToReturn;
 }
