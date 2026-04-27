@@ -79,11 +79,20 @@ int main()
 	ConsoleMenuView menuView;
 	ConsoleMenuController menuController(menuView);
 
-	GameSettings settings = menuController.runAndGetSettings();
+	GameSettings settings{};
 	
-	if (settings == GameSettings{})
-	{	
-		return 0;
+	while (true)
+	{
+		settings = menuController.runAndGetSettings();
+		if (settings == GameSettings{ .port = -1 })
+		{
+			return 0;
+		}
+		else if (settings == GameSettings{})
+		{
+			continue;
+		}
+		else break;
 	}
 
 	GameApplication gameApp(settings);

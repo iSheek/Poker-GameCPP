@@ -32,8 +32,8 @@ MenuChoice ConsoleMenuController::askForMenuChoice()
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
 		}
+		showError = true;
 	}
 
 	return static_cast<MenuChoice>(choice-1);
@@ -54,11 +54,12 @@ std::string ConsoleMenuController::askForNickname()
 		if (showError) this->view.showError(wrongNicknameMessage);
 
 		std::cin >> givenNickname;
+
+		showError = true;
 		if (!std::cin)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
 			continue;
 		}
 
@@ -88,14 +89,13 @@ std::string ConsoleMenuController::askForIP()
 	{
 		this->view.showIPInput();
 		if (showError) this->view.showError(wrongInputMessage);
-
+		showError = true;
 		std::cin >> givenIP;
 
 		if (!std::cin)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
 			continue;
 		}
 		else break;
@@ -113,14 +113,13 @@ int ConsoleMenuController::askForPortToConnect()
 	{
 		this->view.showPortConnectInput();
 		if (showError) this->view.showError(wrongInputMessage);
-
+		showError = true;
 		std::cin >> givenPort;
 
 		if (!std::cin)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
 			continue;
 		}
 		else break;
@@ -139,6 +138,7 @@ int ConsoleMenuController::askForPortToCreate()
 	{
 		this->view.showPortCreateInput();
 		if (showError) this->view.showError(wrongInputMessage);
+		showError = true;
 
 		std::cin >> givenPort;
 
@@ -146,7 +146,7 @@ int ConsoleMenuController::askForPortToCreate()
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
+			
 			continue;
 		}
 		else break;
@@ -167,19 +167,19 @@ int ConsoleMenuController::askForBotsCount()
 	{
 		this->view.showBotCountInput();
 		if (showError) this->view.showError(wrongBotCountMessage);
+		showError = true;
 
 		std::cin >> givenCount;
 		if (!std::cin)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
+			
 			continue;
 		}
 		if (givenCount == 0) break;
 		else if (0 > givenCount || maxBots < givenCount)
 		{
-			showError = true;
 			continue;
 		}
 		else break;
@@ -201,19 +201,19 @@ int ConsoleMenuController::askForPlayerCount()
 	{
 		this->view.showPlayerCountInput();
 		if (showError) this->view.showError(wrongBotCountMessage);
+		showError = true;
 
 		std::cin >> givenCount;
 		if (!std::cin)
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
+			
 			continue;
 		}
 		if (givenCount == 0) break;
 		else if (0 > givenCount || maxBots < givenCount)
 		{
-			showError = true;
 			continue;
 		}
 		else break;
@@ -231,6 +231,7 @@ int ConsoleMenuController::askForStartingChips()
 	{
 		this->view.showStartingChipsInput();
 		if (showError) this->view.showError(wrongChipInput);
+		showError = true;
 
 		std::cin >> givenChips;
 
@@ -238,13 +239,12 @@ int ConsoleMenuController::askForStartingChips()
 		{
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::cin.clear();
-			showError = true;
+			
 			continue;
 		}
 		if (givenChips == 0) break;
 		if (givenChips < 1000 || givenChips % smallestChip != 0)
 		{
-			showError = true;
 			continue;
 		}
 
@@ -276,6 +276,7 @@ GameSettings ConsoleMenuController::runAndGetSettings()
 	case MenuChoice::numberofchoices:
 	case MenuChoice::EXIT:
 		gameSettings = GameSettings{};
+		gameSettings.port = -1; // something to show that we actually exit instead of go back to menu
 		break;
 	default:
 		break;
