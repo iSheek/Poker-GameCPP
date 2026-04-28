@@ -21,7 +21,7 @@ enum class PokerHand
 struct HandScore
 {
 	PokerHand hand{ PokerHand::HIGH_CARD };
-	std::vector<Card> usedCardsInHand;
+	std::vector<Card> usedCardsInHand{};
 
 	int getCardStrength(CardRank rank) const;
 	bool operator>(const HandScore& other) const;

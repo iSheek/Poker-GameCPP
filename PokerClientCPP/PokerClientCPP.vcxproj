@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -59,19 +59,18 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
+    <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
+    <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
+    <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="ThirdPartyLibs.props" />
     <Import Project="..\ThirdPartyLibs.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -98,7 +97,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -114,7 +113,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,7 +127,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,7 +143,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)PokerGameStaticLib\include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(SolutionDir)PokerGameStaticLib\include;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -152,16 +151,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameApplication.cpp" />
     <ClCompile Include="src\clientMain.cpp" />
     <ClCompile Include="src\ClientNetworkManager.cpp" />
+    <ClCompile Include="src\ConsoleMenuController.cpp" />
+    <ClCompile Include="src\ConsoleMenuView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ClientNetworkManager.h" />
+    <ClInclude Include="include\GameApplication.h" />
+    <ClInclude Include="include\ConsoleMenuController.h" />
+    <ClInclude Include="include\ConsoleMenuView.h" />
+    <ClInclude Include="include\GameSettings.h" />
+    <ClInclude Include="include\IMenuController.h" />
+    <ClInclude Include="include\IMenuView.h" />
+    <ClInclude Include="include\IViewController.h" />
+    <ClInclude Include="include\MenuChoice.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerGameStaticLib\PokerGameStaticLib.vcxproj">
       <Project>{ec5fa61a-8590-43bb-9a4c-5d8868fc8352}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="data\bot_names.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,16 +1,16 @@
 #include "PlayerLogicParent.h"
 #include <cstdint>
 
-void PlayerLogicParent::addChips(unsigned int chipsToAdd)
+void PlayerLogicParent::addChips(int chipsToAdd)
 {
-	if (UINT32_MAX - this->playersChips < chipsToAdd)
+	if (INT32_MAX - this->playersChips < chipsToAdd)
 	{
-		this->playersChips = UINT32_MAX;
+		this->playersChips = INT32_MAX;
 	}
 	else this->playersChips += chipsToAdd;
 }
 
-void PlayerLogicParent::removeChips(unsigned int chipsToRemove)
+void PlayerLogicParent::removeChips(int chipsToRemove)
 {
 	if (chipsToRemove > this->playersChips)
 	{
@@ -30,7 +30,7 @@ void PlayerLogicParent::resetChips()
 	this->playersChips = 0;
 }
 
-void PlayerLogicParent::resetPlayer(unsigned int startingChips)
+void PlayerLogicParent::resetPlayer(int startingChips)
 {
 	resetCards();
 	resetChips();

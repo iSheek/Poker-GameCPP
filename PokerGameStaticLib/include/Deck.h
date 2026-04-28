@@ -8,8 +8,8 @@
 class Deck
 {
 private:
-	std::vector<Card> deck;
-	DeckType deckType;
+	std::vector<Card> deck{};
+	DeckType deckType{};
 
 	void addCards(int rankLimit);
 public:
@@ -19,5 +19,5 @@ public:
 	void shuffleDeck();
 	Card drawCard();
 	std::vector<Card> getDeck() const;
-	unsigned int getCardsLeft() const;
+	int getCardsLeft() const;
 };

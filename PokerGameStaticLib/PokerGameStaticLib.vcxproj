@@ -29,6 +29,9 @@
     <ClCompile Include="src\HandScore.cpp" />
     <ClCompile Include="src\HumanPlayerLogic.cpp" />
     <ClCompile Include="src\PlayerLogicParent.cpp" />
+    <ClCompile Include="src\server\NetworkInputHandler.cpp" />
+    <ClCompile Include="src\server\NetworkOutputHandler.cpp" />
+    <ClCompile Include="src\server\ServerManager.cpp" />
     <ClCompile Include="src\TexasHoldemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,10 @@
     <ClInclude Include="include\PlayerLogicParent.h" />
     <ClInclude Include="include\PlayerState.h" />
     <ClInclude Include="include\PublicPlayerInfo.h" />
+    <ClInclude Include="include\server\NetworkInputHandler.h" />
+    <ClInclude Include="include\server\NetworkOutputHandler.h" />
+    <ClInclude Include="include\server\PlayerNode.h" />
+    <ClInclude Include="include\server\ServerManager.h" />
     <ClInclude Include="include\TableState.h" />
     <ClInclude Include="include\TexasHoldemManager.h" />
   </ItemGroup>
@@ -135,7 +142,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -154,7 +161,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -171,7 +178,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -190,7 +197,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

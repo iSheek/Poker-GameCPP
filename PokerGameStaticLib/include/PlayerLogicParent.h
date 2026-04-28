@@ -10,15 +10,15 @@
 class PlayerLogicParent
 {
 private:
-	std::array<Card, 2> playersCards;
-	unsigned int playersChips;
-	bool hasFolded;
-	unsigned int currentBet;
-	unsigned int totalBet;
+	std::array<Card, 2> playersCards{};
+	int playersChips{};
+	bool hasFolded{};
+	int currentBet{};
+	int totalBet{};
 
-	std::string playerName;
+	std::string playerName{};
 protected:
-	PlayerLogicParent(unsigned int startingChips)
+	PlayerLogicParent(int startingChips)
 	{
 		resetPlayer(startingChips);
 	}
@@ -31,16 +31,16 @@ public:
 
 	void setCards(const Card& firstCard, const Card& secondCard);
 
-	void setChips(unsigned int playersChips)
+	void setChips(int playersChips)
 	{
 		this->playersChips = playersChips;
 	}
 
-	void addChips(unsigned int chipsToAdd);
+	void addChips(int chipsToAdd);
 	
-	void removeChips(unsigned int chipsToRemove);
+	void removeChips(int chipsToRemove);
 
-	unsigned int getChips() const
+	int getChips() const
 	{
 		return this->playersChips;
 	}
@@ -69,22 +69,22 @@ public:
 		this->hasFolded = false;
 	}
 
-	void setCurrentBet(unsigned int bet)
+	void setCurrentBet(int bet)
 	{
 		this->currentBet = bet;
 	}
 
-	unsigned int getCurrentBet() const
+	int getCurrentBet() const
 	{
 		return this->currentBet;
 	}
 
-	void addToCurrentBet(unsigned int amountToAdd)
+	void addToCurrentBet(int amountToAdd)
 	{
 		this->currentBet += amountToAdd;
 	}
 
-	void resetPlayer(unsigned int startingChips);
+	void resetPlayer(int startingChips);
 
 	void resetForNewRound();
 
@@ -98,17 +98,17 @@ public:
 		if (!newName.empty()) this->playerName = newName;
 	}
 
-	unsigned int getTotalBet() const
+	int getTotalBet() const
 	{
 		return this->totalBet;
 	}
 
-	void setTotalBet(unsigned int newTotalBet)
+	void setTotalBet(int newTotalBet)
 	{
 		this->totalBet = newTotalBet;
 	}
 
-	void addToTotalBet(unsigned int amountToAdd)
+	void addToTotalBet(int amountToAdd)
 	{
 		this->totalBet += amountToAdd;
 	}

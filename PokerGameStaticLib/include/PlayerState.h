@@ -6,8 +6,8 @@
 
 struct PlayerState
 {
-	std::array<Card, 2> playersCards;
-	unsigned int currentChips = 0;
+	std::array<Card, 2> playersCards{};
+	int currentChips{};
 };
 
 NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(PlayerState, playersCards, currentChips)

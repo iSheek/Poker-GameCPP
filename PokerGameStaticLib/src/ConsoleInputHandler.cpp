@@ -4,9 +4,9 @@
 #include <iostream>
 #include "ConsoleCONSTANS.h"
 
-unsigned int ConsoleInputHandler::askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips, int xPlacement, int yPlacement)
+int ConsoleInputHandler::askForValueToRaise(int currentHighestBet, int playersCurrentChips, int xPlacement, int yPlacement)
 {
-	unsigned int valueToRaise = 0;
+	int valueToRaise = 0;
 
 	bool validRaise = false;
 

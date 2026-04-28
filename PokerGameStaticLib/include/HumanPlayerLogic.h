@@ -7,11 +7,11 @@
 class HumanPlayerLogic : public PlayerLogicParent
 {
 private:
-	std::shared_ptr<IInputHandler> pInputHandler;
+	std::shared_ptr<IInputHandler> pInputHandler{};
 	
 public:
-	HumanPlayerLogic(unsigned int startingChips);
-	HumanPlayerLogic(unsigned int startingChips, std::shared_ptr<IInputHandler> inputHandlerPointer);
+	HumanPlayerLogic(int startingChips);
+	HumanPlayerLogic(int startingChips, std::shared_ptr<IInputHandler> inputHandlerPointer);
 
 	PlayerAction makeDecision(const TableState& state) override;
 

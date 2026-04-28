@@ -11,7 +11,7 @@
 class NetworkOutputHandler : public IOutputHandler
 {
 private:
-	const std::vector<PlayerNode>& playersNodesRef;
+	const std::vector<PlayerNode>& playersNodesRef{};
 
 	void sendStringToAllSockets(std::string_view serializedData);
 
@@ -20,8 +20,8 @@ public:
 		playersNodesRef(players) {}
 
 	void onCommunityCardDealt(const Card& card) override;
-	void onPlayerAction(std::string_view playerName, const PlayerAction& action) override;
-	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const unsigned int& pot) override;
+	void onPlayerAction(const std::string& playerName, const PlayerAction& action) override;
+	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot) override;
 	void renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo) override;
 	~NetworkOutputHandler() = default;
 };

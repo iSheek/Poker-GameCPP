@@ -16,17 +16,17 @@ class ServerManager
 {
 private:
 	TexasHoldemManager manager;
-	std::vector<PlayerNode> playerNodes;
-	unsigned int playerCount;
+	std::vector<PlayerNode> playerNodes{};
+	int playerCount{};
 
 
-	std::string ipAddress;
-	unsigned int port;
+	std::string ipAddress{};
+	int port{};
 
 	boost::asio::io_context io_context;
 	boost::asio::ip::tcp::acceptor acceptor;
 public:
-	ServerManager(unsigned int playerCount, std::string ipAddress, unsigned int port) :
+	ServerManager(int playerCount, std::string ipAddress, int port) :
 		playerCount(playerCount),
 		ipAddress(ipAddress),
 		port(port),
@@ -35,6 +35,6 @@ public:
 
 	void acceptPlayers();
 
-	void startGame(unsigned int startingChips);
+	void startGame(int startingChips);
 
 };

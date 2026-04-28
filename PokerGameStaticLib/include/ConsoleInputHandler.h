@@ -11,8 +11,8 @@
 class ConsoleInputHandler : public IInputHandler
 {
 private:
-	unsigned int askForValueToRaise(unsigned int currentHighestBet, unsigned int playersCurrentChips, int xPlacement, int yPlacement);
-	std::vector<std::vector<std::string>> playersCardsGraphics;
+	int askForValueToRaise(int currentHighestBet, int playersCurrentChips, int xPlacement, int yPlacement);
+	std::vector<std::vector<std::string>> playersCardsGraphics{};
 
 public:
 	PlayerAction requestAction(const TableState& tableState, const PlayerState& playerState) override;

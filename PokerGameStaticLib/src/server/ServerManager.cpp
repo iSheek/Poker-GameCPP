@@ -56,7 +56,7 @@ void ServerManager::acceptPlayers()
 
 }
 
-void ServerManager::startGame(unsigned int startingChips)
+void ServerManager::startGame(int startingChips)
 {
 	auto pOutputHandler = std::make_shared<NetworkOutputHandler>(this->playerNodes);
 

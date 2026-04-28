@@ -5,11 +5,11 @@
 
 struct TableState
 {
-	unsigned int amountToCall = 0;
-	unsigned int currentHighestBet = 0;
-	unsigned long currentPot = 0;
-	std::vector<Card> communityCards;
-	unsigned int highestBetInHistory = 0;
+	int amountToCall{};
+	int currentHighestBet{};
+	long currentPot{};
+	std::vector<Card> communityCards{};
+	int highestBetInHistory{};
 
 	void resetForNewRound()
 	{

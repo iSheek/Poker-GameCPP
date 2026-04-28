@@ -7,16 +7,16 @@
 class BotPlayerLogic : public PlayerLogicParent
 {
 private:
-	int aggressiveLevel;
+	int aggressiveLevel{};
 
-	std::random_device rd;
-	std::mt19937 gen;
+	std::random_device rd{};
+	std::mt19937 gen{};
 
 	std::string getRandomNameFromFile();
 
 public:
-	BotPlayerLogic(unsigned int startingChips);
-	BotPlayerLogic(unsigned int startingChips, int aggressiveLevel);
+	BotPlayerLogic(int startingChips);
+	BotPlayerLogic(int startingChips, int aggressiveLevel);
 
 	PlayerAction makeDecision(const TableState& state) override;
 

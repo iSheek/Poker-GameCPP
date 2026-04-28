@@ -28,7 +28,7 @@ void NetworkOutputHandler::onCommunityCardDealt(const Card& card)
 	sendStringToAllSockets(serializedData);
 }
 
-void NetworkOutputHandler::onPlayerAction(std::string_view playerName, const PlayerAction& action)
+void NetworkOutputHandler::onPlayerAction(const std::string& playerName, const PlayerAction& action)
 {
 	json jSend{};
 
@@ -40,7 +40,7 @@ void NetworkOutputHandler::onPlayerAction(std::string_view playerName, const Pla
 	sendStringToAllSockets(serializedData);
 }
 
-void NetworkOutputHandler::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const unsigned int& pot)
+void NetworkOutputHandler::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot)
 {
 	json jSend{};
 

@@ -14,7 +14,7 @@ constexpr int smallestChip = 10;
 
 constexpr auto BOT_NAMES_FILE = "bot_names.txt";
 
-BotPlayerLogic::BotPlayerLogic(unsigned int startingChips) : PlayerLogicParent(startingChips), gen(rd())
+BotPlayerLogic::BotPlayerLogic(int startingChips) : PlayerLogicParent(startingChips), gen(rd())
 {
 	std::uniform_int_distribution<> dist(1, 10);
 	this->aggressiveLevel = dist(gen);
@@ -22,7 +22,7 @@ BotPlayerLogic::BotPlayerLogic(unsigned int startingChips) : PlayerLogicParent(s
     this->setPlayerName(getRandomNameFromFile()); 
 }
 
-BotPlayerLogic::BotPlayerLogic(unsigned int startingChips, int aggressiveLevel) : PlayerLogicParent(startingChips), gen(rd())
+BotPlayerLogic::BotPlayerLogic(int startingChips, int aggressiveLevel) : PlayerLogicParent(startingChips), gen(rd())
 {
 	if (aggressiveLevel > 0 && aggressiveLevel < 11)
 	{
@@ -99,7 +99,7 @@ PlayerAction BotPlayerLogic::makeDecision(const TableState& state)
     int rng = dist(gen);
 
 
-    unsigned int targetRaise = 0;
+    int targetRaise = 0;
 
     if (state.currentHighestBet == 0)
     {
@@ -116,7 +116,7 @@ PlayerAction BotPlayerLogic::makeDecision(const TableState& state)
     targetRaise += distRandomBoost(gen) * smallestChip;
     targetRaise = (targetRaise / smallestChip) * smallestChip;
 
-    unsigned int minRaise = state.currentHighestBet + (2 * smallestChip);
+    int minRaise = state.currentHighestBet + (2 * smallestChip);
     if (targetRaise < minRaise) targetRaise = minRaise;
 
     PlayerAction toReturn;
