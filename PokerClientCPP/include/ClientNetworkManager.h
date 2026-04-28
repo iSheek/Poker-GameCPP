@@ -49,7 +49,7 @@ public:
 
 	void runLoop();
 
-	void tryToConnectToServer(std::string_view ipAddress, const int& port);
+	void tryToConnectToServer(std::string_view ipAddress, const int& port, std::string_view nickname);
 
 	
 

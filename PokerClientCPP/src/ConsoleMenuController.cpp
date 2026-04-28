@@ -11,8 +11,8 @@
 constexpr std::string_view wrongInputMessage{ "WRONG INPUT!" };
 constexpr std::string_view wrongNicknameMessage{ "WRONG NICKNAME, YOU CAN ONLY USE LETTERS!" };
 constexpr std::string_view wrongChipInput{ "WRONG AMOUNT OF CHIPS, SMALLEST CHIP IS 10 AND STARTING CHIPS CAN'T BE SMALLER THAN 1000!" };
-constexpr int maxBots{ 4 };
-constexpr std::string_view wrongBotCountMessage{ "WRONG BOT COUNT, YOU CAN PUT MAX 4 BOTS" };
+constexpr int maxBots{ 3 };
+constexpr std::string_view wrongBotCountMessage{ "WRONG BOT COUNT, YOU CAN PUT MAX 3 BOTS" };
 constexpr std::string_view localhostAddress{ "127.0.0.1" };
 constexpr int smallestChip{ 10 };
 
@@ -306,7 +306,11 @@ GameSettings ConsoleMenuController::configureStartSingleplayer()
 		case 2:
 			settingsToReturn.playerCount = askForBotsCount();
 			if (settingsToReturn.playerCount == 0) --step;
-			else ++step;
+			else
+			{
+				++step;
+				++settingsToReturn.playerCount;
+			}
 			break;
 		case 3:
 			settingsToReturn.startingChips = askForStartingChips();
@@ -317,7 +321,7 @@ GameSettings ConsoleMenuController::configureStartSingleplayer()
 			break;
 		}
 	}
-	if (step >= 0) return GameSettings{};
+	if (step <= 0) return GameSettings{};
 
 	return settingsToReturn;
 
@@ -360,7 +364,7 @@ GameSettings ConsoleMenuController::configureStartMultiplayer()
 			break;
 		}
 	}
-	if (step >= 0) return GameSettings{};
+	if (step <= 0) return GameSettings{};
 
 	return settingsToReturn;
 }
@@ -395,7 +399,7 @@ GameSettings ConsoleMenuController::configureJoinMultiplayer()
 			break;
 		}
 	}
-	if (step >= 0) return GameSettings{};
+	if (step <= 0) return GameSettings{};
 
 	return settingsToReturn;
 }

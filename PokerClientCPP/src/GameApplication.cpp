@@ -85,7 +85,7 @@ void GameApplication::startMultiplayer()
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(500)); // wait to let the server turn on
 
-	networkManager.tryToConnectToServer(this->ipAddress, this->port);
+	networkManager.tryToConnectToServer(this->ipAddress, this->port, this->playerName);
 
 	networkManager.runLoop();
 

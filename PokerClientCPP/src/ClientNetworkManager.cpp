@@ -118,7 +118,6 @@ void ClientNetworkManager::runLoop()
 
 			NetworkCommand methodName = jReceived["method"].get<NetworkCommand>();
 
-			// TODO: finish cases handlers
 			switch (methodName)
 			{
 			case NetworkCommand::RENDER_TABLE:
@@ -150,7 +149,7 @@ void ClientNetworkManager::runLoop()
 	}
 }
 
-void ClientNetworkManager::tryToConnectToServer(std::string_view ipAddress, const int& port)
+void ClientNetworkManager::tryToConnectToServer(std::string_view ipAddress, const int& port, std::string_view nickname)
 {
 	boost::system::error_code error;
 
@@ -166,7 +165,7 @@ void ClientNetworkManager::tryToConnectToServer(std::string_view ipAddress, cons
 		this->isConnected = true;
 		
 		PublicPlayerInfo playerInfo;
-		playerInfo.name = "TEST";
+		playerInfo.name = nickname;
 		try
 		{
 			nlohmann::json jSend;
