@@ -6,6 +6,10 @@
 #include "Cards.h"
 #include <array>
 
+// TODO: CHANGE INPUT AND OUTPUT HANDLERS INTO PROPER MVC
+
+
+
 class IInputHandler
 {
 public:

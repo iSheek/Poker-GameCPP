@@ -1,3 +1,7 @@
+/**
+ * @file ClientNetworkManager.cpp
+ * @brief File containing definition for ClientNetworkManager's methods
+ */
 
 #include "ClientNetworkManager.h"
 #include "IInputHandler.h"
