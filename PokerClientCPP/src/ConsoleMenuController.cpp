@@ -1,3 +1,9 @@
+/**
+ * @file ConsoleMenuController.cpp
+ * @brief File containing definition for ConsoleMenuController's methods
+ */
+
+
 #include "ConsoleMenuController.h"
 #include "ConsoleMenuView.h"
 #include "MenuChoice.h"

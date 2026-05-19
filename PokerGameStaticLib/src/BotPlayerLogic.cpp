@@ -1,3 +1,7 @@
+/**
+ * @file BotPlayerLogic.cpp
+ * @brief File containing definition of BotPlayerLogic methods
+ */
 
 #include "BotPlayerLogic.h"
 #include <random>

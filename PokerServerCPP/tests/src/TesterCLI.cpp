@@ -1,3 +1,7 @@
+/**
+ * @file TesterCLI.cpp
+ * @brief File containing definition of TesterCLI methods
+ */
 #include <iostream>
 #include <string>
 #include <vector>

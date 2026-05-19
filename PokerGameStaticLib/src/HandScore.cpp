@@ -1,3 +1,7 @@
+/**
+ * @file HandScore.cpp
+ * @brief File containing definition of HandScore methods
+ */
 #include "HandScore.h"
 #include "Cards.h"
 

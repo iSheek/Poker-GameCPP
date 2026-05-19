@@ -1,3 +1,7 @@
+/**
+ * @file Deck.cpp
+ * @brief File containing definition of Deck methods
+ */
 #include <vector>
 #include <random>
 

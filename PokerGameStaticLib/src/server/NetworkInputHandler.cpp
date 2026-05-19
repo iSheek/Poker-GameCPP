@@ -1,3 +1,7 @@
+/**
+ * @file NetworkInputHandler.cpp
+ * @brief File containing definition of NetworkInputHandler methods
+ */
 #include "NetworkInputHandler.h"
 #include "NetworkCommands.h"
 #include <boost/asio.hpp>

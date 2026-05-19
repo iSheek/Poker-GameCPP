@@ -1,3 +1,7 @@
+/**
+ * @file TesterCLI.h
+ * @brief File containing declaration of TesterCLI class
+ */
 #pragma once
 
 #include <iostream>

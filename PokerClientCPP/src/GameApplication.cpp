@@ -1,3 +1,9 @@
+/**
+ * @file GameApplication.cpp
+ * @brief File containing definition for GameApplication's methods
+ */
+
+
 #include "GameApplication.h"
 #include "TexasHoldemManager.h"
 #include "HumanPlayerLogic.h"

@@ -1,3 +1,8 @@
+/**
+ * @file clientMain.h
+ * @brief File containing main file for client
+ */
+
 #include "ClientNetworkManager.h"
 #include "TexasHoldemManager.h"
 #include "IOutputHandler.h"

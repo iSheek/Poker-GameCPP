@@ -1,4 +1,9 @@
 #pragma once
+/**
+ * @file ConsoleCONSTANS.h
+ * @brief File containing constexpr values for console input/output
+ */
+
 
 
 inline constexpr int MAX_LOGS_IN_CONSOLE = 10;

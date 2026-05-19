@@ -1,3 +1,7 @@
+/**
+ * @file main.cpp
+ * @brief File containing main file for server
+ */
 #include <iostream>
 #include "Deck.h"
 #include "../tests/include/TesterCLI.h"

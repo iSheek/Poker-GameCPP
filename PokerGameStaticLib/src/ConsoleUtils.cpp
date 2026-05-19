@@ -1,3 +1,7 @@
+/**
+ * @file ConsoleUtils.cpp
+ * @brief File containing definition of ConsoleUtils methods
+ */
 
 #include "ConsoleUtils.h"
 #include "ConsoleCONSTANS.h"

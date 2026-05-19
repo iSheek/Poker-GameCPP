@@ -1,3 +1,7 @@
+/**
+ * @file CardFormatter.cpp
+ * @brief File containing definition of CardFormatter methods
+ */
 #include <CardFormatter.h>
 #include <string>
 

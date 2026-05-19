@@ -1,3 +1,7 @@
+/**
+ * @file ConsoleInputHandler.cpp
+ * @brief File containing definition of ConsoleInputHandler methods
+ */
 #include "ConsoleInputHandler.h"
 #include "CardFormatter.h"
 #include "ConsoleUtils.h"
