@@ -18,6 +18,9 @@ This project is currently in active development. The current setup supports play
 * **Texas Hold'em Engine**: Full poker game logic, including deck shuffling, card dealing, betting rounds, and winning hand evaluation.
 
 ---
+## 📋 Documentation
+https://isheek.github.io/Poker-GameCPP/
+---
 
 ## 🛠 Requirements & Dependencies
 To compile and run this project, you will need:
