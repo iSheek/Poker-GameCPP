@@ -1,3 +1,7 @@
+/**
+ * @file TexasHoldemManager.cpp
+ * @brief File containing definition of TexasHoldemManager methods
+ */
 
 #include "TexasHoldemManager.h"
 #include <optional>

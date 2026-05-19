@@ -1,3 +1,7 @@
+/**
+ * @file HumanPlayerLogic.cpp
+ * @brief File containing definition of HumanPlayerLogic methods
+ */
 #include "HumanPlayerLogic.h"
 
 HumanPlayerLogic::HumanPlayerLogic(int startingChips) : PlayerLogicParent(startingChips) {}

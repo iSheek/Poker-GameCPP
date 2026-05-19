@@ -2,7 +2,7 @@
 
 /**
  * @file ConsoleInputHandler.h
- * @brief File containing declaration of GameSettings struct
+ * @brief File containing declaration of ConsoleInputHandler class
  */
 
 #include "IInputHandler.h"
@@ -32,6 +32,9 @@ private:
 	std::vector<std::vector<std::string>> playersCardsGraphics{}; ///< vector containing graphics for cards made from symbols for console
 
 public:
+	/** @copydoc IInputHandler::requestAction() */
 	PlayerAction requestAction(const TableState& tableState, const PlayerState& playerState) override;
+	
+	/** @copydoc IInputHandler::onPlayersCardDealt() */
 	void onPlayersCardDealt(const Card& card) override;
 };

@@ -1,3 +1,7 @@
+/**
+ * @file HandEvaluator.cpp
+ * @brief File containing definition of HandEvaluator methods
+ */
 #include "Cards.h"
 #include "HandScore.h"
 #include <vector>

@@ -1,3 +1,7 @@
+/**
+ * @file ServerManager.cpp
+ * @brief File containing definition of ServerManager methods
+ */
 #include "ServerManager.h"
 #include "HumanPlayerLogic.h"
 #include "NetworkInputHandler.h"

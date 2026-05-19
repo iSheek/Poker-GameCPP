@@ -1,7 +1,14 @@
+/**
+ * @file NetworkCommands.h
+ * @brief File containing declaration of NetworkCommand enum
+ */
 #pragma once
 
 #include <nlohmann/json.hpp>
 
+/**
+ * @brief Enum class representing commands sent over the network
+ */
 enum class NetworkCommand
 {
 	UNKNOWN = -1,

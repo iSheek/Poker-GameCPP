@@ -1,3 +1,7 @@
+/**
+ * @file PlayerLogicParent.cpp
+ * @brief File containing definition of PlayerLogicParent methods
+ */
 #include "PlayerLogicParent.h"
 #include <cstdint>
 
