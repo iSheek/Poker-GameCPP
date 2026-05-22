@@ -22,9 +22,9 @@
 
 void GameApplication::startSingleplayer()
 {
-	TexasHoldemManager manager{ this->pOutput };
+	TexasHoldemManager manager{ this->pHandler };
 
-	auto mainPlayer = std::make_shared<HumanPlayerLogic>(this->startingChips, this->pInput);
+	auto mainPlayer = std::make_shared<HumanPlayerLogic>(this->startingChips, this->pHandler);
 	mainPlayer->setPlayerName(this->playerName);
 	manager.addPlayer(mainPlayer);
 
