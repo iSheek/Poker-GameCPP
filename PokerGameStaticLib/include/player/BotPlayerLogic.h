@@ -1,8 +1,8 @@
-#pragma once
 /**
  * @file BotPlayerLogic.h
  * @brief File containing declaration of BotPlayerLogic class
  */
+#pragma once
 
 
 #include "PlayerLogicParent.h"

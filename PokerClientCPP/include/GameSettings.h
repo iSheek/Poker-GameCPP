@@ -1,9 +1,8 @@
-#pragma once
-
 /**
  * @file GameSettings.h
  * @brief File containing declaration of GameSettings struct
  */
+#pragma once
 
 #include <string>
 

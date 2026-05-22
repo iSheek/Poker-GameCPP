@@ -6,12 +6,9 @@
  */
 
 
-#include "IOutputHandler.h"
-#include "IInputHandler.h"
+#include "IPlayerChannel.h"
 #include "GameSettings.h"
-#include "ConsoleOutputHandler.h"
-#include "ConsoleInputHandler.h"
-
+#include "ConsolePlayerChannel.h"
 #include <string>
 #include <memory>
 #include <thread>
@@ -27,8 +24,7 @@ class GameApplication
 {
 private:
 	std::string playerName{};						///< The chosen nickname for the main player
-	std::shared_ptr<IOutputHandler> pOutput{};		///< Pointer to the handler responsible for rendering output
-	std::shared_ptr<IInputHandler> pInput{};		///< Pointer to the handler responsible for capturing input
+	std::shared_ptr<IPlayerChannel> pHandler{};		///< Pointer to the handler responsible for rendering output and capturing input
 	std::unique_ptr<std::thread> pServerThread{};	///< Pointer to the thread running the server (used if this application is hosting)
 	int startingChips{};							///< The initial amount of chips every player starts with
 	int playerCount{};								///< Total number of players (humans + bots) in the game
@@ -54,8 +50,7 @@ public:
 		playerCount(gameSettings.playerCount), 
 		port(gameSettings.port), 
 		isHost(gameSettings.isHost),
-		pOutput(std::make_shared<ConsoleOutputHandler>()), 
-		pInput(std::make_shared<ConsoleInputHandler>()) 
+		pHandler(std::make_shared<ConsolePlayerChannel>())
 	{}
 	
 	/**
@@ -65,15 +60,14 @@ public:
 	 * @param pOutput Shared pointer to an initialized Output Handler.
 	 * @param pInput Shared pointer to an initialized Input Handler.
 	 */
-	GameApplication(GameSettings gameSettings, std::shared_ptr<IOutputHandler> pOutput, std::shared_ptr<IInputHandler> pInput) : 
+	GameApplication(GameSettings gameSettings, std::shared_ptr<IPlayerChannel> pHandler) :
 		playerName(gameSettings.nickname), 
 		isHost(gameSettings.isHost), 
 		ipAddress(gameSettings.ipAddress),
 		startingChips(gameSettings.startingChips), 
 		playerCount(gameSettings.playerCount), 
 		port(gameSettings.port),
-		pOutput(pOutput), 
-		pInput(pInput) 
+		pHandler(pHandler)
 	{}
 
 	/**

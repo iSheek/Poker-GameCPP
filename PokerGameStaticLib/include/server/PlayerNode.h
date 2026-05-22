@@ -1,10 +1,8 @@
-#pragma once
-
-
 /**
  * @file PlayerNode.h
  * @brief File containing PlayerNode struct declaration
  */
+#pragma once
 
 
 #include <boost/asio.hpp>

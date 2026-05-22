@@ -1,8 +1,8 @@
-#pragma once
 /**
  * @file Cards.h
  * @brief File containing enum classes for cards and Card struct
  */
+#pragma once
 
 #include <nlohmann/json.hpp>
 

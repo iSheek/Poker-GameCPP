@@ -8,6 +8,7 @@
 
 #include "IInputHandler.h"
 #include "IOutputHandler.h"
+#include "IPlayerChannel.h"
 #include "NetworkCommands.h"
 #include "HandScore.h"
 #include "PlayerAction.h"
@@ -36,8 +37,7 @@ class ClientNetworkManager
 private:
 	boost::asio::ip::tcp::socket socket;	///< socket from Boost.Asio for connecting to the server
 
-	std::shared_ptr<IOutputHandler> pOutputHandler{};	///< pointer to the handler responsible for outputting
-	std::shared_ptr<IInputHandler> pInputHandler{};		///< pointer to the handler responsible for inputting
+	std::shared_ptr<IPlayerChannel> pPlayerChannel{};	///< pointer to the handler responsible for inputting and outputting
 
 	boost::asio::streambuf receiveBuffer{};				///< buffer responsible for receiving data from the server
 
@@ -54,9 +54,7 @@ public:
 	 */
 	ClientNetworkManager(
 		boost::asio::io_context& io_context,
-		std::shared_ptr<IOutputHandler> output,
-		std::shared_ptr<IInputHandler> input) : socket(io_context), pOutputHandler(output),
-		pInputHandler(input)
+		std::shared_ptr<IPlayerChannel> pPlayerChannel) : socket(io_context), pPlayerChannel(pPlayerChannel)
 	{}
 
 	/**

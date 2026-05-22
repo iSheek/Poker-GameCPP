@@ -15,78 +15,66 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\CardFormatter.cpp">
+    <ClCompile Include="src\cards\CardFormatter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConsoleInputHandler.cpp">
+    <ClCompile Include="src\console\ConsoleUtils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConsoleOutputHandler.cpp">
+    <ClCompile Include="src\hand\HandEvaluator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConsoleUtils.cpp">
+    <ClCompile Include="src\hand\HandScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HandEvaluator.cpp">
+    <ClCompile Include="src\player\PlayerLogicParent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HandScore.cpp">
+    <ClCompile Include="src\player\BotPlayerLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\PlayerLogicParent.cpp">
+    <ClCompile Include="src\player\HumanPlayerLogic.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\BotPlayerLogic.cpp">
+    <ClCompile Include="src\manager\TexasHoldemManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\HumanPlayerLogic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TexasHoldemManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Deck.cpp">
+    <ClCompile Include="src\cards\Deck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\server\ServerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\server\NetworkInputHandler.cpp">
+    <ClCompile Include="src\console\ConsolePlayerChannel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\server\NetworkOutputHandler.cpp">
+    <ClCompile Include="src\server\NetworkPlayerChannel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\CardFormatter.h">
+    <ClInclude Include="include\cards\CardFormatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ConsoleInputHandler.h">
+    <ClInclude Include="include\console\ConsoleUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ConsoleOutputHandler.h">
+    <ClInclude Include="include\hand\HandEvaluator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ConsoleUtils.h">
+    <ClInclude Include="include\hand\HandScore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HandEvaluator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\HandScore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Cards.h">
+    <ClInclude Include="include\cards\Cards.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\IInputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PlayerAction.h">
+    <ClInclude Include="include\player\PlayerAction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PlayerState.h">
+    <ClInclude Include="include\player\PlayerState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TableState.h">
@@ -95,46 +83,49 @@
     <ClInclude Include="include\IOutputHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ConsoleCONSTANS.h">
+    <ClInclude Include="include\console\ConsoleCONSTANS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PlayerLogicParent.h">
+    <ClInclude Include="include\player\PlayerLogicParent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BotPlayerLogic.h">
+    <ClInclude Include="include\player\BotPlayerLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\HumanPlayerLogic.h">
+    <ClInclude Include="include\player\HumanPlayerLogic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\PublicPlayerInfo.h">
+    <ClInclude Include="include\player\PublicPlayerInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\NetworkCommands.h">
+    <ClInclude Include="include\server\NetworkCommands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\TexasHoldemManager.h">
+    <ClInclude Include="include\manager\TexasHoldemManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\GameManager.h">
+    <ClInclude Include="include\manager\GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Deck.h">
+    <ClInclude Include="include\cards\Deck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\DeckType.h">
+    <ClInclude Include="include\cards\DeckType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\server\ServerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\server\NetworkInputHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\server\NetworkOutputHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\server\PlayerNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IPlayerChannel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\server\NetworkPlayerChannel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\console\ConsolePlayerChannel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -22,17 +22,21 @@ protected:
 
 	TableState currentTableState{}; ///< The current state of the table
 
-	std::shared_ptr<IOutputHandler> pOutputHandler{}; ///< The output handler to use for rendering
+	std::vector<std::shared_ptr<IOutputHandler>> outputHandlers{}; ///< output handlers to use for rendering
 
 	/**
 	 * @brief Protected constructor for GameManager
 	 * @param pOutputHandler The output handler to use
 	 */
-	GameManager(std::shared_ptr<IOutputHandler> pOutputHandler) : pOutputHandler(pOutputHandler) 
+	GameManager(std::shared_ptr<IOutputHandler> pOutputHandler)
 	{
+		outputHandlers.push_back(pOutputHandler);
 		currentTableState.currentHighestBet = 0;
 		currentTableState.currentPot = 0;
 	}
+
+	GameManager(std::vector<std::shared_ptr<IOutputHandler>> outputHandlers) : outputHandlers(outputHandlers) {}
+
 public:
 
 	/**
@@ -50,12 +54,21 @@ public:
 	}
 
 	/**
-	 * @brief Sets a new output handler
-	 * @param newHandler Shared pointer to the new output handler
+	 * @brief Sets a new vector of output handlers
+	 * @param newHandler vector of shared pointers to the new output handler
 	 */
-	void setPOutputHandler(std::shared_ptr<IOutputHandler> newHandler)
+	void setPOutputHandler(const std::vector<std::shared_ptr<IOutputHandler>>& newHandler)
 	{
-		this->pOutputHandler = newHandler;
+		this->outputHandlers = newHandler;
+	}
+
+	/**
+	 * @brief Adds an output handler to the game
+	 * @param pOutputHandler Shared pointer to the output handler to add
+	 */
+	void addOutputHandler(std::shared_ptr<IOutputHandler> pOutputHandler)
+	{
+		this->outputHandlers.push_back(pOutputHandler);
 	}
 
 	/**

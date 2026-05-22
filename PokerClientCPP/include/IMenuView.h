@@ -1,9 +1,8 @@
-#pragma once
-
 /**
  * @file IMenuView.h
  * @brief File containing declaration of IMenuView interface
  */
+#pragma once
 
 #include <string_view>
 
@@ -15,7 +14,6 @@
  * logic (e.g., console printing, GUI rendering) from the controller logic.
  * 
  */
-
 class IMenuView
 {
 

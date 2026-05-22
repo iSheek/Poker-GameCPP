@@ -1,5 +1,5 @@
 /**
- * @file clientMain.h
+ * @file clientMain.cpp
  * @brief File containing main file for client
  */
 
@@ -7,8 +7,7 @@
 #include "TexasHoldemManager.h"
 #include "IOutputHandler.h"
 #include "IInputHandler.h"
-#include "ConsoleInputHandler.h"
-#include "ConsoleOutputHandler.h"
+#include "ConsolePlayerChannel.h"
 #include "ConsoleMenuView.h"
 #include "ConsoleMenuController.h"
 #include "GameSettings.h"

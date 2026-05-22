@@ -1,9 +1,8 @@
-#pragma once
-
 /**
  * @file ConsoleMenuView.h
  * @brief File containing declaration of ConsoleMenuView class
  */
+#pragma once
 
 #include "IMenuView.h"
 #include <string_view>

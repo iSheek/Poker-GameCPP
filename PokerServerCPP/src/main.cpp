@@ -7,8 +7,7 @@
 #include "../tests/include/TesterCLI.h"
 #include <memory>
 #include "TexasHoldemManager.h"
-#include "ConsoleInputHandler.h"
-#include "ConsoleOutputHandler.h"
+#include "ConsolePlayerChannel.h"
 #include "HumanPlayerLogic.h"
 #include "BotPlayerLogic.h"
 #include "ServerManager.h"

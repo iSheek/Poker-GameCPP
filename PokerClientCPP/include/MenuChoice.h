@@ -1,9 +1,8 @@
-#pragma once
-
 /**
  * @file MenuChoice.h
  * @brief File containing declaration of MenuChoice structure
  */
+#pragma once
 
 /**
  * @enum MenuChoice

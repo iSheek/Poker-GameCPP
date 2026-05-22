@@ -1,9 +1,8 @@
-#pragma once
-
 /**
  * @file ConsoleMenuController.h
  * @brief File containing declaration of ConsoleMenuController class
  */
+#pragma once
 
 
 #include "IMenuController.h"

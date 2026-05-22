@@ -1,9 +1,8 @@
-#pragma once
-
 /**
  * @file IMenuController.h
  * @brief File containing declaration of IMenuController interface
  */
+#pragma once
 
 #include "MenuChoice.h"
 #include "GameSettings.h"
