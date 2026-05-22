@@ -4,7 +4,7 @@
  */
 #include "ServerManager.h"
 #include "HumanPlayerLogic.h"
-#include "NetworkInputHandler.h"
+#include "NetworkPlayerChannel.h"
 
 void ServerManager::acceptPlayers()
 {
@@ -62,18 +62,16 @@ void ServerManager::acceptPlayers()
 
 void ServerManager::startGame(int startingChips)
 {
-	auto pOutputHandler = std::make_shared<NetworkOutputHandler>(this->playerNodes);
-
-	this->manager.setPOutputHandler(pOutputHandler);
 
 	for (const auto& node : this->playerNodes)
 	{
-		auto pInputHandler = std::make_shared<NetworkInputHandler>(node.socket);
-		auto pPlayer = std::make_shared<HumanPlayerLogic>(startingChips, pInputHandler);
+		auto pNetworkPlayerChannel = std::make_shared<NetworkPlayerChannel>(node.socket);
+		auto pPlayer = std::make_shared<HumanPlayerLogic>(startingChips, pNetworkPlayerChannel);
 
 		pPlayer->setPlayerName(node.playerInfo.name);
 
 		this->manager.addPlayer(pPlayer);
+		this->manager.addOutputHandler(pNetworkPlayerChannel);
 	}
 
 	while (true)

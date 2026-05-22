@@ -19,48 +19,45 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BotPlayerLogic.cpp" />
-    <ClCompile Include="src\CardFormatter.cpp" />
-    <ClCompile Include="src\ConsoleInputHandler.cpp" />
-    <ClCompile Include="src\ConsoleOutputHandler.cpp" />
-    <ClCompile Include="src\ConsoleUtils.cpp" />
-    <ClCompile Include="src\Deck.cpp" />
-    <ClCompile Include="src\HandEvaluator.cpp" />
-    <ClCompile Include="src\HandScore.cpp" />
-    <ClCompile Include="src\HumanPlayerLogic.cpp" />
-    <ClCompile Include="src\PlayerLogicParent.cpp" />
-    <ClCompile Include="src\server\NetworkInputHandler.cpp" />
-    <ClCompile Include="src\server\NetworkOutputHandler.cpp" />
+    <ClCompile Include="src\console\ConsolePlayerChannel.cpp" />
+    <ClCompile Include="src\player\BotPlayerLogic.cpp" />
+    <ClCompile Include="src\cards\CardFormatter.cpp" />
+    <ClCompile Include="src\console\ConsoleUtils.cpp" />
+    <ClCompile Include="src\cards\Deck.cpp" />
+    <ClCompile Include="src\hand\HandEvaluator.cpp" />
+    <ClCompile Include="src\hand\HandScore.cpp" />
+    <ClCompile Include="src\player\HumanPlayerLogic.cpp" />
+    <ClCompile Include="src\player\PlayerLogicParent.cpp" />
+    <ClCompile Include="src\server\NetworkPlayerChannel.cpp" />
     <ClCompile Include="src\server\ServerManager.cpp" />
-    <ClCompile Include="src\TexasHoldemManager.cpp" />
+    <ClCompile Include="src\manager\TexasHoldemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\BotPlayerLogic.h" />
-    <ClInclude Include="include\CardFormatter.h" />
-    <ClInclude Include="include\Cards.h" />
-    <ClInclude Include="include\ConsoleCONSTANS.h" />
-    <ClInclude Include="include\ConsoleInputHandler.h" />
-    <ClInclude Include="include\ConsoleOutputHandler.h" />
-    <ClInclude Include="include\ConsoleUtils.h" />
-    <ClInclude Include="include\Deck.h" />
-    <ClInclude Include="include\DeckType.h" />
-    <ClInclude Include="include\GameManager.h" />
-    <ClInclude Include="include\HandEvaluator.h" />
-    <ClInclude Include="include\HandScore.h" />
-    <ClInclude Include="include\HumanPlayerLogic.h" />
+    <ClInclude Include="include\console\ConsolePlayerChannel.h" />
+    <ClInclude Include="include\player\BotPlayerLogic.h" />
+    <ClInclude Include="include\cards\CardFormatter.h" />
+    <ClInclude Include="include\cards\Cards.h" />
+    <ClInclude Include="include\console\ConsoleCONSTANS.h" />
+    <ClInclude Include="include\console\ConsoleUtils.h" />
+    <ClInclude Include="include\cards\Deck.h" />
+    <ClInclude Include="include\cards\DeckType.h" />
+    <ClInclude Include="include\manager\GameManager.h" />
+    <ClInclude Include="include\hand\HandEvaluator.h" />
+    <ClInclude Include="include\hand\HandScore.h" />
+    <ClInclude Include="include\player\HumanPlayerLogic.h" />
     <ClInclude Include="include\IInputHandler.h" />
     <ClInclude Include="include\IOutputHandler.h" />
-    <ClInclude Include="include\NetworkCommands.h" />
-    <ClInclude Include="include\PlayerAction.h" />
-    <ClInclude Include="include\PlayerLogicParent.h" />
-    <ClInclude Include="include\PlayerState.h" />
-    <ClInclude Include="include\PublicPlayerInfo.h" />
-    <ClInclude Include="include\server\NetworkInputHandler.h" />
-    <ClInclude Include="include\server\NetworkOutputHandler.h" />
+    <ClInclude Include="include\IPlayerChannel.h" />
+    <ClInclude Include="include\server\NetworkCommands.h" />
+    <ClInclude Include="include\player\PlayerAction.h" />
+    <ClInclude Include="include\player\PlayerLogicParent.h" />
+    <ClInclude Include="include\player\PlayerState.h" />
+    <ClInclude Include="include\player\PublicPlayerInfo.h" />
+    <ClInclude Include="include\server\NetworkPlayerChannel.h" />
     <ClInclude Include="include\server\PlayerNode.h" />
     <ClInclude Include="include\server\ServerManager.h" />
     <ClInclude Include="include\TableState.h" />
-    <ClInclude Include="include\TexasHoldemManager.h" />
+    <ClInclude Include="include\manager\TexasHoldemManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -144,6 +141,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\player\;$(ProjectDir)include\manager\;$(ProjectDir)include\hand\;$(ProjectDir)include\console\;$(ProjectDir)include\cards\;$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -161,7 +159,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\player\;$(ProjectDir)include\manager\;$(ProjectDir)include\hand\;$(ProjectDir)include\console\;$(ProjectDir)include\cards\;$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -178,7 +176,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\player\;$(ProjectDir)include\manager\;$(ProjectDir)include\hand\;$(ProjectDir)include\console\;$(ProjectDir)include\cards\;$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -197,7 +195,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include\player\;$(ProjectDir)include\manager\;$(ProjectDir)include\hand\;$(ProjectDir)include\console\;$(ProjectDir)include\cards\;$(ProjectDir)include\server\;$(SolutionDir)third_party\boost;$(SolutionDir)third_party\nlohmann_json\include\;$(ProjectDir)include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>

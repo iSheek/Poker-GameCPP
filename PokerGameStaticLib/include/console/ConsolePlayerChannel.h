@@ -1,21 +1,38 @@
-/**
- * @file ConsoleOutputHandler.h
- * @brief File containing declaration of ConsoleOutputHandler class
- */
 #pragma once
+/**
+ * @file ConsolePlayerChannel.h
+ * @brief File containing declaration of ConsolePlayerChannel class
+ */
 
-#include "IOutputHandler.h"
+#include "IPlayerChannel.h"
+#include "PlayerAction.h"
+#include "PlayerState.h"
+#include "TableState.h"
 #include "HandScore.h"
 #include <string>
 #include <string_view>
 #include <fstream>
 
-/**
- * @brief Class handling game output to the console
- */
-class ConsoleOutputHandler : public IOutputHandler
+#include <vector>
+
+
+class ConsolePlayerChannel : public IPlayerChannel
 {
 private:
+
+	/**
+	 * @brief Method that asks user for value to raise
+	 * @details It validates the input and allows user to go back when they enter 0
+	 * @param[in] currentHighestBet highest bet currently
+	 * @param[in] playersCurrentChips player's chips
+	 * @param[in] xPlacement x coordinate for console to print
+	 * @param[in] yPlacement y coordinate for console to print
+	 * @return value from user to raise to
+	 */
+	int askForValueToRaise(int currentHighestBet, int playersCurrentChips, int xPlacement, int yPlacement);
+
+	std::vector<std::vector<std::string>> playersCardsGraphics{}; ///< vector containing graphics for cards made from symbols for console
+
 
 	std::vector<std::string> uiLogs{}; ///< Vector holding the log messages to display
 
@@ -25,7 +42,7 @@ private:
 	 * @brief Adds a message to the UI logs
 	 * @param message The message to log
 	 */
-	void addLog(std::string_view message); 
+	void addLog(std::string_view message);
 
 	/**
 	 * @brief Clears or prepares the console for a fresh render
@@ -60,28 +77,34 @@ private:
 	 * @return String describing the action
 	 */
 	std::string actionToString(PlayerAction action);
-	
+
 
 public:
 	/**
 	 * @brief Constructor for ConsoleOutputHandler
 	 */
-	ConsoleOutputHandler();
-	
+	ConsolePlayerChannel();
+
 	/**
 	 * @brief Destructor for ConsoleOutputHandler
 	 */
-	~ConsoleOutputHandler();
-	
+	~ConsolePlayerChannel();
+
+	/** @copydoc IInputHandler::requestAction() */
+	PlayerAction requestAction(const TableState& tableState, const PlayerState& playerState) override;
+
+	/** @copydoc IInputHandler::onPlayersCardDealt() */
+	void onPlayersCardDealt(const Card& card) override;
+
 	/** @copydoc IOutputHandler::renderTable() */
 	void renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo) override;
 
 	/** @copydoc IOutputHandler::onCommunityCardDealt() */
 	void onCommunityCardDealt(const Card& card) override;
-	
+
 	/** @copydoc IOutputHandler::onPlayerAction() */
 	void onPlayerAction(const std::string& playerName, const PlayerAction& action) override;
-	
+
 	/** @copydoc IOutputHandler::onShowdown() */
 	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot) override;
 };

@@ -7,7 +7,7 @@
 
 #include "PlayerNode.h"
 #include "TexasHoldemManager.h"
-#include "NetworkOutputHandler.h"
+#include "NetworkPlayerChannel.h"
 #include <boost/asio.hpp>
 #include <nlohmann/json.hpp>
 #include <iostream>

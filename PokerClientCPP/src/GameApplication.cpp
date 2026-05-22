@@ -10,8 +10,7 @@
 #include "BotPlayerLogic.h"
 #include "IOutputHandler.h"
 #include "IInputHandler.h"
-#include "ConsoleOutputHandler.h"
-#include "ConsoleInputHandler.h"
+#include "ConsolePlayerChannel.h"
 #include "ClientNetworkManager.h"
 #include "ServerManager.h"
 #include "boost/asio.hpp"
@@ -84,10 +83,9 @@ void GameApplication::startMultiplayer()
 
 
 	boost::asio::io_context ioContext;
-	std::shared_ptr pOutputHandler = std::make_shared<ConsoleOutputHandler>();
-	std::shared_ptr pInputHandler = std::make_shared<ConsoleInputHandler>();
+	std::shared_ptr pHandler = std::make_shared<ConsolePlayerChannel>();
 
-	ClientNetworkManager networkManager{ ioContext, pOutputHandler, pInputHandler };
+	ClientNetworkManager networkManager{ ioContext, pHandler };
 
 	std::this_thread::sleep_for(std::chrono::milliseconds(500)); // wait to let the server turn on
 

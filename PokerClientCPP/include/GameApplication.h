@@ -9,9 +9,7 @@
 #include "IOutputHandler.h"
 #include "IInputHandler.h"
 #include "GameSettings.h"
-#include "ConsoleOutputHandler.h"
-#include "ConsoleInputHandler.h"
-
+#include "ConsolePlayerChannel.h"
 #include <string>
 #include <memory>
 #include <thread>
@@ -54,8 +52,8 @@ public:
 		playerCount(gameSettings.playerCount), 
 		port(gameSettings.port), 
 		isHost(gameSettings.isHost),
-		pOutput(std::make_shared<ConsoleOutputHandler>()), 
-		pInput(std::make_shared<ConsoleInputHandler>()) 
+		pOutput(std::make_shared<ConsolePlayerChannel>()), 
+		pInput(std::make_shared<ConsolePlayerChannel>())
 	{}
 	
 	/**

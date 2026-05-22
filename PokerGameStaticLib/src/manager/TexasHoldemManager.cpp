@@ -57,7 +57,7 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 			if (this->currentTableState.currentHighestBet <= pPlayer->getCurrentBet()) this->currentTableState.amountToCall = 0;
 			else currentTableState.amountToCall = this->currentTableState.currentHighestBet - pPlayer->getCurrentBet();
 
-			if (this->pOutputHandler)
+			if (this->outputHandlers.size() != 0)
 			{
 				std::vector<PublicPlayerInfo> publicInfo;
 				publicInfo.reserve(pPlayers.size());
@@ -74,13 +74,21 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 
 				}
 
-				this->pOutputHandler->renderTable(this->currentTableState, publicInfo);
+				for (const auto& pOutputHandler : outputHandlers)
+				{
+					if (!pOutputHandler) continue;
+					pOutputHandler->renderTable(this->currentTableState, publicInfo);
+				}
 			}
 
 			// we ask player for decision
 			PlayerAction playerDecision = pPlayer->makeDecision(currentTableState);
 
-			pOutputHandler->onPlayerAction(pPlayer->getPlayerName(), playerDecision);
+			for (const auto& pOutputHandler : outputHandlers)
+			{
+				if (!pOutputHandler) continue;
+				pOutputHandler->onPlayerAction(pPlayer->getPlayerName(), playerDecision);
+			}
 
 			// player has made a decision
 			--playersToAct;
@@ -284,7 +292,7 @@ void TexasHoldemManager::riverPhase()
 
 void TexasHoldemManager::showdownPhase()
 {
-	if (this->pOutputHandler)
+	if (this->outputHandlers.size() != 0)
 	{
 		std::vector<PublicPlayerInfo> publicInfo;
 		publicInfo.reserve(pPlayers.size());
@@ -301,7 +309,11 @@ void TexasHoldemManager::showdownPhase()
 
 		}
 
-		this->pOutputHandler->renderTable(this->currentTableState, publicInfo);
+		for (const auto& pOutputHandler : outputHandlers)
+		{
+			if (!pOutputHandler) continue;
+			pOutputHandler->renderTable(this->currentTableState, publicInfo);
+		}
 	}
 
 
@@ -352,7 +364,7 @@ void TexasHoldemManager::showdownPhase()
 		}
 	}
 
-	if (this->pOutputHandler)
+	if (this->outputHandlers.size() != 0)
 	{
 		
 		if (const auto& handScore = biggestHandScore)
@@ -362,7 +374,12 @@ void TexasHoldemManager::showdownPhase()
 			{
 				winnersNames.push_back(winner->getPlayerName());
 			}
-			this->pOutputHandler->onShowdown(winnersNames, handScore.value(), this->currentTableState.currentPot);
+
+			for (const auto& pOutputHandler : outputHandlers)
+			{
+				if (!pOutputHandler) continue;
+				pOutputHandler->onShowdown(winnersNames, handScore.value(), this->currentTableState.currentPot);
+			}
 		}
 		
 	}

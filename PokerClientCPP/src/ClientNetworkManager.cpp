@@ -26,7 +26,7 @@ void ClientNetworkManager::handleRenderTable(const nlohmann::json& jReceived)
 		std::vector<PublicPlayerInfo> playersInfo = jReceived["data"]["publicPlayersInfo"].get<std::vector<PublicPlayerInfo>>();
 		TableState state = jReceived["data"]["tableState"].get<TableState>();
 
-		this->pOutputHandler->renderTable(state, playersInfo);
+		this->pPlayerChannel->renderTable(state, playersInfo);
 	}
 	catch (const std::exception& e)
 	{
@@ -41,7 +41,7 @@ void ClientNetworkManager::handleOnPlayerAction(const nlohmann::json& jReceived)
 		std::string playerName = jReceived["data"]["playerName"];
 		PlayerAction playerAction = jReceived["data"]["playerAction"].get<PlayerAction>();
 
-		this->pOutputHandler->onPlayerAction(playerName, playerAction);
+		this->pPlayerChannel->onPlayerAction(playerName, playerAction);
 	}
 	catch (const std::exception& e)
 	{
@@ -54,7 +54,7 @@ void ClientNetworkManager::handleOnCommunityCardDealt(const nlohmann::json& jRec
 	try
 	{
 		Card card = jReceived["data"]["card"].get<Card>();
-		this->pOutputHandler->onCommunityCardDealt(card);
+		this->pPlayerChannel->onCommunityCardDealt(card);
 	}
 	catch (const std::exception& e)
 	{
@@ -70,7 +70,7 @@ void ClientNetworkManager::handleRequestAction(const nlohmann::json& jReceived)
 		TableState state = jReceived["data"]["tableState"].get<TableState>();
 		PlayerState playerState = jReceived["data"]["playerState"].get<PlayerState>();
 
-		PlayerAction actionToSend = this->pInputHandler->requestAction(state, playerState);
+		PlayerAction actionToSend = this->pPlayerChannel->requestAction(state, playerState);
 
 
 		nlohmann::json jRespond = actionToSend;
@@ -93,7 +93,7 @@ void ClientNetworkManager::handleOnShowdown(const nlohmann::json& jReceived)
 		HandScore winningHand = jReceived["data"]["winningHand"].get<HandScore>();
 		int pot = jReceived["data"]["pot"].get<int>();
 
-		this->pOutputHandler->onShowdown(winnerNames, winningHand, pot);
+		this->pPlayerChannel->onShowdown(winnerNames, winningHand, pot);
 	}
 	catch (const std::exception& e)
 	{
