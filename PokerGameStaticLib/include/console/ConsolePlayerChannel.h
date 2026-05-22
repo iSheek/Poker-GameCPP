@@ -1,8 +1,8 @@
-#pragma once
 /**
  * @file ConsolePlayerChannel.h
  * @brief File containing declaration of ConsolePlayerChannel class
  */
+#pragma once
 
 #include "IPlayerChannel.h"
 #include "PlayerAction.h"
@@ -15,7 +15,11 @@
 
 #include <vector>
 
-
+/**
+ * @brief Class handling game input and output via the system console
+ * @details Implements the IPlayerChannel interface to provide a text-based UI,
+ * using ANSI escape sequences for positioning and graphics.
+ */
 class ConsolePlayerChannel : public IPlayerChannel
 {
 private:

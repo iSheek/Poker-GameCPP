@@ -1,8 +1,8 @@
-#pragma once
 /**
  * @file ConsoleCONSTANS.h
  * @brief File containing constexpr values for console input/output
  */
+#pragma once
 
 
 

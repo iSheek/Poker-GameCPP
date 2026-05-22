@@ -1,9 +1,8 @@
-#pragma once
-
 /**
- * @file NetworkInputHandler.h
- * @brief File containing declaration of NetworkInputHandler class
+ * @file NetworkPlayerChannel.h
+ * @brief File containing declaration of NetworkPlayerChannel class
  */
+#pragma once
 
 
 #include "IPlayerChannel.h"

@@ -29,8 +29,8 @@ enum class PokerHand
  */
 struct HandScore
 {
-	PokerHand hand{ PokerHand::HIGH_CARD };
-	std::vector<Card> usedCardsInHand{};
+	PokerHand hand{ PokerHand::HIGH_CARD }; ///< The type of poker hand achieved
+	std::vector<Card> usedCardsInHand{}; ///< The cards that form the best hand score
 
 	/**
 	 * @brief Gets the numerical strength of a given card rank

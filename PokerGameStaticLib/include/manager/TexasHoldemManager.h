@@ -78,11 +78,19 @@ public:
 	 */
 	void playRound() override;
 
+	/**
+	 * @brief Sets the small blind value
+	 * @param newSmallBlindBet The new small blind amount
+	 */
 	void setSmallBlind(int newSmallBlindBet)
 	{
 		this->smallBlind = newSmallBlindBet;
 	}
 
+	/**
+	 * @brief Sets the big blind value
+	 * @param newBigBlindBet The new big blind amount
+	 */
 	void setBigBlind(int newBigBlindBet)
 	{
 		this->bigBlind = newBigBlindBet;

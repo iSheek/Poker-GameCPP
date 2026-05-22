@@ -14,7 +14,7 @@
 class HumanPlayerLogic : public PlayerLogicParent
 {
 private:
-	std::shared_ptr<IInputHandler> pInputHandler{};
+	std::shared_ptr<IInputHandler> pInputHandler{}; ///< Shared pointer to the input handler for user actions
 	
 public:
 	/**

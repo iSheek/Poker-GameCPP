@@ -1,5 +1,5 @@
 /**
- * @file clientMain.h
+ * @file clientMain.cpp
  * @brief File containing main file for client
  */
 

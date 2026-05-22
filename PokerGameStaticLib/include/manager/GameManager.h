@@ -62,6 +62,10 @@ public:
 		this->outputHandlers = newHandler;
 	}
 
+	/**
+	 * @brief Adds an output handler to the game
+	 * @param pOutputHandler Shared pointer to the output handler to add
+	 */
 	void addOutputHandler(std::shared_ptr<IOutputHandler> pOutputHandler)
 	{
 		this->outputHandlers.push_back(pOutputHandler);
