@@ -6,6 +6,7 @@
 
 #include "Cards.h"
 #include <vector>
+#include <nlohmann/json.hpp>
 
 /**
  * @brief Struct representing the current state of the poker table
@@ -16,7 +17,7 @@ struct TableState
 	int currentHighestBet{}; ///< The highest bet placed in the current betting round
 	long currentPot{}; ///< The total chips currently in the pot
 	std::vector<Card> communityCards{}; ///< The community cards dealt on the table
-	int highestBetInHistory{}; ///< The highest historical bet made in the hand
+	int lastFullRaiseAmount{}; ///< How much does raise increased (at the start of each phase it is equal to big blind)
 
 	/**
 	 * @brief Resets the table state for a new round
@@ -30,4 +31,4 @@ struct TableState
 	}
 };
 
-NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(TableState, amountToCall, currentHighestBet, currentPot, communityCards, highestBetInHistory)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(TableState, amountToCall, currentHighestBet, currentPot, communityCards, lastFullRaiseAmount)

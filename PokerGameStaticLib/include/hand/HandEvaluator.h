@@ -7,7 +7,6 @@
 #include "Cards.h"
 #include "HandScore.h"
 #include <vector>
-#include <optional>
 
 /**
  * @brief Class responsible for evaluating poker hands

@@ -125,7 +125,7 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 
 				this->currentTableState.currentPot += amountToAdd;
 				this->currentTableState.currentHighestBet = playerDecision.amount;
-				this->currentTableState.highestBetInHistory = playerDecision.amount;
+
 
 				
 
@@ -157,7 +157,7 @@ void TexasHoldemManager::blindsPhase()
 	if (pPlayers.size() < 2) throw std::range_error("ERROR NOT ENOUGH PLAYERS");
 
 	this->currentTableState.currentHighestBet = smallBlind;
-	this->currentTableState.highestBetInHistory = smallBlind;
+
 
 	int p1Chips = pPlayers[0]->getChips();
 	if (p1Chips <= currentTableState.currentHighestBet)
@@ -177,7 +177,7 @@ void TexasHoldemManager::blindsPhase()
 	}
 
 	this->currentTableState.currentHighestBet = bigBlind;
-	this->currentTableState.highestBetInHistory = bigBlind;
+	this->currentTableState.lastFullRaiseAmount = bigBlind;
 
 
 	int p2Chips = pPlayers[1]->getChips();
