@@ -25,7 +25,7 @@ enum class ActionType
 struct PlayerAction
 {
 	ActionType actionType{ ActionType::NONE }; ///< The type of action the player is taking
-	int amount{}; ///< The amount of chips associated with the action (e.g. for RAISE)
+	int amount{}; ///< The amount of chips associated with the action (e.g. for RAISE), for RAISE amount tells to how much we are betting and for CALL amount tells how much are we giving
 };
 
 

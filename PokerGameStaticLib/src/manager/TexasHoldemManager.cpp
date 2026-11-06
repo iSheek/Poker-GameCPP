@@ -4,6 +4,7 @@
  */
 
 #include "TexasHoldemManager.h"
+#include "BettingRules.h"
 #include <optional>
 
 // when making ux outside console add commented methods from IOutputHandler
@@ -32,6 +33,8 @@ void TexasHoldemManager::playRound()
 
 void TexasHoldemManager::bettingRound(int startingIndex)
 {
+	this->currentTableState.lastFullRaiseAmount = bigBlind;
+
 	int playersToAct = 0;
 	for (auto& p : pPlayers)
 	{
@@ -84,11 +87,19 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 			// we ask player for decision
 			PlayerAction playerDecision = pPlayer->makeDecision(currentTableState);
 
-			for (const auto& pOutputHandler : outputHandlers)
+			
+
+			// validation of player's decision
+			BettingRules::AvailableOptions validPlayerOptions{ BettingRules::getPossibleOptions(this->currentTableState, pPlayer->getPlayerState()) };
+
+			// if player tried doing something illegal, then we are changing his action into fold
+			if (!BettingRules::isActionValid(validPlayerOptions, playerDecision))
 			{
-				if (!pOutputHandler) continue;
-				pOutputHandler->onPlayerAction(pPlayer->getPlayerName(), playerDecision);
+				playerDecision.actionType = ActionType::FOLD;
+				playerDecision.amount = 0;
 			}
+
+
 
 			// player has made a decision
 			--playersToAct;
@@ -102,6 +113,10 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 				pPlayer->addToCurrentBet(actualCallAmount);
 				pPlayer->addToTotalBet(actualCallAmount);
 				this->currentTableState.currentPot += actualCallAmount;
+
+
+				// changing amount for broadcasting it to the other players
+				playerDecision.amount = actualCallAmount;
 				break;
 			}
 			case ActionType::CHECK:
@@ -112,22 +127,26 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 				// we count how much player need to add to the new bet from his current bet
 				int amountToAdd = playerDecision.amount - pPlayer->getCurrentBet();
 
-				// check if raise is valid, if not, player abused something so he folds instead
-				if (playerDecision.amount <= this->currentTableState.currentHighestBet + this->bigBlind)
-				{
-					pPlayer->fold();
-					break;
-				}
 
 				pPlayer->addToCurrentBet(amountToAdd);
 				pPlayer->addToTotalBet(amountToAdd);
 				pPlayer->removeChips(amountToAdd);
 
+				int raiseDifference{ playerDecision.amount - this->currentTableState.currentHighestBet };
+
+				if (raiseDifference > this->currentTableState.lastFullRaiseAmount)
+				{
+					this->currentTableState.lastFullRaiseAmount = raiseDifference;
+				}
+
 				this->currentTableState.currentPot += amountToAdd;
-				this->currentTableState.currentHighestBet = playerDecision.amount;
 
-
+				if (this->currentTableState.currentHighestBet < playerDecision.amount)
+				{
+					this->currentTableState.currentHighestBet = playerDecision.amount;
+				}
 				
+							
 
 				// someone raised - playersToAct counter resets, everyone besides the person who raise has to make their move
 				playersToAct = 0;
@@ -146,6 +165,12 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 			default:
 				pPlayer->fold();
 				break;
+			}
+
+			for (const auto& pOutputHandler : outputHandlers)
+			{
+				if (!pOutputHandler) continue;
+				pOutputHandler->onPlayerAction(pPlayer->getPlayerName(), playerDecision);
 			}
 		}
 	}
@@ -177,7 +202,7 @@ void TexasHoldemManager::blindsPhase()
 	}
 
 	this->currentTableState.currentHighestBet = bigBlind;
-	this->currentTableState.lastFullRaiseAmount = bigBlind;
+	
 
 
 	int p2Chips = pPlayers[1]->getChips();

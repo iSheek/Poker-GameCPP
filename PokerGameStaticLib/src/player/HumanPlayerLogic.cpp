@@ -12,10 +12,7 @@ pInputHandler(inputHandlerPointer) {
 PlayerAction HumanPlayerLogic::makeDecision(const TableState& state)
 {
 	if (this->pInputHandler) {
-		PlayerState playerState;
-		playerState.currentChips = this->getChips();
-		playerState.playersCards = this->getPlayerCards();
-		playerState.currentBet = this->getCurrentBet();
+		PlayerState playerState{getPlayerState()};
 		return this->pInputHandler->requestAction(state, playerState);
 	}
 	return PlayerAction{ ActionType::FOLD, 0 };

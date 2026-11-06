@@ -210,4 +210,13 @@ public:
 	{
 		this->totalBet += amountToAdd;
 	}
+
+	/**
+	 * @brief Creates PlayerState object of current player
+	 * @return PlayerState struct of player
+	 */
+	PlayerState getPlayerState() const
+	{
+		return PlayerState{ .playersCards {this->playersCards}, .currentChips {getChips()}, .currentBet {getCurrentBet()} };
+	}
 };

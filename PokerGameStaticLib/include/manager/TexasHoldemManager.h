@@ -27,6 +27,7 @@ private:
 
 	/**
 	 * @brief Executes a betting round starting from a specific player
+	 * @details Actions are validated using functions from BettingRules namespace, illegal action is changed to FOLD and lastFullRaiseAmount is set to Big Blind at the start
 	 * @param startingIndex The index of the player who starts the betting
 	 */
 	void bettingRound(int startingIndex);
