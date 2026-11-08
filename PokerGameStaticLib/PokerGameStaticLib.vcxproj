@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\console\ConsolePlayerChannel.cpp" />
     <ClCompile Include="src\manager\BettingRules.cpp" />
+    <ClCompile Include="src\manager\PotCalculator.cpp" />
     <ClCompile Include="src\player\BotPlayerLogic.cpp" />
     <ClCompile Include="src\cards\CardFormatter.cpp" />
     <ClCompile Include="src\console\ConsoleUtils.cpp" />
@@ -36,6 +37,7 @@
   <ItemGroup>
     <ClInclude Include="include\console\ConsolePlayerChannel.h" />
     <ClInclude Include="include\manager\BettingRules.h" />
+    <ClInclude Include="include\manager\PotCalculator.h" />
     <ClInclude Include="include\player\BotPlayerLogic.h" />
     <ClInclude Include="include\cards\CardFormatter.h" />
     <ClInclude Include="include\cards\Cards.h" />

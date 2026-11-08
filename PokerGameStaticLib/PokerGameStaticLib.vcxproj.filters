@@ -54,6 +54,9 @@
     <ClCompile Include="src\manager\BettingRules.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\manager\PotCalculator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cards\CardFormatter.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\manager\BettingRules.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\manager\PotCalculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "PlayerAction.h"
+#include "PlayerState.h"
 #include "Cards.h"
 #include "TableState.h"
 #include <array>

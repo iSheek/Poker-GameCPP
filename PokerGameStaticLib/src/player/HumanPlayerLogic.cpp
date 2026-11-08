@@ -3,6 +3,7 @@
  * @brief File containing definition of HumanPlayerLogic methods
  */
 #include "HumanPlayerLogic.h"
+#include "PlayerLogicParent.h"
 
 HumanPlayerLogic::HumanPlayerLogic(int startingChips) : PlayerLogicParent(startingChips) {}
 HumanPlayerLogic::HumanPlayerLogic(int startingChips, std::shared_ptr<IInputHandler> inputHandlerPointer) : PlayerLogicParent(startingChips),
