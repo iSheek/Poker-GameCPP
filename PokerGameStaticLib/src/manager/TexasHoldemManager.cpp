@@ -506,15 +506,19 @@ void TexasHoldemManager::cleanupPhase()
 		pPlayer->resetForNewRound();
 	}
 
-	// remove players who doesnt have any chips
-	pPlayers.erase(
-		std::remove_if(pPlayers.begin(), pPlayers.end(), [](const std::shared_ptr<PlayerLogicParent>& p)
-			{return p->getChips() == 0; }), pPlayers.end());
+	// we first rotate and then remove because the other way it would move blinds two times
 
 	if (pPlayers.size() > 1)
 	{
 		std::rotate(pPlayers.begin(), pPlayers.begin() + 1, pPlayers.end());
 	}
+
+	// remove players who don't have any chips
+	pPlayers.erase(
+		std::remove_if(pPlayers.begin(), pPlayers.end(), [](const std::shared_ptr<PlayerLogicParent>& p)
+			{return p->getChips() == 0; }), pPlayers.end());
+
+
 
 	this->deck.resetDeck();
 	this->deck.shuffleDeck();
