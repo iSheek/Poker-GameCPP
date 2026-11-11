@@ -7,6 +7,7 @@
 #include "BettingRules.h"
 #include "PotCalculator.h"
 #include "ShowdownResult.h"
+#include <algorithm>
 #include <optional>
 
 // when making ux outside console add commented methods from IOutputHandler
@@ -58,12 +59,22 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 {
 	this->currentTableState.lastFullRaiseAmount = bigBlind;
 
-	int playersToAct = 0;
-	for (auto& p : pPlayers)
+	int playersToAct{};
+	int playerIndex{};
+	for (int i{}; i < pPlayers.size(); ++i)
 	{
-		if (!p->getHasFolded() && p->getChips() > 0) playersToAct++;
+		if (!pPlayers[i]->getHasFolded() && pPlayers[i]->getChips() > 0)
+		{
+			playersToAct++;
+			playerIndex = i;
+		}
 	}
 
+	// if there's only one nonfolded player with chips and he doesn't have to even his bet, then we are skipping betting round
+	if (playersToAct == 1 && pPlayers[playerIndex]->getCurrentBet() >= this->currentTableState.currentHighestBet)
+	{
+		return;
+	}
 
 	while (playersToAct > 0)
 	{
@@ -181,6 +192,12 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 			{
 				if (!pOutputHandler) continue;
 				pOutputHandler->onPlayerAction(pPlayer->getPlayerName(), playerDecision);
+			}
+
+			// if there's only max one player, then we don't ask another players
+			if (std::count_if(pPlayers.begin(), pPlayers.end(), [](const std::shared_ptr<PlayerLogicParent>& a) { return !a->getHasFolded(); }) <= 1)
+			{
+				return;
 			}
 		}
 	}

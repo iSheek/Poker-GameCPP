@@ -35,7 +35,8 @@ private:
 
 	/**
 	 * @brief Executes a betting round starting from a specific player
-	 * @details Actions are validated using functions from BettingRules namespace, illegal action is changed to FOLD and lastFullRaiseAmount is set to Big Blind at the start
+	 * @details Actions are validated using functions from BettingRules namespace, illegal action is changed to FOLD and lastFullRaiseAmount is set to Big Blind at the start;
+	 * the round is skipped when there's nobody else to bet with, and it ends when there's only one player
 	 * @param startingIndex The index of the player who starts the betting
 	 */
 	void bettingRound(int startingIndex);
