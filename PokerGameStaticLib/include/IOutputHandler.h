@@ -10,6 +10,7 @@
 #include "PlayerLogicParent.h"
 #include "TableState.h"
 #include "PublicPlayerInfo.h"
+#include "ShowdownResult.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -42,11 +43,10 @@ public:
 
 	/**
 	 * @brief Callback for the showdown phase
-	 * @param winnerNames List of winners' names
-	 * @param winningHand The winning hand's score
-	 * @param pot The total pot amount awarded
+	 * @param showdownResult struct containing informations about every pot and its winners, the list of players' hands is empty if every player folded, 
+	 * the flag tells whether there was any evaluation
 	 */
-	virtual void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot) = 0;
+	virtual void onShowdown(const ShowdownResult& showdownResult) = 0;
 
 	/**
 	 * @brief Renders the current state of the table and players

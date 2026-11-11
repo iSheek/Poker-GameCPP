@@ -12,6 +12,7 @@
 #include "PlayerState.h"
 #include "TableState.h"
 #include "PublicPlayerInfo.h"
+#include "ShowdownResult.h"
 #include <boost/asio.hpp>
 #include <iostream>
 #include <memory>
@@ -89,11 +90,9 @@ void ClientNetworkManager::handleOnShowdown(const nlohmann::json& jReceived)
 {
 	try
 	{
-		std::vector<std::string> winnerNames = jReceived["data"]["winnerNames"].get<std::vector<std::string>>();
-		HandScore winningHand = jReceived["data"]["winningHand"].get<HandScore>();
-		int pot = jReceived["data"]["pot"].get<int>();
+		ShowdownResult showdownResult = jReceived["data"]["showdownResult"].get<ShowdownResult>();
 
-		this->pPlayerChannel->onShowdown(winnerNames, winningHand, pot);
+		this->pPlayerChannel->onShowdown(showdownResult);
 	}
 	catch (const std::exception& e)
 	{

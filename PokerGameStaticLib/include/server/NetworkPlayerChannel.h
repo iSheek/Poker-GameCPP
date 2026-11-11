@@ -67,10 +67,10 @@ public:
 	void onPlayerAction(const std::string& playerName, const PlayerAction& action) override;
 
 	/**
-	 * @copydoc IOutputHandler::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot)
+	 * @copydoc IOutputHandler::onShowdown(const ShowdownResult& showdownResult)
 	 *
 	 */
-	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot) override;
+	void onShowdown(const ShowdownResult& showdownResult) override;
 
 	/**
 	 * @copydoc IOutputHandler::renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo)

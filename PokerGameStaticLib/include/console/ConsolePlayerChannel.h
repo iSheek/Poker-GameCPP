@@ -94,21 +94,21 @@ public:
 	 */
 	~ConsolePlayerChannel();
 
-	/** @copydoc IInputHandler::requestAction() */
+	/** @copydoc IInputHandler::requestAction */
 	PlayerAction requestAction(const TableState& tableState, const PlayerState& playerState) override;
 
-	/** @copydoc IInputHandler::onPlayersCardDealt() */
+	/** @copydoc IInputHandler::onPlayersCardDealt */
 	void onPlayersCardDealt(const Card& card) override;
 
-	/** @copydoc IOutputHandler::renderTable() */
+	/** @copydoc IOutputHandler::renderTable */
 	void renderTable(const TableState& tableState, const std::vector<PublicPlayerInfo>& publicPlayersInfo) override;
 
-	/** @copydoc IOutputHandler::onCommunityCardDealt() */
+	/** @copydoc IOutputHandler::onCommunityCardDealt */
 	void onCommunityCardDealt(const Card& card) override;
 
-	/** @copydoc IOutputHandler::onPlayerAction() */
+	/** @copydoc IOutputHandler::onPlayerAction */
 	void onPlayerAction(const std::string& playerName, const PlayerAction& action) override;
 
-	/** @copydoc IOutputHandler::onShowdown() */
-	void onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot) override;
+	/** @copydoc IOutputHandler::onShowdown */
+	void onShowdown(const ShowdownResult& showdownResult) override;
 };

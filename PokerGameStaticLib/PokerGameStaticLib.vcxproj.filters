@@ -140,5 +140,8 @@
     <ClInclude Include="include\manager\PotCalculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\manager\ShowdownResult.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

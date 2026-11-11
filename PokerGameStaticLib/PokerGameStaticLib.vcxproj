@@ -38,6 +38,7 @@
     <ClInclude Include="include\console\ConsolePlayerChannel.h" />
     <ClInclude Include="include\manager\BettingRules.h" />
     <ClInclude Include="include\manager\PotCalculator.h" />
+    <ClInclude Include="include\manager\ShowdownResult.h" />
     <ClInclude Include="include\player\BotPlayerLogic.h" />
     <ClInclude Include="include\cards\CardFormatter.h" />
     <ClInclude Include="include\cards\Cards.h" />

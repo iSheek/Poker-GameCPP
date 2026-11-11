@@ -99,14 +99,12 @@ void NetworkPlayerChannel::onPlayerAction(const std::string& playerName, const P
     sendStringToSocket(serializedData);
 }
 
-void NetworkPlayerChannel::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot)
+void NetworkPlayerChannel::onShowdown(const ShowdownResult& showdownResult)
 {
     json jSend{};
 
     jSend["method"] = NetworkCommand::ON_SHOWDOWN;
-    jSend["data"]["winnerNames"] = winnerNames;
-    jSend["data"]["winningHand"] = winningHand;
-    jSend["data"]["pot"] = pot;
+    jSend["data"]["showdownResult"] = showdownResult;
 
     std::string serializedData = jSend.dump() + "\n";
     sendStringToSocket(serializedData);

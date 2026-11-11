@@ -5,6 +5,8 @@
 
 #include "TexasHoldemManager.h"
 #include "BettingRules.h"
+#include "PotCalculator.h"
+#include "ShowdownResult.h"
 #include <optional>
 
 // when making ux outside console add commented methods from IOutputHandler
@@ -30,6 +32,27 @@ void TexasHoldemManager::playRound()
 	showdownPhase();
 	cleanupPhase();
 }
+
+std::vector<PublicPlayerInfo> TexasHoldemManager::getEveryPlayersPublicInfo() const
+{
+	std::vector<PublicPlayerInfo> publicInfo;
+	publicInfo.reserve(pPlayers.size());
+
+	for (const auto& p : pPlayers)
+	{
+		publicInfo.push_back({
+			p->getPlayerName(),
+			p->getChips(),
+			p->getCurrentBet(),
+			p->getTotalBet(),
+			p->getHasFolded()
+			});
+
+	}
+
+	return publicInfo;
+}
+
 
 void TexasHoldemManager::bettingRound(int startingIndex)
 {
@@ -62,20 +85,7 @@ void TexasHoldemManager::bettingRound(int startingIndex)
 
 			if (this->outputHandlers.size() != 0)
 			{
-				std::vector<PublicPlayerInfo> publicInfo;
-				publicInfo.reserve(pPlayers.size());
-				
-				for (const auto& p : pPlayers)
-				{
-					publicInfo.push_back({
-						p->getPlayerName(),
-						p->getChips(),
-						p->getCurrentBet(),
-						p->getTotalBet(),
-						p->getHasFolded()
-						});
-
-				}
+				std::vector<PublicPlayerInfo> publicInfo{ getEveryPlayersPublicInfo() };		
 
 				for (const auto& pOutputHandler : outputHandlers)
 				{
@@ -317,23 +327,11 @@ void TexasHoldemManager::riverPhase()
 
 void TexasHoldemManager::showdownPhase()
 {
+	std::vector<PublicPlayerInfo> publicInfo{ getEveryPlayersPublicInfo() };
+
 	if (this->outputHandlers.size() != 0)
 	{
-		std::vector<PublicPlayerInfo> publicInfo;
-		publicInfo.reserve(pPlayers.size());
-
-		for (const auto& p : pPlayers)
-		{
-			publicInfo.push_back({
-				p->getPlayerName(),
-				p->getChips(),
-				p->getCurrentBet(),
-				p->getTotalBet(),
-				p->getHasFolded()
-				});
-
-		}
-
+		
 		for (const auto& pOutputHandler : outputHandlers)
 		{
 			if (!pOutputHandler) continue;
@@ -341,73 +339,144 @@ void TexasHoldemManager::showdownPhase()
 		}
 	}
 
+	using Pot = PotCalculator::Pot;
 
-	std::optional<HandScore> biggestHandScore = std::nullopt;
-	std::vector<std::shared_ptr<PlayerLogicParent>> winners;
+	std::vector<Pot> allPots{ PotCalculator::getAllPots(publicInfo) };
 
+	std::vector<std::optional<HandScore>> allHands{};
 
-	// Evaluate and find winner/winners
-	for (auto& pPlayer : pPlayers)
+	for (const auto& pPlayer : pPlayers)
 	{
-		if (pPlayer->getHasFolded()) continue;
-		std::vector<Card> cardsToUse = this->currentTableState.communityCards;
-		std::array<Card, 2> playersCards = pPlayer->getPlayerCards();
-		cardsToUse.insert(cardsToUse.end(), playersCards.begin(), playersCards.end());
-
-		HandScore playerHandScore = HandEvaluator::Evaluate(cardsToUse);
-
-		if (!biggestHandScore.has_value() || playerHandScore > biggestHandScore.value())
+		if (pPlayer->getHasFolded())
 		{
-			biggestHandScore = playerHandScore;
-			winners.clear();
-			winners.push_back(pPlayer);
+			// folded players are not evaluated
+			allHands.push_back(std::nullopt);
 		}
-		else if (biggestHandScore.value() == playerHandScore)
+		else
 		{
-			winners.push_back(pPlayer);
+			std::vector<Card> cardsToUse = this->currentTableState.communityCards;
+			std::array<Card, 2> playersCards = pPlayer->getPlayerCards();
+			cardsToUse.insert(cardsToUse.end(), playersCards.begin(), playersCards.end());
+			HandScore playerHandScore = HandEvaluator::Evaluate(cardsToUse);
+			allHands.push_back(playerHandScore);
 		}
 	}
 
-	if (!winners.empty())
+	std::vector<PotWinners> allPotWinners{};
+
+	for (const auto& pot : allPots)
 	{
-		int splitAmount = this->currentTableState.currentPot / static_cast<int>(winners.size());
+		PotWinners potWinners{};
+		potWinners.potAmount = pot.totalChips;
+		std::optional<HandScore> biggestHandScore{};
 
-		int restFromSplit = this->currentTableState.currentPot - static_cast<int>((splitAmount * winners.size()));
-
-		for (auto& winner : winners)
+		for (const auto& index : pot.authorizedPlayersIndices)
 		{
-			winner->addChips(splitAmount);
+			if (!biggestHandScore.has_value() || (allHands[index].has_value() && allHands[index] > biggestHandScore))
+			{
+				biggestHandScore = allHands[index];
+			}
 		}
 
+		std::vector<int> winnersIndices{};
+
+		for (const auto& index : pot.authorizedPlayersIndices)
+		{
+			if (biggestHandScore == allHands[index])
+			{
+				potWinners.winnersNames.push_back(pPlayers[index]->getPlayerName());
+				winnersIndices.push_back(index);
+			}
+		}
+
+		assert(potWinners.winnersNames.size() > 0);
+		int splitAmount = pot.totalChips / static_cast<int>(winnersIndices.size());
+		int restFromSplit = pot.totalChips - static_cast<int>((splitAmount * winnersIndices.size()));
+		assert((splitAmount * static_cast<int>(winnersIndices.size()) + restFromSplit) == pot.totalChips);
+		for (auto i : winnersIndices )
+		{
+			pPlayers[i]->addChips(splitAmount);
+		}
+
+
+		// winner the closest to the left of the dealer is getting the rest of the chips
 		if (restFromSplit > 0)
 		{
-			for (auto& winner : winners)
-			{
-				winner->addChips(restFromSplit);
-				break;
-			}
-		}
-	}
+			assert(winnersIndices.size() > 0);
 
-	if (this->outputHandlers.size() != 0)
-	{
-		
-		if (const auto& handScore = biggestHandScore)
+			int playerToGetRestIndex{};
+
+			// when there's heads up (when up to 2 players are competing) then start is from BB player, otherwise from SB
+			int start = pPlayers.size() > 2 ? SMALL_BLIND_PLAYER_INDEX : BIG_BLIND_PLAYER_INDEX;
+
+			
+			int distance{static_cast<int>(pPlayers.size() - 1)};
+
+			for (auto i : winnersIndices)
+			{
+				// we are counting distance clockwise from start
+				// adding amount of players to protect from minus sign
+				if (((i - start + static_cast<int>(pPlayers.size())) % pPlayers.size()) <= distance)
+				{
+					distance = ((i - start + static_cast<int>(pPlayers.size())) % pPlayers.size());
+					playerToGetRestIndex = i;
+				}
+			}
+
+			pPlayers[playerToGetRestIndex]->addChips(restFromSplit);
+		}
+
+
+		if (pot.authorizedPlayersIndices.size() > 1)
 		{
-			std::vector<std::string> winnersNames;
-			for (auto const& winner : winners)
+			// pot with only one winner is not evaluated
+			potWinners.handsWereEvaluated = true;
+		}
+
+		allPotWinners.push_back(potWinners);
+
+	}
+
+#ifndef NDEBUG
+	long sum{};
+	for (const auto& pot : allPotWinners)
+	{
+		sum += pot.potAmount;
+	}
+	assert(sum == currentTableState.currentPot);
+#endif
+
+	// this vector will be for output through network
+	std::vector<PlayerHand> playerHands{};
+	
+	// if there is only one nonfolded player then we are not showing cards
+	if (std::find_if(allPotWinners.begin(), allPotWinners.end(), [](const PotWinners& a) {return a.handsWereEvaluated; }) != allPotWinners.end())
+	{
+		for (int i{}; i < allHands.size(); ++i)
+		{
+			std::optional<HandScore> hand{ allHands[i] };
+			PlayerHand playerHand{};
+
+			if (hand.has_value())
 			{
-				winnersNames.push_back(winner->getPlayerName());
+				playerHand.hand = hand.value();
+				playerHand.name = pPlayers[i]->getPlayerName();
+				playerHands.push_back(playerHand);
 			}
 
-			for (const auto& pOutputHandler : outputHandlers)
-			{
-				if (!pOutputHandler) continue;
-				pOutputHandler->onShowdown(winnersNames, handScore.value(), this->currentTableState.currentPot);
-			}
+
 		}
-		
 	}
+
+	ShowdownResult showdownResult{ allPotWinners, playerHands };
+
+	for (const auto& pOutputHandler : outputHandlers)
+	{
+		if (!pOutputHandler) continue;
+		pOutputHandler->onShowdown(showdownResult);
+	}
+
+
 
 }
 

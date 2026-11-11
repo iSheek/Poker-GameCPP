@@ -346,13 +346,40 @@ void ConsolePlayerChannel::onPlayerAction(const std::string& playerName, const P
 }
 
 
-void ConsolePlayerChannel::onShowdown(const std::vector<std::string>& winnerNames, const HandScore& winningHand, const int& pot)
+void ConsolePlayerChannel::onShowdown(const ShowdownResult& showdownResult)
 {
-    std::string winnerLog = "SHOWDOWN WON BY: ";
-    for (auto& w : winnerNames) winnerLog += w + " ";
-    winnerLog += "WITH: " + CardFormatter::getHandName(winningHand.hand) + " (" + std::to_string(pot) + ")";
 
-    this->addLog(winnerLog);
+    for (const auto& pw : showdownResult.potWinners)
+    {
+        if (!pw.handsWereEvaluated)
+        {
+            this->addLog("There was no showdown");
+            continue;
+        }
+        std::string winnerLog = "SHOWDOWN FOR ";
+        winnerLog += std::to_string(pw.potAmount);
+        winnerLog += " WON BY: ";
+        for (auto& w : pw.winnersNames)
+        {
+            winnerLog += w + " ";
+        }
+        
+        std::string firstWinnerName{};
+        if (pw.winnersNames.size() > 0)
+        {
+            firstWinnerName = pw.winnersNames[0];
+        }
+
+        HandScore firstWinnerHandScore{};
+
+        for (const auto& ph : showdownResult.playersHands)
+        {
+            firstWinnerHandScore = ph.name == firstWinnerName ? ph.hand : firstWinnerHandScore;
+        }
+        winnerLog += "WITH: " + CardFormatter::getHandName(firstWinnerHandScore.hand);
+        this->addLog(winnerLog);
+    }
+
 }
 
 

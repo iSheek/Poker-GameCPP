@@ -6,6 +6,8 @@
 
 #include "GameManager.h"
 #include "HandEvaluator.h"
+#include "PublicPlayerInfo.h"
+#include <vector>
 #include <stdexcept>
 #include <algorithm>
 
@@ -24,6 +26,12 @@ private:
 	int bigBlind{}; ///< The value of the big blind
 
 	TableState currentTableState{}; ///< The current state of the table
+
+	/**
+	 * @brief Gets public info for every player
+	 * @return vector containing all public info for every player (where index = pPlayers index)
+	 */
+	std::vector<PublicPlayerInfo> getEveryPlayersPublicInfo() const;
 
 	/**
 	 * @brief Executes a betting round starting from a specific player
@@ -58,7 +66,9 @@ private:
 	void riverPhase();
 
 	/**
-	 * @brief Handles the showdown phase (evaluating hands and awarding the pot)
+	 * @brief Handles the showdown phase
+	 * @details using PotCalculator it divides pots into main one and side ones, every pot is evaluated separately, cards are shown only if there is any evaluation, 
+	 * only one onShowdown with results; if there is a rest from dividing a pot between winners, then the closest from left of the dealer winner is getting the rest
 	 */
 	void showdownPhase();
 
@@ -96,4 +106,6 @@ public:
 	{
 		this->bigBlind = newBigBlindBet;
 	}
+
+
 };
