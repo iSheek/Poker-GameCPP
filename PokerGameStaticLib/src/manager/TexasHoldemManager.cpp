@@ -8,6 +8,7 @@
 #include "PotCalculator.h"
 #include "ShowdownResult.h"
 #include <algorithm>
+#include <cassert>
 #include <optional>
 
 // when making ux outside console add commented methods from IOutputHandler
@@ -50,6 +51,37 @@ std::vector<PublicPlayerInfo> TexasHoldemManager::getEveryPlayersPublicInfo() co
 	return publicInfo;
 }
 
+void TexasHoldemManager::executeStreet(int amountOfCardsToDeal)
+{
+	// in TexasHoldem we deal only either 1 or 3 cards
+	assert(amountOfCardsToDeal == 1 || amountOfCardsToDeal == 3);
+
+	int foldedPlayers{};
+	for (auto const& p : pPlayers)
+	{
+		if (p->getHasFolded()) ++foldedPlayers;
+	}
+
+	if (pPlayers.size() - foldedPlayers < 2) return;
+
+	this->deck.drawCard(); // dealer throws away one card
+
+	for (int i{}; i < amountOfCardsToDeal; ++i)
+	{
+		this->currentTableState.communityCards.push_back(this->deck.drawCard());
+	}
+	
+	this->currentTableState.currentHighestBet = 0;
+	for (auto& pPlayer : pPlayers)
+	{
+		pPlayer->setCurrentBet(0);
+	}
+
+	// after flop the first person on the left from dealer is moving first, if there's only 2 players then dealer is SB, so BB starts
+	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
+	bettingRound(startIndex);
+
+}
 
 void TexasHoldemManager::bettingRound(int startingIndex)
 {
@@ -262,80 +294,17 @@ void TexasHoldemManager::preFlopPhase()
 
 void TexasHoldemManager::flopPhase()
 {
-	int foldedPlayers = 0;
-	for (auto const& p : pPlayers)
-	{
-		if (p->getHasFolded()) ++foldedPlayers;
-	}
-
-	if (pPlayers.size() - foldedPlayers < 2) return;
-
-
-	deck.drawCard(); // dealer throws away one card
-
-	// dealer puts 3 community cards
-	this->currentTableState.communityCards.push_back(deck.drawCard());
-	this->currentTableState.communityCards.push_back(deck.drawCard());
-	this->currentTableState.communityCards.push_back(deck.drawCard());
-
-	currentTableState.currentHighestBet = 0;
-	for (auto& pPlayer : pPlayers)
-	{
-		if (!pPlayer->getHasFolded()) pPlayer->setCurrentBet(0);
-	}
-
-	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
-	bettingRound(startIndex);
-
+	executeStreet(3);
 }
 
 void TexasHoldemManager::turnPhase()
 {
-	int foldedPlayers = 0;
-	for (auto const& p : pPlayers)
-	{
-		if (p->getHasFolded()) ++foldedPlayers;
-	}
-
-	if (pPlayers.size() - foldedPlayers < 2) return;
-
-	deck.drawCard(); // dealer throws away one card
-
-	this->currentTableState.communityCards.push_back(deck.drawCard());
-
-	currentTableState.currentHighestBet = 0;
-	for (auto& pPlayer : pPlayers)
-	{
-		if (!pPlayer->getHasFolded()) pPlayer->setCurrentBet(0);
-	}
-
-	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
-	bettingRound(startIndex);
-
+	executeStreet(1);
 }
 
 void TexasHoldemManager::riverPhase()
 {
-	int foldedPlayers = 0;
-	for (auto const& p : pPlayers)
-	{
-		if (p->getHasFolded()) ++foldedPlayers;
-	}
-
-	if (pPlayers.size() - foldedPlayers < 2) return;
-
-	deck.drawCard(); // dealer throws away one card
-
-	this->currentTableState.communityCards.push_back(deck.drawCard());
-
-	currentTableState.currentHighestBet = 0;
-	for (auto& pPlayer : pPlayers)
-	{
-		if (!pPlayer->getHasFolded()) pPlayer->setCurrentBet(0);
-	}
-
-	int startIndex = (pPlayers.size() == 2) ? BIG_BLIND_PLAYER_INDEX : SMALL_BLIND_PLAYER_INDEX;
-	bettingRound(startIndex);
+	executeStreet(1);
 }
 
 void TexasHoldemManager::showdownPhase()

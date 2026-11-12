@@ -40,6 +40,13 @@ private:
 	void bettingRound(int startingIndex);
 
 	/**
+	* @brief Helper function that deals community cards and starts betting round 
+	* @details this function operates only in flop, turn and river
+	* @param amountOfCardsToDeal how many cards will be dealt
+	*/
+	void executeStreet(int amountOfCardsToDeal);
+
+	/**
 	 * @brief Handles the small and big blinds at the start of a round
 	 */
 	void blindsPhase();
