@@ -8,6 +8,7 @@
 #include "Cards.h"
 #include "PlayerLogicParent.h"
 #include "IOutputHandler.h"
+#include "TableState.h"
 #include <memory>
 #include <vector>
 
@@ -31,11 +32,8 @@ protected:
 	GameManager(std::shared_ptr<IOutputHandler> pOutputHandler)
 	{
 		outputHandlers.push_back(pOutputHandler);
-		currentTableState.currentHighestBet = 0;
-		currentTableState.currentPot = 0;
 	}
 
-	GameManager(std::vector<std::shared_ptr<IOutputHandler>> outputHandlers) : outputHandlers(outputHandlers) {}
 
 public:
 

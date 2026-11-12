@@ -15,10 +15,6 @@
 TexasHoldemManager::TexasHoldemManager(std::shared_ptr<IOutputHandler> pOutputHandler) : GameManager(pOutputHandler), smallBlind(10), bigBlind(20)
 {
 	deck = Deck(DeckType::STANDARD);
-	currentTableState.amountToCall = 0;
-	currentTableState.currentHighestBet = 0;
-	currentTableState.currentPot = 0;
-
 }
 
 void TexasHoldemManager::playRound()

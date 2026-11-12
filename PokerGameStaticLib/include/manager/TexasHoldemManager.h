@@ -25,8 +25,6 @@ private:
 	int smallBlind{}; ///< The value of the small blind
 	int bigBlind{}; ///< The value of the big blind
 
-	TableState currentTableState{}; ///< The current state of the table
-
 	/**
 	 * @brief Gets public info for every player
 	 * @return vector containing all public info for every player (where index = pPlayers index)
