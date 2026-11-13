@@ -51,6 +51,7 @@ void GameApplication::startSingleplayer()
 			std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
 			std::cout << "\n\nYOU WON!!! \n\n";
+			break;
 		}
 
 		std::cout << "\nPRESS ENTER TO CONTINUE\n";

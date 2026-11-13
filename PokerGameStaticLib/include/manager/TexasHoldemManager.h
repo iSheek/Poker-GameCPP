@@ -16,6 +16,9 @@ constexpr int BIG_BLIND_PLAYER_INDEX = 1;
 
 constexpr int UNDER_THE_GUN_PLAYER_INDEX = 2;
 
+constexpr int MINIMUM_PLAYERS = 2;
+constexpr int MAXIMUM_PLAYERS = 8;
+
 /**
  * @brief Class managing the flow of a Texas Hold'em game
  */

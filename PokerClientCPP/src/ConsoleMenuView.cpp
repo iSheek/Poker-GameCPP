@@ -5,6 +5,7 @@
 
 
 #include "ConsoleMenuView.h"
+#include "ConsoleCONSTANS.h"
 #include "MenuChoice.h"
 #include <iostream>
 #include <string>
@@ -23,7 +24,6 @@ constexpr auto allChoiceTextsArray = std::array{startSingleplayerText, startMult
 // ANSI sequence to clear screen
 constexpr std::string_view ansiToClear{ "\033[2J\033[1;1H" };
 
-constexpr int maxBotsCount{3};
 
 
 void ConsoleMenuView::showMenuChoices()
@@ -77,14 +77,14 @@ void ConsoleMenuView::showBotCountInput()
 {
 	std::cout << ansiToClear;
 
-	std::cout << "Enter the amount of bots to add: " << "(MAX: " << maxBotsCount << ") " << endOfText << "\n";
+	std::cout << "Enter the amount of bots to add: " << "(MAX: " << CONSOLE_MAX_PLAYERS-1 << ") " << endOfText << "\n";
 }
 
 void ConsoleMenuView::showPlayerCountInput()
 {
 	std::cout << ansiToClear;
 
-	std::cout << "Enter the amount of players that will play (including you): " << "(MAX: " << maxBotsCount+1 << ") " << endOfText << "\n";
+	std::cout << "Enter the amount of players that will play (including you): " << "(MAX: " << CONSOLE_MAX_PLAYERS << ") " << endOfText << "\n";
 }
 
 void ConsoleMenuView::showStartingChipsInput()

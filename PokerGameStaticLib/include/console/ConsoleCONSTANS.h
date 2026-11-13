@@ -4,7 +4,7 @@
  */
 #pragma once
 
-
+#include "TexasHoldemManager.h"
 
 inline constexpr int MAX_LOGS_IN_CONSOLE = 10;
 inline constexpr int MAX_LINE_LENGTH = 80;
@@ -19,3 +19,10 @@ inline constexpr int STARTING_X_FOR_PLAYERS_INFO = 3;
 inline constexpr int Y_FOR_PLAYERS_INFO = 2;
 inline constexpr int STARTING_X_FOR_LOGS = 70;
 inline constexpr int STARTING_Y_FOR_LOGS = 10;
+
+inline constexpr int CONSOLE_MIN_PLAYERS = 2;
+inline constexpr int CONSOLE_MAX_PLAYERS = 4;
+
+
+static_assert (CONSOLE_MIN_PLAYERS == MINIMUM_PLAYERS);
+static_assert (CONSOLE_MAX_PLAYERS <= MAXIMUM_PLAYERS);

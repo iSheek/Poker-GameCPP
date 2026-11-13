@@ -90,7 +90,7 @@ public:
 	virtual int askForPortToCreate() override;
 
 	/** @copydoc IMenuController::askForBotsCount() 
-	 * @note Validates that the input is between 0 and maxBots (3). 
+	 * @note Validates that the input is between 0 and CONSOLE_MAX_PLAYERS - 1. 
 	 * Inputting 0 serves as a signal to step back in the menu.
 	 */
 	virtual int askForBotsCount() override;

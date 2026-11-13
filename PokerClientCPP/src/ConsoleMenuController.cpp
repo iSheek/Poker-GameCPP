@@ -6,6 +6,7 @@
 
 #include "ConsoleMenuController.h"
 #include "ConsoleMenuView.h"
+#include "ConsoleCONSTANS.h"
 #include "MenuChoice.h"
 #include "GameSettings.h"
 #include <algorithm>
@@ -17,8 +18,8 @@
 constexpr std::string_view wrongInputMessage{ "WRONG INPUT!" };
 constexpr std::string_view wrongNicknameMessage{ "WRONG NICKNAME, YOU CAN ONLY USE LETTERS!" };
 constexpr std::string_view wrongChipInput{ "WRONG AMOUNT OF CHIPS, SMALLEST CHIP IS 10 AND STARTING CHIPS CAN'T BE SMALLER THAN 1000!" };
-constexpr int maxBots{ 3 };
-constexpr std::string_view wrongBotCountMessage{ "WRONG BOT COUNT, YOU CAN PUT MAX 3 BOTS" };
+constexpr std::string_view wrongBotCountMessage{ "WRONG BOT COUNT" };
+constexpr std::string_view wrongPlayerCountMessage{ "WRONG PLAYER COUNT" };
 constexpr std::string_view localhostAddress{ "127.0.0.1" };
 constexpr int smallestChip{ 10 };
 
@@ -184,7 +185,7 @@ int ConsoleMenuController::askForBotsCount()
 			continue;
 		}
 		if (givenCount == 0) break;
-		else if (0 > givenCount || maxBots < givenCount)
+		else if (0 > givenCount || CONSOLE_MAX_PLAYERS - 1 < givenCount)
 		{
 			continue;
 		}
@@ -206,7 +207,7 @@ int ConsoleMenuController::askForPlayerCount()
 	while (true)
 	{
 		this->view.showPlayerCountInput();
-		if (showError) this->view.showError(wrongBotCountMessage);
+		if (showError) this->view.showError(wrongPlayerCountMessage);
 		showError = true;
 
 		std::cin >> givenCount;
@@ -218,7 +219,7 @@ int ConsoleMenuController::askForPlayerCount()
 			continue;
 		}
 		if (givenCount == 0) break;
-		else if (0 > givenCount || maxBots < givenCount)
+		if (CONSOLE_MIN_PLAYERS > givenCount || CONSOLE_MAX_PLAYERS < givenCount)
 		{
 			continue;
 		}
