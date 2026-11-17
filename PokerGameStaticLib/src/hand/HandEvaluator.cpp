@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <optional>
 #include <array>
+#include <exception>
 #include <stdexcept>
 
 #include "HandEvaluator.h"
@@ -17,6 +18,13 @@
 	std::optional<std::vector<Card>> HandEvaluator::checkForHighestStraightFlush(const std::vector<Card>& cardsToCheck)
 	{
 		if (cardsToCheck.size() < 5) return std::nullopt;
+
+		// Check for royal flush (because ace in enum is 1)
+		if (cardsToCheck.front().rank == CardRank::KING && cardsToCheck[3].rank == CardRank::TEN && cardsToCheck.back().rank == CardRank::ACE)
+		{
+			return std::vector<Card>{cardsToCheck[0], cardsToCheck[1], cardsToCheck[2], cardsToCheck[3], cardsToCheck.back()};
+		}
+
 
 		int startingIndex = 1;
 		int endIndex = 5;
@@ -40,11 +48,6 @@
 			++endIndex;
 		}
 
-		// Check for royal flush (because ace in enum is 1)
-		if (cardsToCheck.front().rank == CardRank::KING && cardsToCheck[3].rank == CardRank::TEN && cardsToCheck.back().rank == CardRank::ACE)
-		{
-			return std::vector<Card>{cardsToCheck[0], cardsToCheck[1], cardsToCheck[2], cardsToCheck[3], cardsToCheck.back()};
-		}
 
 		return std::nullopt;
 	}
@@ -551,6 +554,16 @@
 
 	HandScore HandEvaluator::Evaluate(std::vector<Card> allCardsInHand)
 	{
+		if (!std::all_of(allCardsInHand.begin(), allCardsInHand.end(), [](const Card& a) {return a.suit != CardSuit::NONE; }))
+		{
+			throw std::runtime_error("EVALUATE FOUND CARDSUIT::NONE");
+		}
+
+		if (!std::all_of(allCardsInHand.begin(), allCardsInHand.end(), [](const Card& a) {return a.rank != CardRank::NONE; }))
+		{
+			throw std::runtime_error("EVALUATE FOUND CARDRANK::NONE");
+		}
+
 		std::sort(allCardsInHand.begin(), allCardsInHand.end(), [](const Card& a, const Card& b) {return a.rank > b.rank; });
 
 
@@ -567,7 +580,7 @@
 
 			if (auto sfCards = checkForHighestStraightFlush(bucket))
 			{
-				if (sfCards.value().front().rank == CardRank::KING)
+				if (sfCards.value().front().rank == CardRank::KING && sfCards.value().back().rank == CardRank::ACE)
 				{
 					return HandScore{ PokerHand::ROYAL_FLUSH, sfCards.value() };
 				}

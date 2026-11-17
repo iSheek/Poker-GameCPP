@@ -4,6 +4,8 @@
  */
 #include "HandScore.h"
 #include "Cards.h"
+#include <algorithm>
+#include <cassert>
 
 int HandScore::getCardStrength(CardRank rank) const
 {
@@ -13,15 +15,14 @@ int HandScore::getCardStrength(CardRank rank) const
 
 bool HandScore::operator>(const HandScore& other) const
 {
-
 	if (hand != other.hand)
 	{
 		return hand > other.hand;
 	}
 
-	if (usedCardsInHand.size() > other.usedCardsInHand.size()) return true;
+	assert(usedCardsInHand.size() == other.usedCardsInHand.size());
 
-	for (size_t i = 0; i < usedCardsInHand.size(); i++)
+	for (size_t i = 0; i < std::min(usedCardsInHand.size(), other.usedCardsInHand.size()); i++)
 	{
 		int myCardStrength = getCardStrength(usedCardsInHand[i].rank);
 		int otherCardStrength = getCardStrength(other.usedCardsInHand[i].rank);
@@ -37,11 +38,11 @@ bool HandScore::operator>(const HandScore& other) const
 
 bool HandScore::operator==(const HandScore& other) const
 {
-	if (usedCardsInHand.size() != other.usedCardsInHand.size()) return false; 
-
 	if (hand != other.hand) return false;
 
-	for (size_t i = 0; i < usedCardsInHand.size(); i++)
+	assert(usedCardsInHand.size() == other.usedCardsInHand.size());
+
+	for (size_t i = 0; i < std::min(usedCardsInHand.size(), other.usedCardsInHand.size()); i++)
 	{
 		int myCardStrength = getCardStrength(usedCardsInHand[i].rank);
 		int otherCardStrength = getCardStrength(other.usedCardsInHand[i].rank);
