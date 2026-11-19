@@ -1,6 +1,14 @@
 {
   "dependencies": [
     "boost-asio",
-    "nlohmann-json"
+    {
+      "name": "imgui",
+      "features": [
+        "glfw-binding",
+        "opengl3-binding"
+      ]
+    },
+    "nlohmann-json",
+    "glfw3"
   ]
 }

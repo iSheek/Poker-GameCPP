@@ -8,7 +8,6 @@
 
 #include "IPlayerChannel.h"
 #include "GameSettings.h"
-#include "ConsolePlayerChannel.h"
 #include <string>
 #include <memory>
 #include <thread>
@@ -33,41 +32,22 @@ private:
 	bool isHost{ false };							///< Indicates whether the local application is also hosting the server
 
 public:
-	/**
-	 * @brief Default constructor for GameApplication.
-	 */
-	GameApplication() = default;
 
-	/**
-	 * @brief Constructs a GameApplication using the provided GameSettings.
-	 * @details Automatically initializes the input and output handlers with standard console implementations.
-	 * @param gameSettings A structure containing all setup parameters (nickname, ip, port, chips, etc.).
-	 */
-	GameApplication(GameSettings gameSettings) : 
-		playerName(gameSettings.nickname), 
-		ipAddress(gameSettings.ipAddress), 
-		startingChips(gameSettings.startingChips), 
-		playerCount(gameSettings.playerCount), 
-		port(gameSettings.port), 
-		isHost(gameSettings.isHost),
-		pHandler(std::make_shared<ConsolePlayerChannel>())
-	{}
 	
 	/**
 	 * @brief Constructs a GameApplication using GameSettings and custom I/O handlers.
 	 * @details Useful for dependency injection, allowing custom logic for input/output (e.g., for GUI or testing).
 	 * @param gameSettings A structure containing all setup parameters.
-	 * @param pOutput Shared pointer to an initialized Output Handler.
-	 * @param pInput Shared pointer to an initialized Input Handler.
+	 * @param pHandler Shared pointer to an initialized Input/Output Handler.
 	 */
 	GameApplication(GameSettings gameSettings, std::shared_ptr<IPlayerChannel> pHandler) :
 		playerName(gameSettings.nickname), 
-		isHost(gameSettings.isHost), 
-		ipAddress(gameSettings.ipAddress),
+		pHandler(pHandler),
 		startingChips(gameSettings.startingChips), 
 		playerCount(gameSettings.playerCount), 
 		port(gameSettings.port),
-		pHandler(pHandler)
+		ipAddress(gameSettings.ipAddress),
+		isHost(gameSettings.isHost) 
 	{}
 
 	/**
@@ -79,7 +59,7 @@ public:
 
 	/**
 	 * @brief Starts a multiplayer game session.
-	 * @details If the user chose to host, it spins up a ServerManager in a detached background thread.
+	 * @details If the user chose to host, it spins up a ServerManager in a background thread.
 	 * Afterward, it initializes a ClientNetworkManager to connect to the specified IP and port
 	 * (either locally hosted or remote) and enters the network event loop.
 	 */

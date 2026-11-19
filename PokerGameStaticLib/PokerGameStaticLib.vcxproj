@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ClientNetworkManager.cpp" />
     <ClCompile Include="src\console\ConsolePlayerChannel.cpp" />
+    <ClCompile Include="src\GameApplication.cpp" />
     <ClCompile Include="src\manager\BettingRules.cpp" />
     <ClCompile Include="src\manager\PotCalculator.cpp" />
     <ClCompile Include="src\player\BotPlayerLogic.cpp" />
@@ -35,7 +37,10 @@
     <ClCompile Include="src\manager\TexasHoldemManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\ClientNetworkManager.h" />
     <ClInclude Include="include\console\ConsolePlayerChannel.h" />
+    <ClInclude Include="include\GameApplication.h" />
+    <ClInclude Include="include\GameSettings.h" />
     <ClInclude Include="include\manager\BettingRules.h" />
     <ClInclude Include="include\manager\PotCalculator.h" />
     <ClInclude Include="include\manager\ShowdownResult.h" />

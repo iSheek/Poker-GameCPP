@@ -99,7 +99,9 @@ int main()
 		else break;
 	}
 
-	GameApplication gameApp(settings);
+	std::shared_ptr<ConsolePlayerChannel> consolePlayer{ std::make_shared<ConsolePlayerChannel>() };
+
+	GameApplication gameApp(settings, consolePlayer);
 
 	if (settings.isMultiplayer)
 	{

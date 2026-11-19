@@ -71,3 +71,7 @@ Testing/
 .vs/
 *.vcxproj.user
 .github/copilot-instructions.md
+
+lib/
+bin/
+imgui.ini
