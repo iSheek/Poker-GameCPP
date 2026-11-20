@@ -1,6 +1,7 @@
 {
   "dependencies": [
     "boost-asio",
+    "glfw3",
     {
       "name": "imgui",
       "features": [
@@ -9,6 +10,7 @@
       ]
     },
     "nlohmann-json",
-    "glfw3"
+    "stb",
+    "glm"
   ]
 }

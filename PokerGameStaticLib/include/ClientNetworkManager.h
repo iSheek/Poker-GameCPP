@@ -49,8 +49,7 @@ public:
 	 * @brief Constructs the ClientNetworkManager.
 	 *
 	 * @param io_context Reference to the Boost Asio IO context
-	 * @param output Pointer to the handler managing UI/console output
-	 * @param input Pointer to the handler managing user input
+	 * @param i/o Pointer to the handler managing input and output
 	 */
 	ClientNetworkManager(
 		boost::asio::io_context& io_context,
