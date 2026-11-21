@@ -60,7 +60,7 @@ public:
 	* @brief Method that starts using this program
 	* @details This method has to be called before rendering vertices that were made to use this program
 	*/
-	void use()
+	void use() const
 	{
 		glUseProgram(id);
 	}

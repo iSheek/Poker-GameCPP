@@ -7,6 +7,7 @@
 
 #include "AppWindow.h"
 #include "ImGuiLayer.h"
+#include "ResourceManager.h"
 
  /**
  * @brief Class managing whole application
@@ -18,7 +19,8 @@ private:
     // first AppWindow and second ImGuiLayer so when they're destroyed, ImGuiLayer will be destroyed before object managing the window
     AppWindow appWindow{};                  ///< object managing the window
     ImGuiLayer imGuiLayer{ appWindow };     ///< object managing ImGuiLayer
-                                            
+    ResourceManager resourceManager{};      ///< object managing resources - created after ImGuiLayer since OpenGL resources has to be destroyed before context is destroyed
+
     double deltaTime{};                     ///< time between frames so every movement will be tied to the time instead of frames
     double lastTime{};                      ///< time of the last frame
 
