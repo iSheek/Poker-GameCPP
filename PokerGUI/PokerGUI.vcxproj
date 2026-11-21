@@ -152,6 +152,7 @@
     <ClCompile Include="src\ImGuiLayer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ShaderProgram.cpp" />
+    <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="third_party\glad\glad.c" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +160,7 @@
     <ClInclude Include="include\AppWindow.h" />
     <ClInclude Include="include\ImGuiLayer.h" />
     <ClInclude Include="include\ShaderProgram.h" />
+    <ClInclude Include="include\Texture.h" />
     <ClInclude Include="third_party\glad\glad.h" />
     <ClInclude Include="third_party\KHR\khrplatform.h" />
   </ItemGroup>
