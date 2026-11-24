@@ -10,10 +10,18 @@ namespace GUIConstants
 	using Cstr = const char*;
 
 	/**
-	* @brief names for ResourceManager
+	* @brief shader names for ResourceManager
 	*/
 	namespace ShaderProgramNames {
 		inline constexpr Cstr SPRITE_PROGRAM { "sprite" };
+	}
+
+	/**
+	* @brief texture names for ResourceManager
+	*/
+	namespace TextureNames {
+		inline constexpr Cstr CARDS_ATLAS{ "pokeratlas" };
+		inline constexpr Cstr CHIP_TEXTURE{ "chip" };
 	}
 
 	/**
@@ -25,6 +33,7 @@ namespace GUIConstants
 		inline constexpr Cstr TEXTURE_NAME_IN_SHADER{ "texture1" };
 		inline constexpr Cstr MULTIPLIER_NAME_IN_SHADER{ "multiplier" };
 		inline constexpr Cstr UVRECT_NAME_IN_SHADER{ "uvrect" };
+		inline constexpr Cstr B_WHITE_EXCEPTION_IN_SHADER{ "whiteException" };
 	}
 
 	/**
@@ -55,6 +64,9 @@ namespace GUIConstants
 	namespace FileNames {
 		inline constexpr Cstr SPRITE_VERTEX_SHADER{ "vsprite.shader" };
 		inline constexpr Cstr SPRITE_FRAGMENT_SHADER{ "fsprite.shader" };
+
+		inline constexpr Cstr CARDS_ATLAS_FILE{ "cardsatlas.png" };
+		inline constexpr Cstr CHIP_TEXTURE_FILE{ "chipsprite.png" };
 	}
 
 	/**

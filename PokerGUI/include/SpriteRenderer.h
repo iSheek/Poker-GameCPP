@@ -20,6 +20,7 @@ struct SpriteDrawData
 	float rotation{};									///< rotation in radians of a sprite
 	glm::vec4 UVrect{ 0.0f, 0.0f, 1.0f, 1.0f };			///< UV rectangle used for taking a part of texture atlas XYZW - XY fragment of atlas - ZW size of the fragment, default value is a whole texture
 	glm::vec4 multiplier{ 1.0f, 1.0f, 1.0f, 1.0f };		///< multiplier used for shadows, UI, etc. it only multiplies existing color in shader, be default itself doesnt change anything
+	bool useWhiteException{ false };					///< should we not use multiplier on pure white in fragment shader
 };
 
 /**

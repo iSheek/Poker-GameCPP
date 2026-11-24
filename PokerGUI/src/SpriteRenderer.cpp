@@ -95,6 +95,8 @@ void SpriteRenderer::draw(const SpriteDrawData& spriteData) const
 	shaderProgram.setVec4(MULTIPLIER_NAME_IN_SHADER, spriteData.multiplier);
 	shaderProgram.setVec4(UVRECT_NAME_IN_SHADER, spriteData.UVrect);
 
+	shaderProgram.setBool(B_WHITE_EXCEPTION_IN_SHADER, spriteData.useWhiteException);
+
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 	glBindVertexArray(0);
