@@ -5,6 +5,7 @@
 
 
 #include "ResourceManager.h"
+#include "GUIConstants.h"
 
 #include <whereami.h>
 
@@ -14,11 +15,7 @@
 #include <unordered_map>
 #include <stdexcept>
 
-namespace {
-	constexpr const char* RESOURCES_FOLDER_NAME{ "res" };
-	constexpr const char* TEXTURES_FOLDER_NAME{ "textures" };
-	constexpr const char* SHADERS_FOLDER_NAME{ "shaders" };
-}
+using namespace GUIConstants::FolderNames;
 
 ResourceManager::ResourceManager()
 {
@@ -48,19 +45,21 @@ ResourceManager::ResourceManager()
 
 }
 
-void ResourceManager::loadTexture(const std::string& name, const std::string& fileName)
+const Texture& ResourceManager::loadTexture(const std::string& name, const std::string& fileName)
 {
 	std::filesystem::path texturePath{ resourcesPath / TEXTURES_FOLDER_NAME / fileName };
-	[[maybe_unused]] bool didEmplace = textures.try_emplace(name, texturePath.string()).second;
-	assert(didEmplace);
+	auto emplaced = textures.try_emplace(name, texturePath.string());
+	assert(emplaced.second);					
+	return emplaced.first->second;		// from iterator we gets both key and value (first is key, second is value)
 }
 
-void ResourceManager::loadShaderProgram(const std::string& name, const std::string& vertexShaderFileName, const std::string& fragmentShaderFileName)
+const ShaderProgram& ResourceManager::loadShaderProgram(const std::string& name, const std::string& vertexShaderFileName, const std::string& fragmentShaderFileName)
 {
 	std::filesystem::path vertexPath{ resourcesPath / SHADERS_FOLDER_NAME / vertexShaderFileName };
 	std::filesystem::path fragmentPath{ resourcesPath / SHADERS_FOLDER_NAME / fragmentShaderFileName };
-	[[maybe_unused]] bool didEmplace = shaderPrograms.try_emplace(name, vertexPath.string(), fragmentPath.string()).second;
-	assert(didEmplace);
+	auto emplaced = shaderPrograms.try_emplace(name, vertexPath.string(), fragmentPath.string());
+	assert(emplaced.second);
+	return emplaced.first->second;	// from iterator we gets both key and value (first is key, second is value)
 }
 
 const ShaderProgram& ResourceManager::getShaderProgramRef(const std::string& name) const

@@ -39,6 +39,9 @@
     <ClCompile Include="src\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SpriteRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="third_party\glad\glad.h">
@@ -65,8 +68,15 @@
     <ClInclude Include="include\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ConstStrings.h">
+    <ClInclude Include="include\GUIConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\SpriteRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\vsprite.shader" />
+    <None Include="res\shaders\fsprite.shader" />
   </ItemGroup>
 </Project>

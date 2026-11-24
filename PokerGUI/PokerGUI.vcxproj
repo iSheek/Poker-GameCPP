@@ -165,19 +165,25 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\ShaderProgram.cpp" />
+    <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="third_party\glad\glad.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\AppWindow.h" />
-    <ClInclude Include="include\ConstStrings.h" />
+    <ClInclude Include="include\GUIConstants.h" />
     <ClInclude Include="include\ImGuiLayer.h" />
     <ClInclude Include="include\ResourceManager.h" />
     <ClInclude Include="include\ShaderProgram.h" />
+    <ClInclude Include="include\SpriteRenderer.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="third_party\glad\glad.h" />
     <ClInclude Include="third_party\KHR\khrplatform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\fsprite.shader" />
+    <None Include="res\shaders\vsprite.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

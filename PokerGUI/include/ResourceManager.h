@@ -49,8 +49,9 @@ public:
 	* @param name given name of the texture
 	* @param fileName name of the file in textures directory
 	* @throws std::runtime_error from Texture constructor if something goes wrong @see Texture::Texture
+	* @return const reference to loaded texture
 	*/
-	void loadTexture(const std::string& name, const std::string& fileName);
+	const Texture& loadTexture(const std::string& name, const std::string& fileName);
 
 	/**
 	* @brief Loads the shader program from the files and names it
@@ -58,8 +59,9 @@ public:
 	* @param vertexShaderFileName name of the file of vertex shader's source code in the shaders directory
 	* @param fragmentShaderFileName name of the file of fragment shader's source code in the shaders directory
 	* @throws std::runtime_error from ShaderProgram constructor if something goes wrong @see ShaderProgram::ShaderProgram
+	* @return const reference to loaded shader program
 	*/
-	void loadShaderProgram(const std::string& name, const std::string& vertexShaderFileName, const std::string& fragmentShaderFileName);
+	const ShaderProgram& loadShaderProgram(const std::string& name, const std::string& vertexShaderFileName, const std::string& fragmentShaderFileName);
 
 	/**
 	* @brief Getter of the reference of shader program

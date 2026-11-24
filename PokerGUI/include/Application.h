@@ -8,6 +8,7 @@
 #include "AppWindow.h"
 #include "ImGuiLayer.h"
 #include "ResourceManager.h"
+#include "SpriteRenderer.h"
 
  /**
  * @brief Class managing whole application
@@ -20,6 +21,7 @@ private:
     AppWindow appWindow{};                  ///< object managing the window
     ImGuiLayer imGuiLayer{ appWindow };     ///< object managing ImGuiLayer
     ResourceManager resourceManager{};      ///< object managing resources - created after ImGuiLayer since OpenGL resources has to be destroyed before context is destroyed
+    SpriteRenderer spriteRenderer;          ///< object responsible for drawing sprites, it has to be created after resourceManager since he needs exisiting ShaderProgram
 
     double deltaTime{};                     ///< time between frames so every movement will be tied to the time instead of frames
     double lastTime{};                      ///< time of the last frame
@@ -35,10 +37,7 @@ public:
     /**
     * @brief Main constructor of the class
     */
-    Application()
-    {
-        lastTime = glfwGetTime();
-    }
+    Application();
 
     /**
     * @name Copying and moving

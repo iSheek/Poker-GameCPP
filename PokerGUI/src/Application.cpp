@@ -4,11 +4,20 @@
  */
 
 #include "Application.h"
+#include "GUIConstants.h"
+
+using namespace GUIConstants;
 
 void Application::processInput()
 {   // TODO COMMA CLOSES WINDOW ONLY FOR TESTING
     if (glfwGetKey(appWindow.getWindowPtr(), GLFW_KEY_COMMA) == GLFW_PRESS)
         glfwSetWindowShouldClose(appWindow.getWindowPtr(), true);
+}
+
+Application::Application() 
+    : spriteRenderer(resourceManager.loadShaderProgram(ShaderProgramNames::SPRITE_PROGRAM, FileNames::SPRITE_VERTEX_SHADER, FileNames::SPRITE_FRAGMENT_SHADER))
+{
+    lastTime = glfwGetTime();
 }
 
 void Application::startRenderLoop()

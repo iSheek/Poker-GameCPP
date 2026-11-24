@@ -4,6 +4,7 @@
  */
 
 #include "AppWindow.h"
+#include "GUIConstants.h"
 
 #include <cstdio>
 #include <stdexcept>
@@ -16,11 +17,6 @@ static void glfwErrorCallback(int error, const char* description)
     fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
-// settings
-constexpr unsigned int SCR_WIDTH = 800;
-constexpr unsigned int SCR_HEIGHT = 600;
-
-constexpr const char* WINDOW_NAME = "PokerGame";
 
 void AppWindow::initGLFW()
 {
@@ -36,7 +32,7 @@ void AppWindow::initGLFW()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
-
+    using namespace GUIConstants::WindowSettings;
     // glfw window creation
     // --------------------
     window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, WINDOW_NAME, NULL, NULL);
