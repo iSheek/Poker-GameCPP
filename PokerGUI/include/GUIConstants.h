@@ -5,9 +5,13 @@
  * @brief File containing constant values for GUI
  */
 
+#include <imgui.h>
+
 namespace GUIConstants
 {
 	using Cstr = const char*;
+
+	inline constexpr ImVec4 TABLE_COLOR{ ImVec4(0.207f, 0.395f, 0.3f, 1.00f) };
 
 	/**
 	* @brief shader names for ResourceManager
@@ -46,6 +50,9 @@ namespace GUIConstants
 		inline constexpr float right{ 640.f };
 		inline constexpr float bottom{ 0.0f };
 		inline constexpr float up{ 360.0f };
+
+		inline constexpr int WIDTH{ static_cast<int>(right) };
+		inline constexpr int HEIGHT{ static_cast<int>(up) };
 	};
 
 	/**

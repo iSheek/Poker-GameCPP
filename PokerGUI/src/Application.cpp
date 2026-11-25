@@ -26,7 +26,7 @@ void Application::startRenderLoop()
 {
     // Our state
     bool show_demo_window = true;
-    ImVec4 clear_color = ImVec4(0.207f, 0.395f, 0.3f, 1.00f);        // poker table color
+    ImVec4 clear_color = TABLE_COLOR;        // poker table color
 
     const Texture& pokerAtlas = resourceManager.getTextureRef(TextureNames::CARDS_ATLAS);
     const Texture& chipTex = resourceManager.getTextureRef(TextureNames::CHIP_TEXTURE);
@@ -70,9 +70,10 @@ void Application::startRenderLoop()
 
         int display_w, display_h;
         glfwGetFramebufferSize(appWindow.getWindowPtr(), &display_w, &display_h);
-        glViewport(0, 0, display_w, display_h);
-        glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-        glClear(GL_COLOR_BUFFER_BIT);
+        customFramebuffer.drawToFramebuffer();
+        //glViewport(0, 0, display_w, display_h);
+        //glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         SpriteDrawData testData
         {
@@ -111,8 +112,7 @@ void Application::startRenderLoop()
         spriteRenderer.draw(testData2shadow);
         spriteRenderer.draw(testData2);
 
-
-        // shadow test 
+        customFramebuffer.showInWindow(display_w, display_h);
 
         imGuiLayer.renderImGui();
 
