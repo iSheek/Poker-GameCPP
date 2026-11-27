@@ -6,6 +6,10 @@
 #include "Application.h"
 #include "GUIConstants.h"
 
+#include "SceneObject.h"
+#include "ChipStack.h"
+#include "CardObject.h"
+
 using namespace GUIConstants;
 
 void Application::processInput()
@@ -19,6 +23,7 @@ Application::Application()
 {
     resourceManager.loadTexture(TextureNames::CARDS_ATLAS, FileNames::CARDS_ATLAS_FILE);
     resourceManager.loadTexture(TextureNames::CHIP_TEXTURE, FileNames::CHIP_TEXTURE_FILE);
+    resourceManager.loadTexture(TextureNames::CARD_FRAME, FileNames::CARD_FRAME_TEXTURE_FILE);
     lastTime = glfwGetTime();
 }
 
@@ -34,10 +39,37 @@ void Application::startRenderLoop()
     glm::vec2 testPosition = glm::vec2(320.0f, 180.0f);
     glm::vec2 testSize = glm::vec2(64.0f, 64.0f);
     float testRotation = 0.0f;
-    glm::vec4 testUVRect = glm::vec4(0.0f, 192.0f / 256.0f, 64.0f / 896.0f, 64.0f / 256.0f);
-    glm::vec4 testMultiplier = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
-    bool flagTest = false;
 
+
+    const Texture& frame = resourceManager.getTextureRef(TextureNames::CARD_FRAME);
+    std::vector<SpriteDrawData> drawDatas{};
+
+
+    SpriteDrawData testChip
+    {
+        .texture = chipTex,
+        .position = glm::vec2(150.0f, 120.0f),
+        .size = glm::vec2(16.0f, 14.0f),
+        .rotation = testRotation,
+        .UVrect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)
+    };
+
+    SpriteDrawData testCard
+    {
+        .texture = pokerAtlas,
+        .position = testPosition,
+        .size = testSize,
+        .rotation = testRotation
+    };
+
+    int rank{1};
+    int color{ 1 };
+    bool isHidden{ false };
+    bool isHighlighted{ false };
+    int amount{ 1000 };
+
+    ChipStack testChipStack{ testChip, 5000 };
+    CardObject testCardObject{ testCard, Card{ CardSuit::HEARTS, CardRank::ACE }, frame };
 
     // render loop
     // -----------
@@ -60,12 +92,11 @@ void Application::startRenderLoop()
         //    ImGui::ShowDemoWindow(&show_demo_window);
 
         ImGui::Begin("TESTSCREEN");
-        ImGui::SliderFloat("Rotation", &testRotation, 0.0f, 300.0f);
-        ImGui::SliderFloat2("Position", &testPosition.x, 0.0f, 1080.0f);
-        ImGui::SliderFloat2("Size", &testSize.x, 0.0f, 620.0f);
-        ImGui::SliderFloat4("UVRect", &testUVRect.x, 0.0f, 1000.0f);
-        ImGui::SliderFloat4("Multiplier", &testMultiplier.x, 0.0f, 1.0f);
-        ImGui::Checkbox("white exception", &flagTest);
+        ImGui::SliderInt("Rank", &rank, 1, 13);
+        ImGui::SliderInt("Color", &color, 1, 4);
+        ImGui::Checkbox("isHighlighted", &isHighlighted);
+        ImGui::Checkbox("isHidden", &isHidden);
+        ImGui::SliderInt("Amount", &amount, 0, 6000);
         ImGui::End();
 
         int display_w, display_h;
@@ -75,42 +106,20 @@ void Application::startRenderLoop()
         //glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
         //glClear(GL_COLOR_BUFFER_BIT);
 
-        SpriteDrawData testData
-        {
-            .texture = chipTex,
-            .position = testPosition + glm::vec2(60.0f, 0.0f),
-            .size = glm::vec2(16.0f, 14.0f),
-            .rotation = testRotation,
-            .UVrect = glm::vec4(0.0f, 0.0f, 1.0f, 1.0f),
-            .multiplier = testMultiplier,
-            .useWhiteException = flagTest
-        };
+        testCardObject.setCard(Card{ static_cast<CardSuit>(color), static_cast<CardRank>(rank) });
+        testCardObject.setIsHidden(isHidden);
+        testCardObject.setIsHighlighted(isHighlighted);
 
-        SpriteDrawData testData2
-        {
-            .texture = pokerAtlas,
-            .position = testPosition,
-            .size = testSize,
-            .rotation = testRotation,
-            .UVrect = testUVRect,
-            .multiplier = testMultiplier,
-            .useWhiteException = flagTest
-        };
+        testChipStack.setAmount(amount);
 
-        SpriteDrawData testData2shadow
-        {
-            .texture = pokerAtlas,
-            .position = testPosition - glm::vec2(2.0f, -2.0f),
-            .size = testSize,
-            .rotation = testRotation,
-            .UVrect = testUVRect,
-            .multiplier = glm::vec4(0.0f, 0.0f, 0.0f, 0.4f),
-            .useWhiteException = flagTest
-        };
+        drawDatas.clear();
+        testChipStack.appendSprites(drawDatas);
+        testCardObject.appendSprites(drawDatas);
 
-        spriteRenderer.draw(testData);
-        spriteRenderer.draw(testData2shadow);
-        spriteRenderer.draw(testData2);
+        for (const auto& d : drawDatas)
+        {
+            spriteRenderer.draw(d);
+        }
 
         customFramebuffer.showInWindow(display_w, display_h);
 

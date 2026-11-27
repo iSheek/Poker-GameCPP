@@ -74,6 +74,12 @@ SpriteDrawData CardObject::getFrameDrawData() const
 
 }
 
+CardObject::CardObject(const SpriteDrawData& spriteData, const Card& card, const Texture& frameTexture) : SceneObject(spriteData), card(card), frameTexture(frameTexture)
+{
+	// this part is only for shadow to have proper UV (since both front and the back of the card's texture should have the same size)
+	this->spriteData.UVrect = getAtlasMappedUVRect(card, isHidden);		
+}
+
 void CardObject::appendSprites(std::vector<SpriteDrawData>& allSpritesData) const
 {
 	SpriteDrawData shadowSpriteData{ createShadowSpriteData() };

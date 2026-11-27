@@ -34,7 +34,7 @@ public:
 	* @param card which card will this object represent
 	* @param frameTexture texture of the frame
 	*/
-	CardObject(const SpriteDrawData& spriteData, const Card& card, const Texture& frameTexture) : SceneObject(spriteData), card(card), frameTexture(frameTexture) {}
+	CardObject(const SpriteDrawData& spriteData, const Card& card, const Texture& frameTexture);
 
 	/**
 	* @copydoc SceneObject::appendSprites
@@ -64,4 +64,12 @@ public:
 	* @details Explicitly wrote with override to make sure that base class destructor is virtual
 	*/
 	~CardObject() override = default;
+
+
+
+	//TODO DELETE
+	void setCard(const Card& card)
+	{
+		this->card = card;
+	}
 };
