@@ -161,10 +161,13 @@
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\AppWindow.cpp" />
+    <ClCompile Include="src\CardObject.cpp" />
+    <ClCompile Include="src\ChipStack.cpp" />
     <ClCompile Include="src\Framebuffer.cpp" />
     <ClCompile Include="src\ImGuiLayer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\SceneObject.cpp" />
     <ClCompile Include="src\ShaderProgram.cpp" />
     <ClCompile Include="src\SpriteRenderer.cpp" />
     <ClCompile Include="src\Texture.cpp" />
@@ -173,10 +176,13 @@
   <ItemGroup>
     <ClInclude Include="include\Application.h" />
     <ClInclude Include="include\AppWindow.h" />
+    <ClInclude Include="include\CardObject.h" />
+    <ClInclude Include="include\ChipStack.h" />
     <ClInclude Include="include\Framebuffer.h" />
     <ClInclude Include="include\GUIConstants.h" />
     <ClInclude Include="include\ImGuiLayer.h" />
     <ClInclude Include="include\ResourceManager.h" />
+    <ClInclude Include="include\SceneObject.h" />
     <ClInclude Include="include\ShaderProgram.h" />
     <ClInclude Include="include\SpriteRenderer.h" />
     <ClInclude Include="include\Texture.h" />
