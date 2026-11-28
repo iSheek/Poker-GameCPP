@@ -164,6 +164,7 @@
     <ClCompile Include="src\CardObject.cpp" />
     <ClCompile Include="src\ChipStack.cpp" />
     <ClCompile Include="src\Framebuffer.cpp" />
+    <ClCompile Include="src\GUIPlayerChannel.cpp" />
     <ClCompile Include="src\ImGuiLayer.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="include\EventQueue.h" />
     <ClInclude Include="include\Framebuffer.h" />
     <ClInclude Include="include\GameEvents.h" />
+    <ClInclude Include="include\GUIPlayerChannel.h" />
     <ClInclude Include="include\GUIConstants.h" />
     <ClInclude Include="include\ImGuiLayer.h" />
     <ClInclude Include="include\ResourceManager.h" />

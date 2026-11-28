@@ -19,7 +19,6 @@
   *
   * @details This class uses tcp sockets from Boost.Asio for sending informations from the users to the server
   */
-
 class NetworkPlayerChannel : public IPlayerChannel
 {
 private:
