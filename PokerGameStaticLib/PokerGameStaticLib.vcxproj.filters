@@ -158,5 +158,8 @@
     <ClInclude Include="include\ClientNetworkManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\GameEndStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

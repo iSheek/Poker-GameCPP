@@ -40,6 +40,7 @@
     <ClInclude Include="include\ClientNetworkManager.h" />
     <ClInclude Include="include\console\ConsolePlayerChannel.h" />
     <ClInclude Include="include\GameApplication.h" />
+    <ClInclude Include="include\GameEndStatus.h" />
     <ClInclude Include="include\GameSettings.h" />
     <ClInclude Include="include\manager\BettingRules.h" />
     <ClInclude Include="include\manager\PotCalculator.h" />

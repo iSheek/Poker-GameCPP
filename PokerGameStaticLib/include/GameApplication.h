@@ -8,6 +8,8 @@
 
 #include "IPlayerChannel.h"
 #include "GameSettings.h"
+#include "GameEndStatus.h"
+#include <stop_token>
 #include <string>
 #include <memory>
 #include <thread>
@@ -22,14 +24,15 @@
 class GameApplication
 {
 private:
-	std::string playerName{};						///< The chosen nickname for the main player
-	std::shared_ptr<IPlayerChannel> pHandler{};		///< Pointer to the handler responsible for rendering output and capturing input
-	std::unique_ptr<std::thread> pServerThread{};	///< Pointer to the thread running the server (used if this application is hosting)
-	int startingChips{};							///< The initial amount of chips every player starts with
-	int playerCount{};								///< Total number of players (humans + bots) in the game
-	int port{};										///< Network port used for the multiplayer connection
-	std::string ipAddress{};						///< Target IPv4 address for the multiplayer connection
-	bool isHost{ false };							///< Indicates whether the local application is also hosting the server
+	std::string playerName{};									///< The chosen nickname for the main player
+	std::shared_ptr<IPlayerChannel> pHandler{};					///< Pointer to the handler responsible for rendering output and capturing input
+	std::unique_ptr<std::thread> pServerThread{};				///< Pointer to the thread running the server (used if this application is hosting)
+	int startingChips{};										///< The initial amount of chips every player starts with
+	int playerCount{};											///< Total number of players (humans + bots) in the game
+	int port{};													///< Network port used for the multiplayer connection
+	std::string ipAddress{};									///< Target IPv4 address for the multiplayer connection
+	bool isHost{ false };										///< Indicates whether the local application is also hosting the server
+	std::stop_token stopToken{};								///< stop token
 
 public:
 
@@ -40,14 +43,15 @@ public:
 	 * @param gameSettings A structure containing all setup parameters.
 	 * @param pHandler Shared pointer to an initialized Input/Output Handler.
 	 */
-	GameApplication(GameSettings gameSettings, std::shared_ptr<IPlayerChannel> pHandler) :
+	GameApplication(GameSettings gameSettings, std::shared_ptr<IPlayerChannel> pHandler, std::stop_token stopToken = {}) :
 		playerName(gameSettings.nickname), 
 		pHandler(pHandler),
 		startingChips(gameSettings.startingChips), 
 		playerCount(gameSettings.playerCount), 
 		port(gameSettings.port),
 		ipAddress(gameSettings.ipAddress),
-		isHost(gameSettings.isHost) 
+		isHost(gameSettings.isHost),
+		stopToken(stopToken)
 	{}
 
 	/**
@@ -55,7 +59,7 @@ public:
 	 * @details Initializes a local TexasHoldemManager, creates a human player and the requested
 	 * number of bot players, and runs the local game loop until the player wins or runs out of chips.
 	 */
-	void startSingleplayer();
+	GameEndStatus startSingleplayer();
 
 	/**
 	 * @brief Starts a multiplayer game session.

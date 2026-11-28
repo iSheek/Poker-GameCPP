@@ -16,6 +16,7 @@
 #include <nlohmann/json.hpp>
 #include <iostream>
 #include <string>
+#include <optional>
 #include <memory>
 
 using asiotcp = boost::asio::ip::tcp;
@@ -103,15 +104,32 @@ int main()
 
 	GameApplication gameApp(settings, consolePlayer);
 
+	std::optional<GameEndStatus> result{};
+
 	if (settings.isMultiplayer)
 	{
 		gameApp.startMultiplayer();
 	}
 	else
 	{
-		gameApp.startSingleplayer();
+		result = gameApp.startSingleplayer();
 	}
 
+	if (result.has_value())
+	{
+		switch (result.value())
+		{
+		case GameEndStatus::WIN:
+			std::cout << "YOU WON!\n";
+			break;
+		case GameEndStatus::LOSE:
+			std::cout << "YOU LOST!\n";
+			break;
+		case GameEndStatus::INTERRUPTED:
+			std::cout << "GAME INTERRUPTED!\n";
+			break;
+		}
+	}
 
 	return 0;
 }
