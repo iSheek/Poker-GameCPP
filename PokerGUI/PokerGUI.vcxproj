@@ -178,7 +178,9 @@
     <ClInclude Include="include\AppWindow.h" />
     <ClInclude Include="include\CardObject.h" />
     <ClInclude Include="include\ChipStack.h" />
+    <ClInclude Include="include\EventQueue.h" />
     <ClInclude Include="include\Framebuffer.h" />
+    <ClInclude Include="include\GameEvents.h" />
     <ClInclude Include="include\GUIConstants.h" />
     <ClInclude Include="include\ImGuiLayer.h" />
     <ClInclude Include="include\ResourceManager.h" />
